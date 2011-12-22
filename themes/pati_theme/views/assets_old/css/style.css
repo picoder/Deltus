@@ -1,0 +1,105 @@
+/* CSS Document */
+
+/* Form */
+.v_f {margin-bottom:10px; position:relative; /*background-color:#FCF;*/ padding-top:6px; padding-bottom:6px; }
+.v_f label {position:absolute; top:14px; left:0;} /* now, we can put inputs aligned left; */
+.v_f input, .v_f textarea, .v_f select {margin-left:120px; display:block; height:22px; width:240px;}
+#offer_description {height:100px;}
+#offer_content {width:679px; height:300px; margin-left:120px;}
+input[type="file"], input[type="submit"], input[ype="image"], input[type="reset"], input[type="button"] {width:auto;}  
+
+
+.mceEditor {left:80px; position:relative; display:block;}
+.plupload_container {padding:0 !important; margin-top:20px;}
+.plupload_container li {list-style-type:none; margin:0; padding:0;}
+/*#uploader {width:600px; left:80px;} */
+
+input.error, textarea.error  {background-color:#FFC;}
+.form label.error {left: 460px; color: red;}
+.form label.checked_control  {background:url("sprawdzony.png") no-repeat 0px 0px;}
+
+input[type="checkbox"], input[type="radio"] {width:16px; height:16px; margin-top:0; float:right; margin-right:15px; vertical-align:middle;}
+
+.table_edit_header {background-color:#990; color:#FFF; padding:10px;}
+.so, .item, .gallery_item {border-bottom:solid #CCC 1px;}
+.last_col_inner {}
+/* gallery list*/
+.left_1 {width:200px; padding-left:10px;}
+.left_2 {width:200px;}
+.left_3 {width:200px; text-align:left;}
+.gallery_item label {position:static;} /* now, we can put inputs aligned left; */
+.gallery_item input, .gallery_item textarea, .gallery_item select {margin-left:0; display:block;}
+
+/* simple offer list*/
+.so .left_1 {width:200px;}
+.so .left_2 {width:200px;}
+.so .left_3 {width:200px; text-align:left;}
+.so label {position:static;}
+.so input, .so textarea, .so select {margin-left:0px; display:block;}
+
+/*  page list*/
+.item .left_1 {width:200px;}
+.item .left_2 {width:200px;}
+.item .left_3 {width:200px; text-align:left;}
+.item label {position:static;}
+.item input, .item textarea, .item select {margin-left:0px; display:block;}
+#page_description {height:100px;}
+#page_content {width:679px; height:300px; margin-left:120px;}
+
+/**********************************/
+
+/*Dimensions */
+.wrapper {width:960px;}
+.top {border:solid 1px #CCC; height:60px; background-color:#EEE;}
+.col_left {width:160px; margin-right:10px; margin-top:5px;}
+.col_right {width:0px; display:none;}
+
+/*Forms*/
+.piform {border:solid 1px #CCC; padding:10px; margin:6px; margin-right:0;}
+.piform .v_f {margin-bottom:1px; position:relative; /*background-color:#FCF;*/ padding-top:6px; padding-bottom:6px;}
+.piform input, .piform textarea, .piform select {border:#CCC 1px solid;}
+.piform ul li {list-style:none;}
+.piform ul label {position:static;}
+.piform ul input {display:inline;}
+.piform .horizontal_list ul {margin-bottom:20px;}
+.piform .horizontal_list li {float:left; margin-left:0; margin-right:30px;}
+.piform .submit input {margin-left:0; padding:4px; padding-left:10px; padding-right:10px; height:26px; line-height:26px; vertical-align:middle;}
+.v_f.special_link {border:solid 1px #990; text-align:center;}
+.special_link a {font-size:14px; font-weight:bold; color:#990;}
+
+/* Left menu */
+.top_level li {
+	list-style:none;
+	display:block;
+	margin-left:0;
+	margin-top:0;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #FFF;
+	border-right-color: #FFF;
+	border-bottom-color: #FFF;
+	border-left-color: #FFF;
+}
+.top_level li a{
+	
+	display:block;
+	background-color:#990;
+	height:30px;
+	padding-left:10px;
+	line-height:30px;
+	vertical-align:middle;
+	
+}
+
+.top_level li a:hover {background-color:#663; cursor:pointer;}
+
+.top_level li a {color:#FFF;}
+
+/*Success*/
+.success_page {border:solid 1px #990; padding:10px; text-align:center; margin-top:6px; color:#990; font-weight:bold;}

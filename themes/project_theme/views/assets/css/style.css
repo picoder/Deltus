@@ -1,0 +1,20 @@
+/* CSS Document */
+
+/*Dimensions */
+.wrapper {width:960px;}
+.top {background-color:#CCC; height:170px;}
+.col_left {width:220px;}
+.col_right {width:0px;}
+
+/* Form */
+.v_f {float:right; width:100%; margin-bottom:10px; position:relative;}
+input {height:22px;}
+input, textarea {width:400px;}
+input[type="file"], input[type="submit"], input[type="image"], input[type="reset"] {width:auto;} /* we come back to normal style */
+label {position:absolute; top:10px;} /* now, we can put inputs aligned left; */
+input, textarea {margin-left:80px;}
+.mceEditor {left:80px; position:relative; display:block;}
+
+#uploader {width:600px; left:80px;} 
+
+
