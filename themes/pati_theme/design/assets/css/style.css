@@ -1,0 +1,31 @@
+/* CSS Document */
+
+
+
+/* Form */
+.v_f {width:100%; margin-bottom:10px; position:relative; background-color:#FCF; padding-top:6px; padding-bottom:6px;}
+.v_f label {position:absolute; top:10px; left:0;} /* now, we can put inputs aligned left; */
+.v_f input, .v_f textarea, .v_f select {margin-left:80px; display:block; height:22px; width:360px;}
+#offer_description {height:100px;}
+#offer_content {width:650px; height:300px;}
+input[type="file"], input[type="submit"], input[type="image"], input[type="reset"], input[type="button"] {width:auto;}  
+
+
+.mceEditor {left:80px; position:relative; display:block;}
+.plupload_container {padding:0 !important;}
+.plupload_container li {list-style-type:none; margin:0; padding:0;}
+/*#uploader {width:600px; left:80px;} */
+
+input.error, textarea.error  {background-color:#FFC;}
+.form label.error {left: 460px; color: red;}
+.form label.checked_control  {background:url("sprawdzony.png") no-repeat 0px 0px;}
+
+input[type="checkbox"], input[type="radio"] {width:16px; height:16px;}
+.gallery_item div {float:left;}
+.gallery_item label {position:static; margin-left:20px;}
+.gallery_item input {margin:0; padding:0;}
+.left_1 {width:100px;}
+.left_2 {width:100px;}
+
+
+
