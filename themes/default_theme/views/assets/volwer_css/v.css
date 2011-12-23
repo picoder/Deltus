@@ -1,0 +1,23 @@
+html {height:100%;overflow-y:scroll;}
+body {height:100%;text-align:center;}
+.w {
+	margin-right:auto;
+	margin-left:auto;
+	text-align:left;
+	position:relative;
+	z-index:1;
+	text-align:left;
+	overflow:hidden;
+	}
+.v {clear:left;}
+.v:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
+.v, .e {display:inline-block;min-height:0;}
+* html .v, * html .e {height:1%;}
+.v, .e {display:block;}
+.o {overflow:hidden;}
+.l {float:left;}
+* html .l {margin-right: -3px;}
+.r {float:right;}
+* html .r {margin-left: -3px;}
+* html .il {margin-right: 3px;}
+* html .ir {margin-left: 3px;}
