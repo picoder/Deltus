@@ -45,6 +45,20 @@ class Socategory_lib
 		$soca_parent->save();
 	}
 	
+	public function delete($id)
+	{
+		$soca = new Socategorydm();
+		$soca->where('id', $id)->get();
+		$parent_id = $soca->parent_id;
+		$soca->delete(); // it deletes also with its relations
+		
+		$soca_parent = new Socategorydm();
+		$soca_parent->where('id', $parent_id)->get();
+		$soca_parent->is_last = 1;
+		$soca_parent->save();
+		
+	}
+	
 	public function set_tree($tree_string)
 	{
 		$object;

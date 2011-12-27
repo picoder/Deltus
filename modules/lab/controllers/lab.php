@@ -16,6 +16,8 @@ class Lab extends DV_Controller {
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg();
+		
 		echo "<strong>Welcome in lab module</strong><br>";
 		# First loading default module configs
 		$this->load->config('lab/lab');
@@ -46,7 +48,7 @@ class Lab extends DV_Controller {
 	
 	private function _login_backend()
 	{
-		switch($this->uri->segment(2))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case 'auth':
 			echo modules::run('tank_auth/tank_auth_backend/index');
@@ -62,7 +64,7 @@ class Lab extends DV_Controller {
 	{
 		
 		# Setting permissions
-		switch($this->uri->segment(2)) 
+		switch($this->uri->segment($this->division_builder->get_cur_seg())) 
 		{
 			case $this->config->item('lab_content_url'):
 			# this we will find in permission module
@@ -82,18 +84,21 @@ class Lab extends DV_Controller {
 		}
 		
 		# Running methods (if we have right permission)
-		switch($this->uri->segment(2))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('lab_content_url'):
-			echo modules::run('lab/content/index');
+			
+			echo modules::run('lab/lab_c/index');
 			break;
 			
 			case 'auth':
+			
 			echo modules::run('tank_auth/tank_auth_backend/index');
 			break;
 			
 			default:
-			echo modules::run('lab/content/index');
+			
+			echo modules::run('lab/lab_c/index');
 			break;
 		}
 		

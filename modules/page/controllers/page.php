@@ -14,9 +14,11 @@ class Page extends DV_Controller {
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg(); 
+		
 		$this->load->config('page/page');
 		// Setting permissions
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('list_pages_by_category_url'):
 			// access without permission
@@ -40,10 +42,10 @@ class Page extends DV_Controller {
 		}
 		
 		// Running methods (if we have right permission)
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('list_pages_by_category_url'):
-			switch($category = $this->uri->segment(4))
+			switch($category = $this->uri->segment($this->division_builder->get_cur_seg() + 1))
 			{
 				case '':
 				$this->list_pages_by_category();
@@ -54,10 +56,10 @@ class Page extends DV_Controller {
 			break;
 			case $this->config->item('show_page_url'):
 			$link;
-			switch($this->uri->segment(4))
+			switch($this->uri->segment($this->division_builder->get_cur_seg() + 1))
 			{
 				default:
-				$link = $this->uri->segment(4);
+				$link = $this->uri->segment($this->division_builder->get_cur_seg() + 1);
 			}
 			$this->show_page($link);
 			break;

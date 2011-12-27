@@ -14,8 +14,9 @@ class Frontend extends DV_Controller
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg();
 		$this->load->config('frontend/frontend');
-		$this->_set_frontend($this->uri->segment(2));
+		$this->_set_frontend($this->uri->segment($this->division_builder->get_cur_seg()));
 	}
 	
 	private function _set_frontend($option)

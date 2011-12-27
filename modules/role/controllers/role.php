@@ -31,5 +31,3 @@ class Role extends DV_Controller {
 	
 }
 
-/* End of file settings.php */
-/* Location: ./modules/role/controllers/settings.php */

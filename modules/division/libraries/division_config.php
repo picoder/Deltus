@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 class Division_config
 {
 	public $CI;
@@ -27,7 +28,8 @@ class Division_config
 	
 	public function load_dv_configs($config_string)
 	{
-		if($config_string = '')
+		
+		if($config_string == '')
 		{
 			return;
 		}
@@ -40,6 +42,7 @@ class Division_config
 		array_pop($configs_from_dv);
 		foreach($configs_from_dv as $val)
 		{
+			
 			$indval = explode('=', $val);
 			
 			#computing of data type
@@ -77,6 +80,7 @@ class Division_config
 		# END TEST
 		
 		$this->_dv_config = $pre_dv_config;
+		
 			
 	}
 	

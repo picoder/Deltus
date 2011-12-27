@@ -9,11 +9,14 @@ class Content extends DV_Controller {
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg();
+		
 		$this->load->config('simple_offer/simple_offer');
 		// Setting permissions
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
-			case $this->config->item('edit_so_url'):
+			# form with list
+			case $this->config->item('edit_so_url'): 
 			// access without permission
 			break;
 			case $this->config->item('add_so_url'):
@@ -38,7 +41,7 @@ class Content extends DV_Controller {
 		}
 		
 		// Running methods (if we have right permission)
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('edit_so_url'):
 			$this->edit();
@@ -49,7 +52,7 @@ class Content extends DV_Controller {
 			break;
 			
 			case $this->config->item('update_so_url'):
-			$id = intval($this->uri->segment(4));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	
@@ -61,7 +64,7 @@ class Content extends DV_Controller {
 			break;
 			
 			case $this->config->item('delete_by_link_so_url'):
-			$id = intval($this->uri->segment(4));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	
@@ -78,7 +81,7 @@ class Content extends DV_Controller {
 			
 	}
 	
-	public function edit() //list
+	public function edit() # form with list
 	{
 		$this->load->library('simple_offer/simple_offer_lib');
 		if($this->input->post('operation_delete'))
@@ -167,9 +170,17 @@ class Content extends DV_Controller {
 				$so->so_price = $this->input->post('offer_price');
 				$so->so_engine = $this->input->post('offer_engine'); 
 				
-				$so->save();	
-				//success
-				$this->success_page();
+				if($so->save())
+				{
+					//success
+					$this->success_page();
+				}
+				else
+				{
+					//fail
+					$this->fail_page();
+				}
+					
 			}
 		}
 	}
@@ -273,12 +284,6 @@ class Content extends DV_Controller {
 		
 		
 		# get data of additional fields and its type to create relate table of category if needed
-	}
-	
-	protected function success_page($message = false)
-	{
-		$data['message'] = $message;
-		$this->load->view('simple_offer/success_page', $data);
 	}
 	
 	

@@ -14,9 +14,11 @@ class Socategory extends DV_Controller {
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg();
+		
 		$this->load->config('simple_offer/socategory');
 		// Setting permissions
-		switch($this->uri->segment(4))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('edit_soca_url'):
 			// access without permission
@@ -43,7 +45,7 @@ class Socategory extends DV_Controller {
 		}
 		
 		// Running methods (if we have right permission)
-		switch($this->uri->segment(4))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('edit_soca_url'):
 			$this->edit();
@@ -54,7 +56,7 @@ class Socategory extends DV_Controller {
 			break;
 			
 			case $this->config->item('update_soca_url'):
-			$id = intval($this->uri->segment(5));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	
@@ -66,7 +68,7 @@ class Socategory extends DV_Controller {
 			break;
 			
 			case $this->config->item('delete_soca_url'):
-			$id = intval($this->uri->segment(5));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	
@@ -100,6 +102,8 @@ class Socategory extends DV_Controller {
 		{
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('soca_name', 'Nazwa', 'required|min_length[4]');
+			$this->form_validation->set_rules('soca_label', 'Etykieta', 'required|min_length[4]');
+			$this->form_validation->set_rules('soca_link', 'Link', 'required|min_length[4]');
 			if ( ! $this->form_validation->run())
 			{
 				$soca = new Socategorydm();
@@ -129,6 +133,13 @@ class Socategory extends DV_Controller {
 		
 		
 		# get data of additional fields and its type to create relate table of category if needed
+	}
+	
+	public function delete($id)
+	{
+		$this->load->library('simple_offer/socategory_lib');
+		$this->socategory_lib->delete($id);
+		redirect(base_url().$this->division_builder->get_dv_url().'/lab-content/soca/add');
 	}
 	
 	protected function success_page($message = false)

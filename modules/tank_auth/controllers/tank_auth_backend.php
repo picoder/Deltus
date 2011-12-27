@@ -21,13 +21,15 @@ class Tank_auth_backend extends DV_Controller
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg();
+		
 		if ($message = $this->session->flashdata('message')) 
 		{
 			$this->load->view('tank_auth/auth/general_message', array('message' => $message));
 		}
 		else
 		{
-			switch($this->uri->segment(3))
+			switch($this->uri->segment($this->division_builder->get_cur_seg()))
 			{
 				case 'login':
 				$this->login();
@@ -48,7 +50,7 @@ class Tank_auth_backend extends DV_Controller
 				$this->forgot_password();
 				break;
 				case 'reset-password':
-				$this->change_password();
+				$this->reset_password();
 				break;
 				case 'change-password':
 				$this->change_password();

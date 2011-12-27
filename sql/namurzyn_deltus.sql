@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 22 Gru 2011, 16:55
--- Wersja serwera: 5.5.8
--- Wersja PHP: 5.3.5
+-- Czas wygenerowania: 27 Gru 2011, 16:49
+-- Wersja serwera: 5.1.41
+-- Wersja PHP: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `divisions` (
 INSERT INTO `divisions` (`id`, `url`, `permissions`, `configurations`, `contents`, `widgets`, `layout`, `name`, `label`, `description`, `status`) VALUES
 (4, 'panel-administracyjny', '', '', 'backend/backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[0]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|', 'admin_theme/admin_theme/index->parametr1-|parametr2-|&', 'panel-administracyjny', 'panel-administracyjny', 'panel-administracyjny', 1),
 (5, 'samochody-z-niemiec', '', ';', 'frontend/frontend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[0]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|', 'pati_theme/pati_theme/index->parametr1-|parametr2-|&', 'frontend auto-pati', 'frontend auto-pati', 'samochody-z-niemiec', 1),
-(6, 'test', 's:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);s:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);', 'index_single=s#data from division - single index;index1,index2=i#4;type_float,index2=f#4.1;second_index,first_index=s#from division two dimension;test_config_index=s#from division single index;', 'lab/lab/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[0]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'test name', 'test label', 'test description', 1);
+(6, 'test', 's:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);s:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);', 'index_single=s#data from division - single index;index1,index2=i#4;type_float,index2=f#4.1;second_index,first_index=s#from division two dimension;test_config_index=s#from division single index;deltus_language=s#english;', 'lab/lab/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[0]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'test name', 'test label', 'test description', 1);
 
 -- --------------------------------------------------------
 
@@ -265,20 +265,24 @@ INSERT INTO `pages` (`id`, `name`, `label`, `link`, `description`, `content`, `s
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `description` varchar(250) NOT NULL,
+  `description` tinytext NOT NULL,
   `include` tinyint(3) NOT NULL DEFAULT '1' COMMENT 'Opisuje sposób agregacji uzytkownikaów -  czy grupa włącza (1) czy wyłącza (0) użytkowników',
   `status` tinyint(3) NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Przechowuje grupy uzytkowników' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Przechowuje grupy uzytkowników' AUTO_INCREMENT=9 ;
 
 --
 -- Zrzut danych tabeli `roles`
 --
 
-INSERT INTO `roles` (`id`, `name`, `description`, `include`, `status`) VALUES
-(1, 'administrator', '', 1, 1),
-(2, 'editor', '', 1, 1);
+INSERT INTO `roles` (`id`, `name`, `description`, `include`, `status`, `created`, `modified`) VALUES
+(1, 'administrator', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'editor', '', 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'pomocnik', 'pomocnik', 1, 0, '2011-12-27 03:04:33', '2011-12-27 03:04:33'),
+(8, 'tester', 'tester', 1, 1, '2011-12-27 04:00:42', '2011-12-27 04:00:42');
 
 -- --------------------------------------------------------
 
@@ -375,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `socategories` (
   `islast` tinyint(3) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `page_id` (`link`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- Zrzut danych tabeli `socategories`
@@ -402,8 +406,8 @@ INSERT INTO `socategories` (`id`, `name`, `label`, `link`, `extra_table`, `statu
 (31, 'vectra', 'vectra', 'vectra', NULL, 1, 1, 2, 2, 0, 1),
 (32, 'insignia', 'insignia', 'insignia', NULL, 1, 1, 2, 2, 0, 1),
 (33, 'audi-a4', 'audi-a4', 'audi-a4', NULL, 1, 0, 0, 0, 0, 1),
-(34, '', '', '#', NULL, 1, 0, 0, 0, 0, 0),
-(35, 'golf-3', 'golf-3', 'golf-3', NULL, 1, 1, 30, 3, 0, 1);
+(35, 'golf-3', 'golf-3', 'golf-3', NULL, 1, 1, 30, 3, 0, 1),
+(36, 'subnowa_kategoria', 'subnowa kategoria', 'subnowa-kategoria', NULL, 1, 4, 4, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -473,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2011-12-18 11:19:33', '2011-09-26 15:25:22', '2011-12-18 11:19:33'),
+(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2011-12-26 23:30:41', '2011-09-26 15:25:22', '2011-12-26 23:30:17'),
 (2, 'kako', '$P$BgHKLOyeQiYFi71upw4tSd7W4uPMtZ/', 'thiede@targipracy.gdansk.pl', 0, 0, NULL, NULL, NULL, NULL, 'd2a330aba72c28255744a66dfa6b62ac', '127.0.0.1', '0000-00-00 00:00:00', '2011-11-22 20:29:44', '2011-11-22 20:29:20'),
 (4, 'ania', '$P$BAcxHhXhXVRxFGdEkmvZwMC8Qm3zgc.', 'akorsak@wp.pl', 0, 0, NULL, NULL, NULL, NULL, '6b0e441f41d1704301dc21b4f02feffb', '127.0.0.1', '0000-00-00 00:00:00', '2011-12-18 13:18:08', '2011-12-18 13:18:08');
 
@@ -515,3 +519,7 @@ CREATE TABLE IF NOT EXISTS `user_profiles` (
 -- Zrzut danych tabeli `user_profiles`
 --
 
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

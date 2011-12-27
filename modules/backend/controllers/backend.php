@@ -14,6 +14,7 @@ class Backend extends DV_Controller
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg(); 
 		$this->load->library('tank_auth/tank_auth');
 		$this->load->library('role/role_lib');
 		$this->load->config('backend/backend');
@@ -41,7 +42,7 @@ class Backend extends DV_Controller
 	
 	private function _login_backend()
 	{
-		switch($this->uri->segment(2))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case 'auth':
 			echo modules::run('tank_auth/tank_auth_backend/index');
@@ -56,7 +57,7 @@ class Backend extends DV_Controller
 	{
 		
 		// Setting permissions
-		switch($this->uri->segment(2)) // We don't need $this->method_seg() - special module
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('roles_content_url'):
 			$this->set_permission('CONTENT.ROLE.CONTENT.ALL');
@@ -94,7 +95,7 @@ class Backend extends DV_Controller
 		}
 		
 		// Running methods (if we have right permission)
-		switch($this->uri->segment(2))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('roles_content_url'):
 			echo modules::run('role/content/index');

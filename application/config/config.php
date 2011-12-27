@@ -14,7 +14,8 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/Pati_dev/';
+$config['base_url']	= 'http://localhost/Deltus/';
+//$config['base_url']	= 'http://kako.pl/dev/';
 
 /*
 |--------------------------------------------------------------------------

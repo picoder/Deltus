@@ -1,6 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /* load the MX_Config class */
+# Remember about last ; in configuration sql column of table
 require APPPATH."third_party/MX/Config.php";
 
 class MY_Config extends MX_Config 

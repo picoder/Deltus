@@ -16,9 +16,11 @@ class Content extends DV_Controller {
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg();
+		 
 		$this->load->config('gallery/gallery');
 		// Setting permissions
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('update_gallery_url'):
 			
@@ -39,10 +41,10 @@ class Content extends DV_Controller {
 		}
 		
 		// Running methods (if we have right permission)
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('update_gallery_url'):
-			$id = intval($this->uri->segment(4));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	
@@ -53,7 +55,7 @@ class Content extends DV_Controller {
 			}
 			break;
 			case $this->config->item('delete_gallery_url'):
-			$id = intval($this->uri->segment(4));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	

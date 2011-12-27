@@ -1,0 +1,277 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Role_c extends DV_Controller {
+	
+	public function __construct()
+    {
+		parent::__construct(); # we must call it to run paren condtructor - it won't run default	
+    }
+
+	public function _remap($method)
+	{
+		$this->index();
+	}
+	
+	public function index()
+	{	
+		$this->division_builder->set_cur_seg();
+		
+		# Using language settings
+		$this->load->language('role_c');
+		
+		# Setting configs
+		$this->load->config('role/role');
+		
+		# Setting permissions
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
+		{
+			case $this->config->item('add_role_url'):
+			
+			break;
+			
+			case $this->config->item('update_role_url'):
+			
+			break;
+			
+			case $this->config->item('delete_role_url'):
+			
+			break;
+			
+			case $this->config->item('edit_role_url'):
+			
+			break;
+			
+			default:
+			
+			break;
+		}
+		
+		# Checking permissions
+		if($this->check_permission('permissions/permissions','start/start/no_access'))
+		{
+			# Additional steps if no permission
+			return;
+		}
+		
+		# Running methods (if we have right permission)
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
+		{
+			case $this->config->item('add_role_url'):
+			$this->add();
+			break;
+			
+			case $this->config->item('update_role_url'):
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
+			if($id <= 0)
+			{
+				$this->_no_page();	
+			}
+			else
+			{
+				$this->update($id);
+			}
+			break;
+			
+			case $this->config->item('delete_role_url'):
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
+			if($id <= 0)
+			{
+				$this->_no_page();	
+			}
+			else
+			{
+				$this->delete($id);
+			}
+			break;
+			
+			case $this->config->item('edit_role_url'):
+			$page = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
+			$field = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
+			$asc = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
+			if($page <= 0)
+			{
+				$this->_no_page();	
+			}
+			else
+			{
+				switch($field)
+				{
+					case $this->config->item('edit_role_url_name'):
+					$field = 'name';
+					break;
+					
+					case $this->config->item('edit_role_url_description'):
+					$field = 'description';
+					break;
+					
+					case $this->config->item('edit_role_url_status'):
+					$field = 'status';
+					break;
+					
+					case $this->config->item('edit_role_url_created'):
+					$field = 'created';
+					break;
+					
+					case $this->config->item('edit_role_url_modified'):
+					$field = 'modified';
+					break;
+					
+					default:
+					$this->_no_page();	
+					break;	
+				}
+				
+				switch($asc)
+				{
+					case $this->config->item('edit_role_url_asc'):
+					$asc = 'asc';
+					break;
+					
+					case $this->config->item('edit_role_url_desc'):
+					$desc = 'desc';
+					break;
+					
+					default:
+					$this->_no_page();	
+					break;	
+				}
+				
+				$this->edit($page, $field, $asc);
+			}
+			break;
+			
+			default:
+			$this->_no_page();
+			break;
+		}
+		
+	}
+	
+	public function add()
+	{
+		$this->load->helper(array('form'));
+		
+		if(empty($_POST))
+		{
+			$this->load->view('role/role_add_form');
+		}
+		else
+		{
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('role_name', $this->lang->line('role_add_form_role_name'), 'required|min_length[4]');
+			
+			if ( ! $this->form_validation->run())
+			{
+				$this->load->view('role/role_add_form_fail');
+			}
+			else
+			{
+				$r = new Roledm();
+				$r->name = $this->input->post('role_name');
+				$r->description = $this->input->post('role_description');
+				$r->status = intval($this->input->post('role_status'));
+				$r->created = date('c');
+				$r->modified = date('c');
+				
+				if($r->save())
+				{
+					$this->_success_page();
+				}
+				else
+				{
+					$this->_fail_page();
+				}
+			}
+		}
+	}
+	
+	public function update($id)
+	{
+		$this->load->helper(array('form'));
+		
+		if(empty($_POST))
+		{
+			$r = new Roledm();
+			$r->where('id', $id)->get();
+			if($r->result_count() < 1)
+			{
+				$this->_no_db_result();
+			}
+			else
+			{
+				$this->load->view('role/role_update_form', array('r' => $r));
+			}
+		}
+		else
+		{
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('role_name', $this->lang->line('role_add_form_role_name'), 'required|min_length[4]');
+			
+			if ( ! $this->form_validation->run())
+			{
+				$this->load->view('role/role_update_form_fail');
+			}
+			else
+			{
+				$r = new Roledm();
+				$r->where('id', $id)->get();
+				$r->name = $this->input->post('role_name');
+				$r->description = $this->input->post('role_description');
+				$r->status = intval($this->input->post('role_status'));
+				$r->modified = date('c');
+				
+				if($r->save())
+				{
+					$this->_success_page();
+				}
+				else
+				{
+					$this->_fail_page();
+				}
+			}
+		}
+		
+	}
+	
+	public function delete($id)
+	{
+		$this->load->library('role/role_lib');
+		
+		if($this->role_lib->delete($id) == 1)
+		{
+			$this->_success_page();
+		}
+		else if($this->role_lib->delete($id) == -1)
+		{
+			$this->_no_db_result();
+		}
+		else
+		{
+			$this->_fail_page();
+		}
+	}
+	
+	public function edit($page, $field, $asc)
+	{
+		$this->load->helper(array('form'));
+		$this->load->library('role/role_lib');
+		
+		$url = '';
+		for($i = 1; $i < $this->division_builder->get_cur_seg(); $i++)
+		{
+			$url .= $this->uri->segment($i).'/';
+		}
+		
+		if(empty($_POST))
+		{
+			$this->load->view('role/role_edit_form', array('items' => $this->role_lib->edit($page, $this->config->item('edit_role_per_page'), $field, $asc), 'field' => $field, 'asc' => $asc, 'role_edit_base_url' => $url));
+		}
+		else
+		{
+			
+		}
+		
+	}
+	
+	
+}

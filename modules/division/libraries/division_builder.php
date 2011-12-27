@@ -10,10 +10,12 @@ class Division_builder
 	public $layout;
 	
 	private $_url;
+	private $_cur_seg;
 	
 	public function __construct()
 	{
 		$this->CI = & get_instance();
+		$this->_cur_seg = 1;
 	}
 	
 	public function set_dv_url($url)
@@ -24,6 +26,18 @@ class Division_builder
 	function get_dv_url()
 	{
 		return $this->_url;
+	}
+	
+	public function set_cur_seg()
+	{
+		$this->_cur_seg++;
+		# DEBUG: 
+		//echo $this->_cur_seg.'<br>';
+	}
+	
+	function get_cur_seg()
+	{
+		return $this->_cur_seg;
 	}
 	
 	function get_division($url)

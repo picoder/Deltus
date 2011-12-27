@@ -14,9 +14,11 @@ class Content extends DV_Controller
 	
 	public function index()
 	{
+		$this->division_builder->set_cur_seg(); 
+		
 		$this->load->config('page/page');
 		// Setting permissions
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('edit_page_url'):
 			// access without permission
@@ -43,7 +45,7 @@ class Content extends DV_Controller
 		}
 		
 		// Running methods (if we have right permission)
-		switch($this->uri->segment(3))
+		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('edit_page_url'):
 			$this->edit();
@@ -54,7 +56,7 @@ class Content extends DV_Controller
 			break;
 			
 			case $this->config->item('update_page_url'):
-			$id = intval($this->uri->segment(4));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	
@@ -66,7 +68,7 @@ class Content extends DV_Controller
 			break;
 			
 			case $this->config->item('delete_by_link_page_url'):
-			$id = intval($this->uri->segment(4));
+			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
 				$this->_no_page();	

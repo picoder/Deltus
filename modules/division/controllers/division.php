@@ -66,6 +66,9 @@ class Division extends DV_Controller {
 			
 			$this->division_config->load_dv_configs($division->configurations);
 			
+			# Language 
+			$this->config->set_item('language', $this->config->item('deltus_language'));	
+			
 			$this->set_permission('DIVISION.ALL.ALL.ALL');
 			
 			if($this->check_permission('permissions/permissions', FALSE))
@@ -173,10 +176,12 @@ class Division extends DV_Controller {
 		# We set layout
 		echo $this->division_builder->layout['view'];
 		
+		
 		switch (ENVIRONMENT)
 		{
 			case 'development':
-			$this->output->enable_profiler(TRUE);
+			
+			$this->output->enable_profiler(FALSE);
 			break;
 		
 			case 'testing':
