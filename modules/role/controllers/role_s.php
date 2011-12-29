@@ -2,6 +2,14 @@
 
 class Role_s extends DV_Controller { //settings
 
+public function __construct()
+    {
+		parent::__construct(); # we must call it to run paren condtructor - it won't run default	
+		
+		# Setting configs
+		$this->load->config('role/role');
+    }
+
 	public function _remap($method)
 	{
 		$this->index();
@@ -13,7 +21,7 @@ class Role_s extends DV_Controller { //settings
 		$this->set_permission('CONTENT.ROLE.SETTINGS.ALL'); // we repeat for safe
 		
 		// Checking permissions
-		if($this->check_permission('permissions/permissions','start/start/no_access'))
+		if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))
 		{
 			// Additional steps if no permission
 			return;

@@ -7,6 +7,8 @@ class Lab_c extends DV_Controller { //content
 	public function __construct()
     {
 		parent::__construct(); # we must call it to run parent condtructor - it won't run default
+		
+		$this->load->config('lab/lab');
     }
 
 	public function _remap($method)
@@ -17,8 +19,6 @@ class Lab_c extends DV_Controller { //content
 	public function index()
 	{
 		$this->division_builder->set_cur_seg();
-		
-		$this->load->config('lab/lab');
 		
 		# Setting permissions
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
@@ -33,7 +33,7 @@ class Lab_c extends DV_Controller { //content
 		}
 		
 		# Checking permissions
-		if($this->check_permission('permissions/permissions','start/start/no_access'))
+		if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))
 		{
 			# Additional steps if no permission
 			return;

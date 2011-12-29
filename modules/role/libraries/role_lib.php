@@ -29,7 +29,51 @@ class Role_lib
 		{
 			return -1;
 		}
-		if($r->delete())
+		else
+		{
+			# Cannot delete group with assigned users
+			if($this->_count_related_users($r) > 0)
+			{
+				return -2;
+			}
+			else
+			{
+				if($r->delete())
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		}
+	}
+	
+	public function edit($page, $per_page, $field, $asc)
+	{
+		$r = new Roledm();
+		$roles =  $r->order_by($field, $asc)->get_paged($page, $per_page);
+		foreach($roles as $role)
+		{
+			$role->assigned_users_count = $this->_count_related_users($role);	
+		}
+		return $roles;
+	}
+	
+	public function delete_many($ids)
+	{
+		$r = new Roledm();
+		$r->where_in('id', $ids)->get();
+		foreach ($r->all as $role)
+		{
+			if($this->_count_related_users($role) > 0)
+			{
+				return -2;
+			}
+		}
+
+		if($r->delete_all())
 		{
 			return 1;
 		}
@@ -39,12 +83,12 @@ class Role_lib
 		}
 	}
 	
-	public function edit($page, $per_page, $field, $asc)
-	{
-		$r = new Roledm();
-		return $r->order_by($field, $asc)->get_paged($page, $per_page);
-	}
+	# Specialized methods
 	
+	private function _count_related_users($group)
+	{
+		return $group->userdm->count();
+	}
 	
 }
 

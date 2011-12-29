@@ -20,5 +20,12 @@ $config['DIVISION.ALL.ALL.ALL'] = array('check_full_access' => TRUE);
 
 $config['CONTENT.FILES_UPLOAD.FILES_UPLOAD.PLUPLOAD'] = array('check_full_access' => TRUE);
 
+
+
+$config['MODULE.ROLE.CONTENT.ADD'] = array('check_role' => array('administrator'));
+$config['MODULE.ROLE.CONTENT.UPDATE'] = array('check_role' => array('administrator'));
+$config['MODULE.ROLE.CONTENT.DELETE'] = array('check_role' => array('administrator'));
+$config['MODULE.ROLE.CONTENT.EDIT'] = array('check_role' => array('administrator'));
+
 /* End of file permissions.php */
 /* Location: ./modules/permissions/config/permissions.php */

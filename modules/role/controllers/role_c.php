@@ -5,6 +5,12 @@ class Role_c extends DV_Controller {
 	public function __construct()
     {
 		parent::__construct(); # we must call it to run paren condtructor - it won't run default	
+		
+		# Using language settings
+		$this->load->language('role_c');
+		
+		# Setting configs
+		$this->load->config('role/role');
     }
 
 	public function _remap($method)
@@ -16,29 +22,23 @@ class Role_c extends DV_Controller {
 	{	
 		$this->division_builder->set_cur_seg();
 		
-		# Using language settings
-		$this->load->language('role_c');
-		
-		# Setting configs
-		$this->load->config('role/role');
-		
 		# Setting permissions
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('add_role_url'):
-			
+			$this->set_permission('MODULE.ROLE.CONTENT.ADD');
 			break;
 			
 			case $this->config->item('update_role_url'):
-			
+			$this->set_permission('MODULE.ROLE.CONTENT.UPDATE');
 			break;
 			
 			case $this->config->item('delete_role_url'):
-			
+			$this->set_permission('MODULE.ROLE.CONTENT.DELETE');
 			break;
 			
 			case $this->config->item('edit_role_url'):
-			
+			$this->set_permission('MODULE.ROLE.CONTENT.EDIT');
 			break;
 			
 			default:
@@ -47,7 +47,7 @@ class Role_c extends DV_Controller {
 		}
 		
 		# Checking permissions
-		if($this->check_permission('permissions/permissions','start/start/no_access'))
+		if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))
 		{
 			# Additional steps if no permission
 			return;
@@ -88,12 +88,16 @@ class Role_c extends DV_Controller {
 			$page = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			$field = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
 			$asc = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
-			if($page <= 0)
+			if($page < 0)
 			{
 				$this->_no_page();	
 			}
 			else
 			{
+				if($page == 0)
+				{
+					$page = 1;	
+				}
 				switch($field)
 				{
 					case $this->config->item('edit_role_url_name'):
@@ -117,7 +121,7 @@ class Role_c extends DV_Controller {
 					break;
 					
 					default:
-					$this->_no_page();	
+					$field = 'name';	
 					break;	
 				}
 				
@@ -132,7 +136,7 @@ class Role_c extends DV_Controller {
 					break;
 					
 					default:
-					$this->_no_page();	
+					$asc = 'asc';	
 					break;	
 				}
 				
@@ -237,17 +241,23 @@ class Role_c extends DV_Controller {
 	{
 		$this->load->library('role/role_lib');
 		
-		if($this->role_lib->delete($id) == 1)
+		switch($this->role_lib->delete($id))
 		{
-			$this->_success_page();
-		}
-		else if($this->role_lib->delete($id) == -1)
-		{
+			case -2:
+			$this->_fail_page($this->lang->line('role_content_delete_user_exist'));
+			break;
+			case -1:
 			$this->_no_db_result();
-		}
-		else
-		{
+			break;
+			case 0:	
 			$this->_fail_page();
+			break;
+			case 1:
+			$this->_success_page();
+			break;
+			default:
+			$this->_fail_page();
+			break;
 		}
 	}
 	
@@ -268,6 +278,31 @@ class Role_c extends DV_Controller {
 		}
 		else
 		{
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('role_delete', $this->lang->line('role_edit_form_role_delete'), 'xss_clean');
+			
+			if ( ! $this->form_validation->run())
+			{
+				$this->load->view('role/role_edit_form_fail');
+			}
+			else
+			{
+				switch($this->role_lib->delete_many($this->input->post('role_delete')))
+				{
+					case -2:
+					$this->_fail_page($this->lang->line('role_content_delete_user_exist'));
+					break;
+					case 0:	
+					$this->_fail_page();
+					break;
+					case 1:
+					$this->_success_page();
+					break;
+					default:
+					$this->_fail_page();
+					break;
+				}
+			}
 			
 		}
 		

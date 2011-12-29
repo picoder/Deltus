@@ -7,6 +7,9 @@ class Lab extends DV_Controller {
 	public function __construct()
     {
 		parent::__construct(); # we must call it to run paren condtructor - it won't run default
+		
+		# First loading default module configs
+		$this->load->config('lab/lab');
     }
 	
 	public function _remap($method)
@@ -17,10 +20,7 @@ class Lab extends DV_Controller {
 	public function index()
 	{
 		$this->division_builder->set_cur_seg();
-		
-		echo "<strong>Welcome in lab module</strong><br>";
-		# First loading default module configs
-		$this->load->config('lab/lab');
+
 		
 		# For admin modules we must load tank_auth and role module
 		$this->load->library('tank_auth/tank_auth');
@@ -77,7 +77,7 @@ class Lab extends DV_Controller {
 		}
 		
 		# Checking permissions
-		if($this->check_permission('permissions/permissions','start/start/no_access'))
+		if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))
 		{
 			# Additional steps if no permission
 			return;
