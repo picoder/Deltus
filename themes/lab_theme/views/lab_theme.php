@@ -12,10 +12,13 @@ echo modules::run('simple_offer/menus/socategory_menu/index');
 ?>
 </div>
 <div class="r col_right">
-Right column
+<?php
+echo create_surfaces('WIDGET');
+?>
 </div>
 <div class="e o col_mid">
 <div class="col_mid_inner">
+
 <?php
 echo create_surfaces('CONTENT');
 

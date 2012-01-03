@@ -28,6 +28,10 @@ class Theme
 	public $extend_out_js_body = array();
 	public $module_out_js_body = array();
 	
+	public $fulls = array();
+	
+	public $viewport = 'initial-scale=1, maximum-scale=1';
+	
 	public function __construct()
 	{
 		$this->CI = & get_instance();
@@ -71,33 +75,60 @@ class Theme
 	
 	public function set_theme_js($theme_name, $name, $subpath = '', $place = 'head')
 	{
-		$this->theme_out_js_{$place}[] = 'themes/'.$theme_name.'/views/assets/'.$subpath.'js/'.$name.'.js';
+		array_push($this->{'theme_out_js_'.$place}, 'themes/'.$theme_name.'/views/assets/'.$subpath.'js/'.$name.'.js');
 	}
 	
 	public function set_theme_in_js($content, $place = 'head')
 	{
-		$this->theme_out_js_{$place}[] = $content;
+		array_push($this->{'theme_in_js_'.$place}, $content);
 	}
 	
 	public function set_ext_js($extend_name, $path, $place = 'head')
 	{
-		$this->extend_out_js_{$place}[] = 'extends/'.$extend_name.'/'.$path.'.js';
+		array_push($this->{'extend_out_js_'.$place}, 'extends/'.$extend_name.'/'.$path.'.js');
 	}
 	
 	public function set_ext_in_js($content, $place = 'head')
 	{
-		$this->extend_in_js_{$place}[] = $content;
+		array_push($this->{'extend_in_js_'.$place}, $content);
 	}
 	
 	public function set_mod_js($module_name, $name, $subpath = '', $place = 'head')
 	{
-		$this->module_out_js_{$place}[] = 'modules/'.$module_name.'/views/assets/'.$subpath.'js/'.$name.'.js';
+		array_push($this->{'module_out_js_'.$place}, 'modules/'.$module_name.'/views/assets/'.$subpath.'js/'.$name.'.js');
 	}
 	
 	public function set_mod_in_js($content, $place = 'head')
 	{
-		$this->module_in_js_{$place}[] = $content;
+		array_push($this->{'module_in_js_'.$place}, $content);
 	}
+	
+	public function set_full($string)
+	{
+		$this->fulls[] = $string;	
+	}
+	
+	public function get_full()
+	{
+		$out = '';
+		foreach($this->fulls as $full)
+		{
+			$out .= $full;	
+		}
+		return $out;
+	}
+		
+	public function set_viewport($viewport)
+	{
+		$this->viewport = $viewport;	
+	}
+	
+	public function get_viewport()
+	{
+		return $this->viewport;	
+	}
+	
+	
 
 	
 	# print minify out resources
@@ -131,20 +162,20 @@ class Theme
 	# minify contents
 	public function get_in_js($theme_name, $place = 'head')
 	{
-		$js_in_contents_{$place} = '';
+		${'js_in_contents_'.$place} = '';
 		foreach($this->{'theme_in_js_'.$place} as $content)
 		{
-			$js_in_contents_{$place} .= $content;
+			${'js_in_contents_'.$place} .= $content;
 		}
 		foreach($this->{'extend_in_js_'.$place} as $content)
 		{
-			$js_in_contents_{$place} .= $content;
+			${'js_in_contents_'.$place} .= $content;
 		}
 		foreach($this->{'module_in_js_'.$place} as $content)
 		{
-			$js_in_contents_{$place} .= $content;
+			${'js_in_contents_'.$place} .= $content;
 		}
-		return $this->CI->load->view('theme/snippet', array('source' => $js_in_contents_{$place}), TRUE);
+		return $this->CI->load->view('theme/snippet', array('source' => ${'js_in_contents_'.$place}), TRUE);
 	}
 	
 	
@@ -156,6 +187,8 @@ class Theme
 		$head['css_in'] = $this->get_in_css($theme_name);
 		$head['js_out_head'] = $this->get_js($theme_name);
 		$head['js_in_head'] = $this->get_in_js($theme_name);
+		$head['fulls'] = $this->get_full();
+		$head['viewport'] = $this->get_viewport();
 		return $this->CI->load->view('theme/head', $head, TRUE);
 	}
 	

@@ -28,7 +28,6 @@ class Division_config
 	
 	public function load_dv_configs($config_string)
 	{
-		
 		if($config_string == '')
 		{
 			return;

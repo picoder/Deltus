@@ -131,13 +131,13 @@ echo form_close();
 <?php
 	if($items->paged->has_previous)
 	{
-		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/1/'.$field.'/'.$asc.'/', $this->lang->line('role_edit_form_first_page'));
-		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/'.$items->paged->previous_page.'/'.$field.'/'.$asc.'/', $this->lang->line('role_edit_form_prev_page'));
+		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/1/'.$field.'/'.$asc.'/'.$role_filter_url, $this->lang->line('role_edit_form_first_page'));
+		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/'.$items->paged->previous_page.'/'.$field.'/'.$asc.'/'.$role_filter_url, $this->lang->line('role_edit_form_prev_page'));
 	}
 	if($items->paged->has_next)
 	{
-		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/'.$items->paged->next_page.'/'.$field.'/'.$asc.'/', $this->lang->line('role_edit_form_next_page'));
-		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/'.$items->paged->total_pages.'/'.$field.'/'.$asc.'/', $this->lang->line('role_edit_form_total_page'));
+		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/'.$items->paged->next_page.'/'.$field.'/'.$asc.'/'.$role_filter_url, $this->lang->line('role_edit_form_next_page'));
+		echo anchor($role_edit_base_url.$this->config->item('edit_role_url').'/'.$items->paged->total_pages.'/'.$field.'/'.$asc.'/'.$role_filter_url, $this->lang->line('role_edit_form_total_page'));
 	}
 ?>
 </div>

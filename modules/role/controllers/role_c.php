@@ -41,6 +41,10 @@ class Role_c extends DV_Controller {
 			$this->set_permission('MODULE.ROLE.CONTENT.EDIT');
 			break;
 			
+			case $this->config->item('edit_filter_role_url'):
+			$this->set_permission('MODULE.ROLE.CONTENT.EDIT_FILTER');
+			break;
+			
 			default:
 			
 			break;
@@ -88,6 +92,7 @@ class Role_c extends DV_Controller {
 			$page = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			$field = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
 			$asc = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
+			$filter = $this->uri->segment($this->division_builder->get_cur_seg() + 4);
 			if($page < 0)
 			{
 				$this->_no_page();	
@@ -140,7 +145,68 @@ class Role_c extends DV_Controller {
 					break;	
 				}
 				
-				$this->edit($page, $field, $asc);
+				$this->edit($page, $field, $asc, $filter);
+			}
+			break;
+			
+			case $this->config->item('edit_filter_role_url'):
+			$page = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
+			$field = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
+			$asc = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
+			$filter = $this->uri->segment($this->division_builder->get_cur_seg() + 4);
+			if($page < 0)
+			{
+				$this->_no_page();	
+			}
+			else
+			{
+				if($page == 0)
+				{
+					$page = 1;	
+				}
+				switch($field)
+				{
+					case $this->config->item('edit_role_url_name'):
+					$field = 'name';
+					break;
+					
+					case $this->config->item('edit_role_url_description'):
+					$field = 'description';
+					break;
+					
+					case $this->config->item('edit_role_url_status'):
+					$field = 'status';
+					break;
+					
+					case $this->config->item('edit_role_url_created'):
+					$field = 'created';
+					break;
+					
+					case $this->config->item('edit_role_url_modified'):
+					$field = 'modified';
+					break;
+					
+					default:
+					$field = 'name';	
+					break;	
+				}
+				
+				switch($asc)
+				{
+					case $this->config->item('edit_role_url_asc'):
+					$asc = 'asc';
+					break;
+					
+					case $this->config->item('edit_role_url_desc'):
+					$desc = 'desc';
+					break;
+					
+					default:
+					$asc = 'asc';	
+					break;	
+				}
+				
+				$this->edit_filter($page, $field, $asc, $filter);
 			}
 			break;
 			
@@ -261,7 +327,7 @@ class Role_c extends DV_Controller {
 		}
 	}
 	
-	public function edit($page, $field, $asc)
+	public function edit($page, $field, $asc, $filter_string)
 	{
 		$this->load->helper(array('form'));
 		$this->load->library('role/role_lib');
@@ -274,16 +340,35 @@ class Role_c extends DV_Controller {
 		
 		if(empty($_POST))
 		{
-			$this->load->view('role/role_edit_form', array('items' => $this->role_lib->edit($page, $this->config->item('edit_role_per_page'), $field, $asc), 'field' => $field, 'asc' => $asc, 'role_edit_base_url' => $url));
+			$filters = FALSE;
+			if($filter_string != '')
+			{
+				$filters = $this->role_lib->generate_filters($filter_string);
+			}
+			
+			$this->load->view('role/role_edit_form', array(
+			'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters), 
+			'field' => $field, 
+			'asc' => $asc, 
+			'role_edit_base_url' => $url,
+			'role_filter_url' => $filter_string,
+			));
+			
 		}
 		else
 		{
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('role_delete', $this->lang->line('role_edit_form_role_delete'), 'xss_clean');
 			
-			if ( ! $this->form_validation->run())
+			if( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_edit_form_fail');
+				$this->load->view('role/role_edit_form', array(
+				'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters), 
+				'field' => $field, 
+				'asc' => $asc, 
+				'role_edit_base_url' => $url,
+				'role_filter_url' => $filter_string,
+				));
 			}
 			else
 			{
@@ -299,14 +384,38 @@ class Role_c extends DV_Controller {
 					$this->_success_page();
 					break;
 					default:
+					
 					$this->_fail_page();
 					break;
 				}
 			}
-			
 		}
-		
 	}
 	
-	
+	public function edit_filter($page, $field, $asc, $filter_string)
+	{
+		if($this->input->post('filter'))
+		{			
+			$this->load->helper(array('form'));
+			$this->load->library('role/role_lib');
+			
+			$url = '';
+			for($i = 1; $i < $this->division_builder->get_cur_seg(); $i++)
+			{
+				$url .= $this->uri->segment($i).'/';
+			}
+			
+			$this->load->view('role/role_edit_form', array(
+			'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $this->input->post()), 
+			'field' => $field, 
+			'asc' => $asc, 
+			'role_edit_base_url' => $url,
+			'role_filter_url' => $this->role_lib->generate_filter_string($this->input->post()),
+			));
+		}
+		else
+		{
+			$this->edit($page, $field, $asc, $filter_string);		
+		}
+	}
 }

@@ -50,15 +50,41 @@ class Role_lib
 		}
 	}
 	
-	public function edit($page, $per_page, $field, $asc)
+	public function get_many($page, $per_page, $field, $asc, $filters)
 	{
 		$r = new Roledm();
+		if($filters)
+		{
+			foreach($filters as $filter => $val)
+			{
+				switch($filter)
+				{
+					case 'filter_status':
+					foreach($val as $status)
+					{
+						$r->or_where('status', $status);	
+					}
+					break;	
+				}
+			}
+		}
 		$roles =  $r->order_by($field, $asc)->get_paged($page, $per_page);
 		foreach($roles as $role)
 		{
 			$role->assigned_users_count = $this->_count_related_users($role);	
 		}
 		return $roles;
+	}
+	
+	public function generate_filters($string = 'role_status::0#1-variable:1')
+	{
+		return array('filter_status' => array(0));	
+	}
+	
+	# array from $_POST
+	public function generate_filter_string($array) 
+	{
+		return 'filter_string:1';
 	}
 	
 	public function delete_many($ids)

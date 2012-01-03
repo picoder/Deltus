@@ -36,3 +36,8 @@ $lang['role_edit_form_modified_header'] = "Last modified";
 $lang['role_edit_form_assigned_header'] = "Users";
 $lang['role_edit_form_actions_header'] = "Actions";
 $lang['role_edit_form_delete_header'] = "Delete";
+
+/* Widget */
+$lang['filter_status_1_description'] = "Active";
+$lang['filter_status_0_description'] = "Inactive";
+$lang['role_filter_form_submit'] = "Filter";

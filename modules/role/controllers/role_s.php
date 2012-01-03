@@ -18,7 +18,7 @@ public function __construct()
 	public function index()
 	{
 		// Setting permissions
-		$this->set_permission('CONTENT.ROLE.SETTINGS.ALL'); // we repeat for safe
+		$this->set_permission('MODULE.ROLE.SETTINGS.ALL'); // we repeat for safe
 		
 		// Checking permissions
 		if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))

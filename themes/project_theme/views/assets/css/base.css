@@ -356,6 +356,7 @@ label:hover {color:#F60;}
 .m_l_10 {margin-left:10px !important;}
 .p_top_5 {padding-top:5px !important;}
 .p_all_10 {padding:12px;}
+.h_space_50 {display: inline-block; margin-right:50px;}
 
 /* Backgrounds */
 .bg_white {background-color: #FFF !important;}
