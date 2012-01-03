@@ -1,0 +1,19 @@
+/* CSS Document */
+
+/*** role_edit_form/role_edit_form_fail ***/
+/******************************************/
+.form
+.list div.v {border:1px solid #333; border-top:none;}
+.list div.header_list {border:1px solid #333; border-bottom:none;} 
+.list div.l {border-right:1px solid #333;}
+.list div.l, .list div.e {text-align:center; min-height:40px;}
+
+/* for ie */
+* html .list div.l, * html .list div.e {border:none;}
+
+.list div.header_list div.l, .list div.header_list div.e {min-height:40px; height:40px; background-color:#CCC; line-height:40px; vertical-align:middle; text-align:center; font-weight:bold;}
+.header_list div.l {border-right:1px solid #FFF;}
+#role_edit_form div.l {width:110px;}
+#role_edit_form div.status {width:70px;}
+
+/********************end*******************/
