@@ -48,8 +48,8 @@ body, input, button, textarea, select {
 }
 h1, h2, h3, h4, h5, h6 {
   /*font-family: Georgia, "DejaVu Serif", serif;*/
-  font-family: Tahoma, Verdana, sans-serif;
-  letter-spacing: .1em;
+  font-family: 'Questrial', sans-serif;
+  /*letter-spacing: .1em;*/
 }
 pre, tt, code, kbd, samp, var {
   font-family: "Courier New", Courier, monospace;
@@ -73,13 +73,13 @@ h1, h2, h3, h4, h5 {font-weight: normal;}
  * outline:none used with the pseudo-class :hover is to avoid outline when a user clicks on links
  * note that these last rules do not do anything in IE as this browser does not support "outline"
  */
-a {color:#FFF; text-decoration: none;}
-a:link {color: #FFF; text-decoration: none;}
-a:visited {color:#FFF; text-decoration: none;}
-a:hover {color:#FFF; text-decoration: none;}
-a:focus {color:#FFF; text-decoration: none;}
-a:focus {color:#FFF; /*outline: 1px dotted #000;*/}
-a:hover,a:active {color:#FFF; outline: none;}
+a {text-decoration: none;}
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:hover {text-decoration: none; color:#F30;}
+a:focus {text-decoration: none;}
+a:focus { /*outline: 1px dotted #000;*/}
+a:hover,a:active {outline: none;}
 
 /*
  * This one is commented out as it may be overkill (users who use both a mouse and the keyboard would lose keyboard focus)
@@ -235,7 +235,7 @@ hr {
 /* this is my approach to create white space between elements, you do not have to adhere to it
  * rather than stylling these elements with top and bottom margin, or simply bottom margin I only use top margin
  */
-h1, h2, h3, h4, h5, h6, p, pre, dt, li, hr, legend, input, button, textarea, select, address {margin-top: 5px;}
+h1, h2, h3, h4, h5, h6, p, pre, dt, li, hr, legend, input, button, textarea, select, address {margin-top: 0px;}
 
 /* top padding solution */
 /* this is a different approach which may be less frustrating for novice because it avoids running into collapsing margin and allows to clear floats while preserving space above the element
