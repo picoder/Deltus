@@ -15,6 +15,7 @@ class Ttp_theme extends DV_Controller
 		$this->theme->set_theme_css('ttp_theme', 'style');
 		$this->theme->set_theme_css('ttp_theme', 'orbit');
 		
+		
 		$this->theme->set_theme_js('ttp_theme', 'jquery-1.6.4.min');
 		$this->theme->set_theme_js('ttp_theme', 'jquery.easing.1.3');
 		$this->theme->set_theme_js('ttp_theme', 'smile');

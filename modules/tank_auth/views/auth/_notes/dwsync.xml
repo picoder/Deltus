@@ -18,4 +18,13 @@
 <file name="reset_password_form.php" server="auto-pati.pl/public_html/" local="129614837720000000" remote="129661194600000000" />
 <file name="send_again_form.php" server="auto-pati.pl/public_html/" local="129614837720000000" remote="129661194600000000" />
 <file name="unregister_form.php" server="auto-pati.pl/public_html/" local="129614837720000000" remote="129661194600000000" />
+<file name="change_email_form.php" server="kako.pl" local="129695063387031250" remote="129702049800000000" />
+<file name="change_password_form.php" server="kako.pl" local="129695063387031250" remote="129702049800000000" />
+<file name="forgot_password_form.php" server="kako.pl" local="129695063387031250" remote="129702049800000000" />
+<file name="general_message.php" server="kako.pl" local="129695063387031250" remote="129702049800000000" />
+<file name="login_form.php" server="kako.pl" local="129695063387187500" remote="129702049800000000" />
+<file name="register_form.php" server="kako.pl" local="129695063387187500" remote="129702049800000000" />
+<file name="reset_password_form.php" server="kako.pl" local="129695063387187500" remote="129702049800000000" />
+<file name="send_again_form.php" server="kako.pl" local="129695063387187500" remote="129702049800000000" />
+<file name="unregister_form.php" server="kako.pl" local="129695063387187500" remote="129702049800000000" />
 </dwsync>

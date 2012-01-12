@@ -3,4 +3,7 @@
 <file name="users.php" server="auto-pati.pl/public_html/" local="129643950277968750" remote="129661194600000000" />
 <file name="login_attempts.php" server="auto-pati.pl/public_html/" local="129614837720000000" remote="129661194000000000" />
 <file name="user_autologin.php" server="auto-pati.pl/public_html/" local="129614837720000000" remote="129661194000000000" />
+<file name="login_attempts.php" server="kako.pl" local="129695063386562500" remote="129702049800000000" />
+<file name="user_autologin.php" server="kako.pl" local="129695063386562500" remote="129702049800000000" />
+<file name="users.php" server="kako.pl" local="129695063386562500" remote="129702049800000000" />
 </dwsync>

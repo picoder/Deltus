@@ -175,7 +175,7 @@ ul.lista li:hover a, ul.lista li.hover a {background-color:#729C00;}
 /* content */
 .v a {color:#333; padding:0; margin:0;}
 .v h2 img {vertical-align:middle; margin-right:10px;}
-.content {background-color:#EEE; color:#333;}
+.content {background-color:#EEE; color:#333; padding-top:4px;}
 .col_left {width:320px;}
 .col_right {width:320px;}
 .inner_col_content {min-height:200px; background-color:#CCC; margin:8px;  -moz-border-radius: 10px; -webkit-border-radius:10px; border-radius:10px; border:2px solid #FFF;}
@@ -186,14 +186,17 @@ ul.lista li:hover a, ul.lista li.hover a {background-color:#729C00;}
 .content h2 {text-align:center; margin-top:6px;}
 
 /* aside */
-.aside {background-color:#EEE; color:#FFF; padding:8px;}
-.inner_aside {background-color:#729C00; -moz-border-radius: 10px; -webkit-border-radius:10px; border-radius:10px; border:2px solid #FFF;}
-.inner_aside p {font-size:12px; text-align:center; padding:20px; padding-top:5px;}
+.aside {background-color:#EEE; color:#FFF; padding-top:0px;}
+.inner_aside {background-color:#729C00; -moz-border-radius: 10px; -webkit-border-radius:10px; border-radius:10px; border:2px solid #FFF; margin:8px;}
+.inner_aside h3 {text-align:center; margin-top:4px;}
+.inner_aside p {font-size:12px; padding:20px; padding-top:5px;}
 .aside a {color:#FC0;}
 .aside a:hover {color:#000;}
+.aside .news {background-color:#EEE; color:#333; text-align:justify;}
+
 
 /* media */
-.media {background-color:#EEE; color:#333; padding:10px; text-align:center;}
+.media {background-color:#EEE; color:#333; padding:10px; text-align:center; padding-top:10px;}
 .media h3 {text-align:center; font-size:12px;}
 .media_partners_table table {width:920px;}
 .media_partners_table td {padding:10px;}

@@ -19,6 +19,7 @@
 
   	<!--  Mobile viewport optimized: j.mp/bplateviewport -->
   	<meta name="viewport" content="<?php echo $viewport; ?>">
+    <meta name="robots" content="index,follow" />
 
   	<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
   	<link rel="shortcut icon" href="<?php //echo $favicon; ?>">

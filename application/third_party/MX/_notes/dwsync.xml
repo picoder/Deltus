@@ -9,4 +9,12 @@
 <file name="Modules.php" server="picoders.com" local="129586535600000000" remote="129612436200000000" />
 <file name="Router.php" server="picoders.com" local="129586535600000000" remote="129612436200000000" />
 <file name="Controller.php" server="auto-pati.pl/public_html/" local="129656707237500000" remote="129656782800000000" />
+<file name="Base.php" server="kako.pl" local="129695063274218750" remote="129702048000000000" />
+<file name="Ci.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
+<file name="Config.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
+<file name="Controller.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
+<file name="Lang.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
+<file name="Loader.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
+<file name="Modules.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
+<file name="Router.php" server="kako.pl" local="129695063274375000" remote="129702048000000000" />
 </dwsync>

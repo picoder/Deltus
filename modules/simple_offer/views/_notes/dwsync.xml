@@ -7,4 +7,11 @@
 <file name="error_add_form_queue.php" server="auto-pati.pl/public_html/" local="129657844080625000" remote="129658190400000000" />
 <file name="error_update_form_queue.php" server="auto-pati.pl/public_html/" local="129658141368906250" remote="129658190400000000" />
 <file name="no_page.php" server="auto-pati.pl/public_html/" local="129658147271250000" remote="129658190400000000" />
+<file name="add_form_queue.php" server="kako.pl" local="129695063363281250" remote="129702049200000000" />
+<file name="error_add_form_queue.php" server="kako.pl" local="129695063363281250" remote="129702049200000000" />
+<file name="error_update_form_queue.php" server="kako.pl" local="129695063363281250" remote="129702049200000000" />
+<file name="no_page.php" server="kako.pl" local="129695063363437500" remote="129702049200000000" />
+<file name="simple_offers_list_form.php" server="kako.pl" local="129695063364062500" remote="129702049200000000" />
+<file name="success_page.php" server="kako.pl" local="129695063364062500" remote="129702049200000000" />
+<file name="update_form_queue.php" server="kako.pl" local="129695063364062500" remote="129702049200000000" />
 </dwsync>
