@@ -34,7 +34,7 @@ public function __construct()
 	
 	public function filter()
 	{
-		$this->load->view('role/role_filter_form');	
+		$this->load->view('role/role_w_filter_form');	
 	}
 	
 }

@@ -223,7 +223,7 @@ class Role_c extends DV_Controller {
 		
 		if(empty($_POST))
 		{
-			$this->load->view('role/role_add_form');
+			$this->load->view('role/role_c_add');
 		}
 		else
 		{
@@ -232,7 +232,7 @@ class Role_c extends DV_Controller {
 			
 			if ( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_add_form_fail');
+				$this->load->view('role/role_c_add_fail');
 			}
 			else
 			{
@@ -269,7 +269,7 @@ class Role_c extends DV_Controller {
 			}
 			else
 			{
-				$this->load->view('role/role_update_form', array('r' => $r));
+				$this->load->view('role/role_c_update', array('r' => $r));
 			}
 		}
 		else
@@ -279,7 +279,7 @@ class Role_c extends DV_Controller {
 			
 			if ( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_update_form_fail');
+				$this->load->view('role/role_c_update_fail');
 			}
 			else
 			{
@@ -346,7 +346,7 @@ class Role_c extends DV_Controller {
 				$filters = $this->role_lib->generate_filters($filter_string);
 			}
 			
-			$this->load->view('role/role_edit_form', array(
+			$this->load->view('role/role_c_edit', array(
 			'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters), 
 			'field' => $field, 
 			'asc' => $asc, 
@@ -362,7 +362,7 @@ class Role_c extends DV_Controller {
 			
 			if( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_edit_form', array(
+				$this->load->view('role/role_c_edit', array(
 				'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters), 
 				'field' => $field, 
 				'asc' => $asc, 
@@ -405,7 +405,7 @@ class Role_c extends DV_Controller {
 				$url .= $this->uri->segment($i).'/';
 			}
 			
-			$this->load->view('role/role_edit_form', array(
+			$this->load->view('role/role_c_edit', array(
 			'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $this->input->post()), 
 			'field' => $field, 
 			'asc' => $asc, 
