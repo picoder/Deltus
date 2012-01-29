@@ -121,7 +121,7 @@ echo '</div><!-- div.list -->';
 <!-- Form Row -->
 <div class="v_f submit">
 <?php
-echo form_submit('mysubmit', $this->lang->line('role_edit_form_submit'));
+echo form_submit('validation_submit', $this->lang->line('role_edit_form_submit'));
 ?>
 </div>
 <!-- End Form Row -->

@@ -53,18 +53,22 @@ class Role_lib
 	public function get_many($page, $per_page, $field, $asc, $filters)
 	{
 		$r = new Roledm();
-		if($filters)
+		if( ! empty($filters))
 		{
 			foreach($filters as $filter => $val)
 			{
 				switch($filter)
 				{
-					case 'filter_status':
+					case 'checkbox_filter':
 					foreach($val as $status)
 					{
 						$r->or_where('status', $status);	
 					}
-					break;	
+					break;
+					
+					case 'filter_status':
+					$r->where('status', (int)($val));
+					break;		
 				}
 			}
 		}
@@ -76,15 +80,69 @@ class Role_lib
 		return $roles;
 	}
 	
-	public function generate_filters($string = 'role_status::0#1-variable:1')
+	public function generate_filters($filters = 'role_status::0#1-variable:1', $other_filters = array())
 	{
-		return array('filter_status' => array(0));	
+		$temp_filters = array();
+		if(is_array($filters))
+		{
+			# array mode
+			foreach($filters as $filter => $val)
+			{
+				switch($filter)
+				{
+					case 'filter_status':
+					$temp_filters = array_merge($temp_filters, array('filter_status' => $val));
+					break; 	
+				}
+			}	
+		}
+		else
+		{
+			# string mode
+			$filter_groups = explode('-f-', $filters);
+			$filter_groups = d_array_filter($filter_groups, 'delete_empty');
+			
+			foreach($filter_groups as $group)
+			{
+				$vals = explode('-v-', $group);
+				$filter_index = array_shift($vals);	
+				if(count($vals) == 1)
+				{
+					$vals = $vals[0];	
+				}
+				$temp_filters[$filter_index] = $vals;
+			}	
+		}
+		# if there is any collision in post filters and url(get) filters - post filters win and overwrite url filters
+		return array_merge($other_filters, $temp_filters);
+		# return array('filter_status' => array(1));	
 	}
 	
 	# array from $_POST
-	public function generate_filter_string($array) 
+	public function generate_filter_string($filters) 
 	{
-		return 'filter_string:1';
+		$filter_string = '';
+		foreach($filters as $filter => $val)
+		{
+			
+			switch($filter)
+			{
+				case 'filter_status':
+				$filter_string .= '-f-filter_status';
+				switch($val)
+				{
+					case 0:
+					$filter_string .= '-v-0';
+					break;
+					case 1:
+					$filter_string .= '-v-1';
+					break;	
+				}
+				break;	
+			}
+		}
+		
+		return $filter_string;
 	}
 	
 	public function delete_many($ids)

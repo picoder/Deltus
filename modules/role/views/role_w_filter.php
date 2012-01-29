@@ -13,20 +13,20 @@ for($i = 1; $i < $this->division_builder->get_cur_seg(); $i++)
 <?php
 $attributes = array('id' => 'role_filter_form', 'class' => 'admin_form');
 
-echo form_open($url.$this->config->item('edit_filter_role_url').'/', $attributes);
+echo form_open($url.$this->config->item('edit_role_url').'/', $attributes);
 ?>
 
 <!-- Form Row -->
 <div class="v_f">
 <?php
 $data = array(
-		'name'        => 'filter_status[]',
+		'name'        => 'filter_status',
 		'id'          => 'filter_status_1',
 		'value'       => 1,
-		'checked'     => FALSE,
+		'checked'     => TRUE,
 		);
 
-echo form_checkbox($data);
+echo form_radio($data);
 echo form_label($this->lang->line('filter_status_1_description'), 'filter_status_1');
 ?>
 </div>
@@ -37,13 +37,13 @@ echo form_label($this->lang->line('filter_status_1_description'), 'filter_status
 <div class="v_f">
 <?php
 $data = array(
-		'name'        => 'filter_status[]',
+		'name'        => 'filter_status',
 		'id'          => 'filter_status_0',
 		'value'       => 0,
 		'checked'     => FALSE,
 		);
 
-echo form_checkbox($data);
+echo form_radio($data);
 echo form_label($this->lang->line('filter_status_0_description'), 'filter_status_0');
 ?>
 </div>

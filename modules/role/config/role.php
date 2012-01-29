@@ -4,9 +4,8 @@ $config['add_role_url'] = 'add';
 $config['update_role_url'] = 'update';
 $config['delete_role_url'] = 'delete';
 $config['edit_role_url'] = 'edit';
-$config['edit_filter_role_url'] = 'edit-filter';
 
-$config['edit_role_per_page'] = 3;
+$config['edit_role_per_page'] = 4;
 
 $config['edit_role_url_name'] = 'name';
 $config['edit_role_url_description'] = 'description';
