@@ -15,6 +15,23 @@ $attributes = array('id' => 'role_filter_form', 'class' => 'admin_form');
 
 echo form_open($url.$this->config->item('edit_role_url').'/', $attributes);
 ?>
+<h2>Filtr statusu</h2>
+
+<!-- Form Row -->
+<div class="v_f">
+<?php
+$data = array(
+		'name'        => 'filter_status',
+		'id'          => 'filter_status_off',
+		'value'       => 'off',
+		'checked'     => TRUE,
+		);
+
+echo form_radio($data);
+echo form_label($this->lang->line('filter_status_off_description'), 'filter_status_off');
+?>
+</div>
+<!-- End Form Row -->
 
 <!-- Form Row -->
 <div class="v_f">
@@ -23,7 +40,6 @@ $data = array(
 		'name'        => 'filter_status',
 		'id'          => 'filter_status_1',
 		'value'       => 1,
-		'checked'     => TRUE,
 		);
 
 echo form_radio($data);
@@ -40,7 +56,6 @@ $data = array(
 		'name'        => 'filter_status',
 		'id'          => 'filter_status_0',
 		'value'       => 0,
-		'checked'     => FALSE,
 		);
 
 echo form_radio($data);
@@ -48,6 +63,56 @@ echo form_label($this->lang->line('filter_status_0_description'), 'filter_status
 ?>
 </div>
 <!-- End Form Row -->
+
+<h2>Filtr użytkowników</h2>
+
+<!-- Form Row -->
+<div class="v_f">
+<?php
+$data = array(
+		'name'        => 'filter_users',
+		'id'          => 'filter_users_off',
+		'value'       => 'off',
+		'checked'     => TRUE,
+		);
+
+echo form_radio($data);
+echo form_label($this->lang->line('filter_users_off_description'), 'filter_users_off');
+?>
+</div>
+<!-- End Form Row -->
+
+<!-- Form Row -->
+<div class="v_f">
+<?php
+$data = array(
+		'name'        => 'filter_users',
+		'id'          => 'filter_users_1',
+		'value'       => 1,
+		);
+
+echo form_radio($data);
+echo form_label($this->lang->line('filter_users_1_description'), 'filter_users_1');
+?>
+</div>
+<!-- End Form Row -->
+
+<!-- Form Row -->
+<div class="v_f">
+<?php
+$data = array(
+		'name'        => 'filter_users',
+		'id'          => 'filter_users_0',
+		'value'       => 0,
+		);
+
+echo form_radio($data);
+echo form_label($this->lang->line('filter_users_0_description'), 'filter_users_0');
+?>
+</div>
+<!-- End Form Row -->
+
+
 
 <?php
 # Flag for edit_filter controller in Role_c class

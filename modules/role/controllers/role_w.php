@@ -34,6 +34,8 @@ public function __construct()
 	
 	public function filter()
 	{
+		$this->load->helper(array('form', 'array'));
+		$this->load->library('role/role_lib');
 		$this->load->view('role/role_w_filter');	
 	}
 	

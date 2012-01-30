@@ -11,7 +11,6 @@ $lang['role_add_form_fail_info'] = "Enter data correctly";
 
 $lang['role_content_delete_user_exist'] = "To delete group you must first delete or unset all related users";
 
-
 $lang['role_edit_form_title'] = "Edit roles";
 $lang['role_edit_form_no_result'] = "No items in database";
 $lang['role_edit_form_first_page'] = "First page";
@@ -38,6 +37,12 @@ $lang['role_edit_form_actions_header'] = "Actions";
 $lang['role_edit_form_delete_header'] = "Delete";
 
 /* Widget */
+$lang['filter_status_off_description'] = "Doesn't matter";
 $lang['filter_status_1_description'] = "Active";
 $lang['filter_status_0_description'] = "Inactive";
+
+$lang['filter_users_off_description'] = "Doesn't matter";
+$lang['filter_users_1_description'] = "Users exist";
+$lang['filter_users_0_description'] = "No users";
+
 $lang['role_filter_form_submit'] = "Filter";

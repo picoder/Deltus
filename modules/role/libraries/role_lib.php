@@ -53,12 +53,16 @@ class Role_lib
 	public function get_many($page, $per_page, $field, $asc, $filters)
 	{
 		$r = new Roledm();
+		$r->include_related_count('userdm');
+		print_r($filters);
 		if( ! empty($filters))
 		{
+			var_dump($filters);
 			foreach($filters as $filter => $val)
 			{
 				switch($filter)
 				{
+					
 					case 'checkbox_filter':
 					foreach($val as $status)
 					{
@@ -67,25 +71,60 @@ class Role_lib
 					break;
 					
 					case 'filter_status':
-					$r->where('status', (int)($val));
-					break;		
+					if($val[0] != 'off')
+					{
+						echo 'H: '.$val[0].br();
+						$r->where('status', (int)($val[0]));
+					}
+					break;
+					
+					case 'filter_users':
+					switch ($val[0])
+					{
+						case 'off':
+						# nothing to do	
+						break;
+							
+						case 0:
+						$r_help = new Roledm();
+						$r_help->select('id')->include_related_count('userdm')->get();
+						$ids = array();
+						foreach($r_help as $role_help)
+						{
+							if($role_help->userdm_count == 0)
+							{
+								$ids[]=$role_help->id;
+							}
+							
+						}
+						$r->where_in('id', $ids);
+						break;
+						
+						case 1:
+						$r_help = new Roledm();
+						$r_help->select('id')->include_related_count('userdm')->get();
+						$ids = array();
+						foreach($r_help as $role_help)
+						{
+							if($role_help->userdm_count > 0)
+							{
+								echo $role_help->id.br();
+								$ids[]=$role_help->id;
+							}
+							
+						}
+						$r->where_in('id', $ids);
+						break;
+					}
+					break;			
 				}
 			}
 		}
 		
-		# for join and special fields
-		# special fields are constructed in-fly - they haven't relational field in database
-		switch($field)
-		{
-			case 'users':
-				
-			break;
-			
-			default:
-			# nothing to do	
-		}
+		# DEBUG
+		echo 'query field: '.($field);
+		$roles =  $r->order_by($field, $asc)->get_paged($page, $per_page);
 		
-		$roles =  $r->order_by($field, $asc)->include_related_count('userdm')->get_paged($page, $per_page);
 		foreach($roles as $role)
 		{
 			$role->assigned_users_count = $role->userdm_count;	
@@ -93,7 +132,7 @@ class Role_lib
 		return $roles;
 	}
 	
-	public function generate_filters($filters = 'role_status::0#1-variable:1', $other_filters = array())
+	public function generate_filters($filters, $other_filters = array())
 	{
 		$temp_filters = array();
 		if(is_array($filters))
@@ -104,8 +143,12 @@ class Role_lib
 				switch($filter)
 				{
 					case 'filter_status':
-					$temp_filters = array_merge($temp_filters, array('filter_status' => $val));
-					break; 	
+					$temp_filters = array_merge($temp_filters, array('filter_status' => array($val)));
+					break;
+					
+					case 'filter_users':
+					$temp_filters = array_merge($temp_filters, array('filter_users' => array($val)));
+					break; 	 	
 				}
 			}	
 		}
@@ -119,10 +162,6 @@ class Role_lib
 			{
 				$vals = explode('-v-', $group);
 				$filter_index = array_shift($vals);	
-				if(count($vals) == 1)
-				{
-					$vals = $vals[0];	
-				}
 				$temp_filters[$filter_index] = $vals;
 			}	
 		}
@@ -141,8 +180,11 @@ class Role_lib
 			{
 				case 'filter_status':
 				$filter_string .= '-f-filter_status';
-				switch($val)
+				switch($val[0])
 				{
+					case 'off':
+					$filter_string .= '-v-off';
+					break;
 					case 0:
 					$filter_string .= '-v-0';
 					break;
@@ -151,6 +193,22 @@ class Role_lib
 					break;	
 				}
 				break;	
+				
+				case 'filter_users':
+				$filter_string .= '-f-filter_users';
+				switch($val[0])
+				{
+					case 'off':
+					$filter_string .= '-v-off';
+					break;
+					case 0:
+					$filter_string .= '-v-0';
+					break;
+					case 1:
+					$filter_string .= '-v-1';
+					break;	
+				}
+				break;
 			}
 		}
 		

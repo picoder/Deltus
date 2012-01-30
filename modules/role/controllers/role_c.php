@@ -89,69 +89,12 @@ class Role_c extends DV_Controller {
 			break;
 			
 			case $this->config->item('edit_role_url'):
-			$page = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
-			$field = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
-			$asc = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
-			$filter = $this->uri->segment($this->division_builder->get_cur_seg() + 4);
-			if($page < 0)
-			{
-				$this->_no_page();	
-			}
-			else
-			{
-				if($page == 0)
-				{
-					$page = 1;	
-				}
-				switch($field)
-				{
-					case $this->config->item('edit_role_url_name'):
-					$field = 'name';
-					break;
-					
-					case $this->config->item('edit_role_url_description'):
-					$field = 'description';
-					break;
-					
-					case $this->config->item('edit_role_url_status'):
-					$field = 'status';
-					break;
-					
-					case $this->config->item('edit_role_url_created'):
-					$field = 'created';
-					break;
-					
-					case $this->config->item('edit_role_url_modified'):
-					$field = 'modified';
-					break;
-					
-					# for join and special fields
-					case $this->config->item('edit_role_url_users'):
-					$field = 'users';
-					break;
-					
-					default:
-					$field = 'name';	
-					break;	
-				}
-				
-				switch($asc)
-				{
-					case $this->config->item('edit_role_url_asc'):
-					$asc = 'asc';
-					break;
-					
-					case $this->config->item('edit_role_url_desc'):
-					$desc = 'desc';
-					break;
-					
-					default:
-					$asc = 'asc';	
-					break;	
-				}
-				
-				$this->edit($page, $field, $asc, $filter);
-			}
+			$page_url = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
+			$field_url = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
+			$asc_url = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
+			$filter_url = $this->uri->segment($this->division_builder->get_cur_seg() + 4);
+			
+			$this->edit($page_url, $field_url, $asc_url, $filter_url);
 			break;
 			
 			default:
@@ -271,8 +214,79 @@ class Role_c extends DV_Controller {
 		}
 	}
 	
-	public function edit($page, $field, $asc, $filter_string)
+	public function edit($page_url, $field_url, $asc_url, $filter_url)
 	{
+		$page;
+		$field;
+		$asc;
+		
+		if($page_url < 0)
+		{
+			$this->_no_page();	
+			return;
+		}
+		else
+		{
+			if($page_url == 0)
+			{
+				$page = 1;	
+			}
+			else 
+			{
+				$page = $page_url;
+			}
+		}
+		
+		switch($field_url)
+		{
+			case $this->config->item('edit_role_url_name'):
+			$field = 'name';
+			break;
+			
+			case $this->config->item('edit_role_url_description'):
+			$field = 'description';
+			break;
+			
+			case $this->config->item('edit_role_url_status'):
+			$field = 'status';
+			break;
+			
+			case $this->config->item('edit_role_url_created'):
+			$field = 'created';
+			break;
+			
+			case $this->config->item('edit_role_url_modified'):
+			$field = 'modified';
+			break;
+			
+			# for join and special fields
+			# special fields are constructed in-fly - they haven't relational field in database
+			case $this->config->item('edit_role_url_users'):
+			$field = 'userdm_count';
+			break;
+			
+			default:
+			$field = 'name';
+			$field_url = $this->config->item('edit_role_url_name');
+			break;	
+		}
+		
+		switch($asc_url)
+		{
+			case $this->config->item('edit_role_url_asc'):
+			$asc = 'asc';
+			break;
+			
+			case $this->config->item('edit_role_url_desc'):
+			$asc = 'desc';
+			break;
+			
+			default:
+			$asc = 'asc';	
+			$asc_url = $this->config->item('edit_role_url_asc');
+			break;	
+		}
+
 		$this->load->helper(array('form', 'array'));
 		$this->load->library('role/role_lib');
 		
@@ -283,27 +297,28 @@ class Role_c extends DV_Controller {
 		}
 		
 		$filters = array();
-		if($filter_string != '')
+		if($filter_url != '')
 		{
-			$filters = $this->role_lib->generate_filters($filter_string);
+			$filters = $this->role_lib->generate_filters($filter_url);
 		}
 		
 		if($this->input->post('filter'))
 		{
 			$filters = $this->role_lib->generate_filters($this->input->post(), $filters);
-			$filter_string = $this->role_lib->generate_filter_string($filters);
+			$filter_url = $this->role_lib->generate_filter_string($filters);
 		}
 		
-		print_r($filters);
+		# DEBUG 
+		echo('Filter_url: '.$filter_url.br());
 		
 		if( ! $this->input->post('validation_submit'))
 		{	
 			$this->load->view('role/role_c_edit', array(
-			'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters), 
-			'field' => $field, 
-			'asc' => $asc, 
+			'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters),  
 			'role_edit_base_url' => $url,
-			'role_filter_url' => $filter_string,
+			'role_edit_filter_url' => $filter_url,
+			'role_edit_field_url' => $field_url,
+			'role_edit_asc_url' => $asc_url,
 			));
 			
 		}
@@ -314,12 +329,12 @@ class Role_c extends DV_Controller {
 			
 			if( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_c_edit', array(
-				'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters), 
-				'field' => $field, 
-				'asc' => $asc, 
+				$this->load->view('role/role_c_edit_fail', array(
+				'items' => $this->role_lib->get_many($page, $this->config->item('edit_role_per_page'), $field, $asc, $filters),  
 				'role_edit_base_url' => $url,
-				'role_filter_url' => $filter_string,
+				'role_edit_filter_url' => $filter_url,
+				'role_edit_field_url' => $field_url,
+				'role_edit_asc_url' => $asc_url,
 				));
 			}
 			else

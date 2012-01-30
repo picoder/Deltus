@@ -37,6 +37,12 @@ $lang['role_edit_form_actions_header'] = "Akcje";
 $lang['role_edit_form_delete_header'] = "Usuń";
 
 /* Widget */
+$lang['filter_status_off_description'] = "Nieistotne";
 $lang['filter_status_1_description'] = "Aktywny";
 $lang['filter_status_0_description'] = "Nieaktywny";
+
+$lang['filter_users_off_description'] = "Nieistotne";
+$lang['filter_users_1_description'] = "Użytkownicy istnieją";
+$lang['filter_users_0_description'] = "Brak użytkowników";
+
 $lang['role_filter_form_submit'] = "Filtruj";
