@@ -377,6 +377,7 @@ $config['proxy_ips'] = '';
 
 $config['modules_locations'] = array(
 	FCPATH .'modules/' => '../../modules/',
+	FCPATH .'contents/' => '../../contents/',
 	FCPATH .'themes/' => '../../themes/',
 );
 
