@@ -12,5 +12,6 @@ $config['edit_role_url_description'] = 'description';
 $config['edit_role_url_status'] = 'status';
 $config['edit_role_url_created'] = 'created';
 $config['edit_role_url_modified'] = 'modified';
+$config['edit_role_url_users'] = 'users';
 $config['edit_role_url_asc'] = 'asc';
 $config['edit_role_url_desc'] = 'desc';

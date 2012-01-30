@@ -72,10 +72,23 @@ class Role_lib
 				}
 			}
 		}
-		$roles =  $r->order_by($field, $asc)->get_paged($page, $per_page);
+		
+		# for join and special fields
+		# special fields are constructed in-fly - they haven't relational field in database
+		switch($field)
+		{
+			case 'users':
+				
+			break;
+			
+			default:
+			# nothing to do	
+		}
+		
+		$roles =  $r->order_by($field, $asc)->include_related_count('userdm')->get_paged($page, $per_page);
 		foreach($roles as $role)
 		{
-			$role->assigned_users_count = $this->_count_related_users($role);	
+			$role->assigned_users_count = $role->userdm_count;	
 		}
 		return $roles;
 	}
@@ -123,8 +136,7 @@ class Role_lib
 	{
 		$filter_string = '';
 		foreach($filters as $filter => $val)
-		{
-			
+		{	
 			switch($filter)
 			{
 				case 'filter_status':
@@ -165,13 +177,6 @@ class Role_lib
 		{
 			return 0;
 		}
-	}
-	
-	# Specialized methods
-	
-	private function _count_related_users($group)
-	{
-		return $group->userdm->count();
 	}
 	
 }

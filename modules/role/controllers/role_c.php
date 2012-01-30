@@ -125,6 +125,11 @@ class Role_c extends DV_Controller {
 					$field = 'modified';
 					break;
 					
+					# for join and special fields
+					case $this->config->item('edit_role_url_users'):
+					$field = 'users';
+					break;
+					
 					default:
 					$field = 'name';	
 					break;	
