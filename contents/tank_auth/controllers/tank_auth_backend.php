@@ -32,40 +32,52 @@ class Tank_auth_backend extends DV_Controller
 			switch($this->uri->segment($this->division_builder->get_cur_seg()))
 			{
 				case 'login':
+				$this->division_builder->set_path('login');
 				$this->login();
 				break;
 				case 'logout':
+				$this->division_builder->set_path('logout');
 				$this->logout();
 				break;
 				case 'send-again':
+				$this->division_builder->set_path('send-again');
 				$this->send_again();
 				break;
 				case 'register':
+				$this->division_builder->set_path('register');
 				$this->register();
 				break;
 				case 'activate':
+				$this->division_builder->set_path('activate');
 				$this->activate();
 				break;
 				case 'forgot-password':
+				$this->division_builder->set_path('forgot-password');
 				$this->forgot_password();
 				break;
 				case 'reset-password':
+				$this->division_builder->set_path('reset-password');
 				$this->reset_password();
 				break;
 				case 'change-password':
+				$this->division_builder->set_path('change-password');
 				$this->change_password();
 				break;
 				case 'change-email':
 				$this->change_email();
+				$this->division_builder->set_path('change-email');
 				break;
 				case 'reset-email':
 				$this->reset_email();
+				$this->division_builder->set_path('reset-email');
 				break;
 				case 'unregister':
 				$this->unregister();
+				$this->division_builder->set_path('unregister');
 				break;
 				default:
 				$this->login();
+				$this->division_builder->set_path('login');
 			}
 		}
 	}
