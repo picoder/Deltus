@@ -61,10 +61,12 @@ class Role_c extends DV_Controller {
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('add_role_url'):
+			$this->division_builder->set_path($this->config->item('add_role_url'));
 			$this->add();
 			break;
 			
 			case $this->config->item('update_role_url'):
+			$this->division_builder->set_path($this->config->item('update_role_url'));
 			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
@@ -77,6 +79,7 @@ class Role_c extends DV_Controller {
 			break;
 			
 			case $this->config->item('delete_role_url'):
+				$this->division_builder->set_path($this->config->item('delete_role_url'));
 			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
@@ -89,6 +92,7 @@ class Role_c extends DV_Controller {
 			break;
 			
 			case $this->config->item('edit_role_url'):
+			$this->division_builder->set_path($this->config->item('edit_role_url'));
 			$page_url = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			$field_url = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
 			$asc_url = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
@@ -216,6 +220,7 @@ class Role_c extends DV_Controller {
 	
 	public function edit($page_url, $field_url, $asc_url, $filter_url)
 	{
+		
 		$page;
 		$field;
 		$asc;
@@ -289,12 +294,9 @@ class Role_c extends DV_Controller {
 
 		$this->load->helper(array('form', 'array'));
 		$this->load->library('role/role_lib');
-		
-		$url = '';
-		for($i = 1; $i < $this->division_builder->get_cur_seg(); $i++)
-		{
-			$url .= $this->uri->segment($i).'/';
-		}
+		$url = $this->division_builder->get_path();
+		array_pop($url);
+		$url = implode('/', $url).'/';
 		
 		$filters = array();
 		if($filter_url != '')

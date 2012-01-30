@@ -51,9 +51,11 @@ class Lab extends DV_Controller {
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case 'auth':
-			echo modules::run('tank_auth/tank_auth_backend/index');
+			$this->division_builder->set_path('auth');
+			
 			break;
 			default:
+			$this->division_builder->set_path('auth');
 			echo modules::run('tank_auth/tank_auth_backend/index');
 		}	
 	}
@@ -87,17 +89,17 @@ class Lab extends DV_Controller {
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('lab_content_url'):
-			
+			$this->division_builder->set_path($this->config->item('lab_content_url'));
 			echo modules::run('lab/lab_c/index');
 			break;
 			
 			case 'auth':
-			
+			echo modules::run('tank_auth/tank_auth_backend/index');
 			echo modules::run('tank_auth/tank_auth_backend/index');
 			break;
 			
 			default:
-			
+			$this->division_builder->set_path($this->config->item('lab_content_url'));
 			echo modules::run('lab/lab_c/index');
 			break;
 		}

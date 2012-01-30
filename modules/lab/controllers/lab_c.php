@@ -43,26 +43,28 @@ class Lab_c extends DV_Controller { //content
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
 			case $this->config->item('lab_test_url'):
+			$this->division_builder->set_path($this->config->item('lab_test_url'));
 			#one way of routing
 			echo modules::run('lab/lab_c/test_dv_configs');
 			break;
 			
 			case 'soca':
-			
+			$this->division_builder->set_path('soca');
 			echo modules::run('simple_offer/socategory/socategory/index');
 			break;
 			
 			case 'so-list':
-			
+			$this->division_builder->set_path('so-list');
 			echo modules::run('simple_offer/simple_offer/index');
 			break;
 			
 			case 'role-content':
+			$this->division_builder->set_path('role-content');
 			echo modules::run('role/role_c/index');
-			
 			break;
 			
 			case 'empty':
+			$this->division_builder->set_path('empty');
 			#second way of routing
 			$this->test_load_dv_configs();
 			break;

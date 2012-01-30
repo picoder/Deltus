@@ -11,16 +11,19 @@ class Division_builder
 	
 	private $_url;
 	private $_cur_seg;
+	private $_path;
 	
 	public function __construct()
 	{
 		$this->CI = & get_instance();
 		$this->_cur_seg = 1;
+		$this->_path = array();
 	}
 	
 	public function set_dv_url($url)
 	{
 		$this->_url = $url;
+		$this->_path[0] = $url;
 	}
 	
 	function get_dv_url()
@@ -35,19 +38,29 @@ class Division_builder
 		//echo $this->_cur_seg.'<br>';
 	}
 	
-	function get_cur_seg()
+	public function get_cur_seg()
 	{
 		return $this->_cur_seg;
 	}
 	
-	function get_division($url)
+	public function set_path($part)
+	{
+		$this->_path[] = $part;
+	}
+	
+	public function get_path()
+	{
+		return $this->_path;
+	}
+	
+	public function get_division($url)
 	{
 		$d = new Divisiondm();
 		return $d->where('url', $url)->get();
 		
 	}
 	
-	function separate_functions($string)
+	public function separate_functions($string)
 	{
 		$functions = explode('|-|', $string);
 		$new_funcs = array();
@@ -61,13 +74,13 @@ class Division_builder
 		return $new_funcs;
 	}
 	
-	function build_function($func)
+	public function build_function($func)
 	{
 		$function = explode('->', $func);
 		return $function[0];
 	}
 	
-	function build_params($command)
+	public function build_params($command)
 	{
 		$pos = strpos($command, '&');
 		// we delete checkers and lang info
@@ -85,21 +98,21 @@ class Division_builder
 		return $new_params;
 	}
 	
-	function get_lang($command)
+	public function get_lang($command)
 	{
 		$pos_start = strpos($command, '->lang[') + 7;
 		$length = strpos($command, ']', $pos_start) - $pos_start;
 		return substr($command, $pos_start, $length);
 	}
 	
-	function get_checkers($command)
+	public function get_checkers($command)
 	{
 		$pos_start = strpos($command, '&checkers[') + 10;
 		$length = strpos($command, ']', $pos_start) - $pos_start;
 		return substr($command, $pos_start, $length);
 	}
 	
-	function find_checkers($data)
+	public function find_checkers($data)
 	{
 		if($data == '')
 		{
@@ -138,7 +151,7 @@ class Division_builder
 			
 	}
 	
-	function set_position($command, $surface)
+	public function set_position($command, $surface)
 	{
 		$pos_start = strpos($command, '->box[') + 6;
 		$length = strpos($command, ']', $pos_start) - $pos_start;
