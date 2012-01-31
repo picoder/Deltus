@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 03 Sty 2012, 16:50
--- Wersja serwera: 5.5.8
--- Wersja PHP: 5.3.5
+-- Czas wygenerowania: 31 Sty 2012, 18:11
+-- Wersja serwera: 5.1.41
+-- Wersja PHP: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -273,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Przechowuje grupy uzytkowników' AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Przechowuje grupy uzytkowników' AUTO_INCREMENT=25 ;
 
 --
 -- Zrzut danych tabeli `roles`
@@ -281,11 +281,12 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `description`, `include`, `status`, `created`, `modified`) VALUES
 (2, 'editor', 'description for editor', 1, 1, '0000-00-00 00:00:00', '2011-12-28 23:28:14'),
-(11, 'director', 'Opis dla director', 1, 0, '2011-12-28 23:33:55', '2011-12-28 23:33:55'),
 (12, 'administrator', '', 1, 1, '2011-12-28 23:39:58', '2011-12-28 23:40:02'),
 (14, 'user_blog', 'user_blog', 1, 0, '2011-12-29 01:28:49', '2011-12-29 01:28:49'),
 (15, 'role1', 'role1', 1, 0, '2011-12-30 01:46:25', '2011-12-30 01:46:25'),
-(16, 'role2', 'role2', 1, 0, '2011-12-30 01:46:36', '2011-12-30 01:46:36');
+(22, 'role2', 'role2_d', 1, 1, '2012-01-26 19:31:49', '2012-01-26 19:31:49'),
+(23, 'role3', 'role3_d', 1, 1, '2012-01-26 19:33:18', '2012-01-26 19:33:18'),
+(24, 'role4', 'role4_d', 1, 1, '2012-01-26 19:33:27', '2012-01-26 19:33:27');
 
 -- --------------------------------------------------------
 
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
   `userdm_id` int(11) NOT NULL,
   `roledm_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Zrzut danych tabeli `roles_users`
@@ -307,7 +308,8 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
 INSERT INTO `roles_users` (`id`, `userdm_id`, `roledm_id`) VALUES
 (3, 1, 12),
 (4, 2, 12),
-(6, 4, 14);
+(6, 4, 14),
+(7, 5, 12);
 
 -- --------------------------------------------------------
 
@@ -474,16 +476,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2011-12-30 21:55:21', '2011-09-26 15:25:22', '2011-12-30 21:55:21'),
+(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-01-31 16:21:07', '2011-09-26 15:25:22', '2012-01-31 16:20:43'),
 (2, 'kako', '$P$BgHKLOyeQiYFi71upw4tSd7W4uPMtZ/', 'thiede@targipracy.gdansk.pl', 0, 0, NULL, NULL, NULL, NULL, 'd2a330aba72c28255744a66dfa6b62ac', '127.0.0.1', '0000-00-00 00:00:00', '2011-11-22 20:29:44', '2011-11-22 20:29:20'),
-(4, 'ania', '$P$BAcxHhXhXVRxFGdEkmvZwMC8Qm3zgc.', 'akorsak@wp.pl', 0, 0, NULL, NULL, NULL, NULL, '6b0e441f41d1704301dc21b4f02feffb', '127.0.0.1', '0000-00-00 00:00:00', '2011-12-18 13:18:08', '2011-12-18 13:18:08');
+(4, 'ania', '$P$BAcxHhXhXVRxFGdEkmvZwMC8Qm3zgc.', 'akorsak@wp.pl', 0, 0, NULL, NULL, NULL, NULL, '6b0e441f41d1704301dc21b4f02feffb', '127.0.0.1', '0000-00-00 00:00:00', '2011-12-18 13:18:08', '2011-12-18 13:18:08'),
+(5, 'test_user', '$P$Bqb0FvTmFM.teDReZXeLqlLXow4w2X1', 'reklama@targipracy.gdansk.pl', 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2012-01-31 16:59:53', '2012-01-31 16:57:32', '2012-01-31 16:59:29');
 
 -- --------------------------------------------------------
 
@@ -517,9 +520,15 @@ CREATE TABLE IF NOT EXISTS `user_profiles` (
   `country` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
 -- Zrzut danych tabeli `user_profiles`
 --
 
+INSERT INTO `user_profiles` (`id`, `user_id`, `country`, `website`) VALUES
+(1, 5, NULL, NULL);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
