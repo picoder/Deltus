@@ -1,16 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Role_c extends DV_Controller {
+class User_c extends DV_Controller {
 	
 	public function __construct()
     {
 		parent::__construct(); # we must call it to run paren condtructor - it won't run default	
 		
 		# Using language settings
-		$this->load->language('role_c');
+		$this->load->language('user_c');
 		
 		# Setting configs
-		$this->load->config('role/role');
+		$this->load->config('tank_auth/user');
+		$this->load->config('tank_auth/division_clutch');
     }
 
 	public function _remap($method)
@@ -25,20 +26,20 @@ class Role_c extends DV_Controller {
 		# Setting permissions
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
-			case $this->config->item('add_role_url'):
-			$this->set_permission('MODULE.ROLE.CONTENT.ADD');
+			case $this->config->item('add_user_url'):
+			$this->set_permission('MODULE.USER.CONTENT.ADD');
 			break;
 			
-			case $this->config->item('update_role_url'):
-			$this->set_permission('MODULE.ROLE.CONTENT.UPDATE');
+			case $this->config->item('update_user_url'):
+			$this->set_permission('MODULE.USER.CONTENT.UPDATE');
 			break;
 			
-			case $this->config->item('delete_role_url'):
-			$this->set_permission('MODULE.ROLE.CONTENT.DELETE');
+			case $this->config->item('delete_user_url'):
+			$this->set_permission('MODULE.USER.CONTENT.DELETE');
 			break;
 			
-			case $this->config->item('edit_role_url'):
-			$this->set_permission('MODULE.ROLE.CONTENT.EDIT');
+			case $this->config->item('edit_user_url'):
+			$this->set_permission('MODULE.USER.CONTENT.EDIT');
 			break;
 			
 			default:
@@ -56,13 +57,13 @@ class Role_c extends DV_Controller {
 		# Running methods (if we have right permission)
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))
 		{
-			case $this->config->item('add_role_url'):
-			$this->division_builder->set_path($this->config->item('add_role_url'));
+			case $this->config->item('add_user_url'):
+			$this->division_builder->set_path($this->config->item('add_user_url'));
 			$this->add();
 			break;
 			
-			case $this->config->item('update_role_url'):
-			$this->division_builder->set_path($this->config->item('update_role_url'));
+			case $this->config->item('update_user_url'):
+			$this->division_builder->set_path($this->config->item('update_user_url'));
 			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
@@ -74,8 +75,8 @@ class Role_c extends DV_Controller {
 			}
 			break;
 			
-			case $this->config->item('delete_role_url'):
-				$this->division_builder->set_path($this->config->item('delete_role_url'));
+			case $this->config->item('delete_user_url'):
+				$this->division_builder->set_path($this->config->item('delete_user_url'));
 			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{
@@ -87,8 +88,8 @@ class Role_c extends DV_Controller {
 			}
 			break;
 			
-			case $this->config->item('edit_role_url'):
-			$this->division_builder->set_path($this->config->item('edit_role_url'));
+			case $this->config->item('edit_user_url'):
+			$this->division_builder->set_path($this->config->item('edit_user_url'));
 			$page_url = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			$field_url = $this->uri->segment($this->division_builder->get_cur_seg() + 2);
 			$asc_url = $this->uri->segment($this->division_builder->get_cur_seg() + 3);
@@ -107,35 +108,46 @@ class Role_c extends DV_Controller {
 	public function add()
 	{
 		$this->load->helper(array('form'));
+		$use_username = $this->config->item('use_username', 'tank_auth');
 		
-		if(empty($_POST))
+		if( ! $this->input->post('user_c_add_user_submit'))
 		{
-			$this->load->view('role/role_c_add');
+			echo 'no_post';
+			$this->load->view('tank_auth/user_c_add');
 		}
 		else
 		{
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('role_name', $this->lang->line('role_add_form_role_name'), 'required|min_length[4]');
+			$this->form_validation->set_rules('user_name', $this->lang->line('user_c_add_role_name'), 'required|min_length[4]');
 			
 			if ( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_c_add_fail');
+				$this->load->view('tank_auth/user_c_add');
 			}
 			else
 			{
-				$r = new Roledm();
-				$r->name = $this->input->post('role_name');
-				$r->description = $this->input->post('role_description');
-				$r->status = intval($this->input->post('role_status'));
-				$r->created = date('c');
-				$r->modified = date('c');
+				$this->load->library('tank_auth/tank_auth'); 
 				
-				if($r->save())
+				$username = $this->input->post('user_name');
+				$email = $this->input->post('user_email');
+				$password = $this->input->post('user_pass');
+				$banned = intval($this->input->post('user_status'));
+				$created = date('c');
+				$modified = date('c');
+				
+				if ( ! is_null($data = $this->tank_auth->create_user(
+						$use_username ? $username : '',
+						$email,
+						$password,
+						$email_activation = FALSE))) # automatic user activation
 				{
+					unset($data['password']); // Clear password (just for any case)
 					$this->_success_page();
 				}
 				else
 				{
+					$errors = $this->tank_auth->get_error_message();
+					print_r($errors);
 					$this->_fail_page();
 				}
 			}

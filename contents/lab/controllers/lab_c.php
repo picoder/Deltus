@@ -63,6 +63,11 @@ class Lab_c extends DV_Controller { //content
 			echo modules::run('role/role_c/index');
 			break;
 			
+			case 'user-content':
+			$this->division_builder->set_path('user-content');
+			echo modules::run('tank_auth/user_c/index');
+			break;
+			
 			case 'empty':
 			$this->division_builder->set_path('empty');
 			#second way of routing

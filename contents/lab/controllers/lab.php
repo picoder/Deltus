@@ -32,6 +32,7 @@ class Lab extends DV_Controller {
 		
 		if(empty($user_roles)) 
 		{
+			
 			$this->_login_backend();
 		}
 		
