@@ -157,8 +157,9 @@ class User_c extends DV_Controller {
 	public function update($id)
 	{
 		$this->load->helper(array('form'));
+		$use_username = $this->config->item('use_username', 'tank_auth');
 		
-		if(empty($_POST))
+		if( ! $this->input->post('user_c_update_user_submit')) ###
 		{
 			$r = new Roledm();
 			$r->where('id', $id)->get();
