@@ -154,6 +154,7 @@ class User_c extends DV_Controller {
 		}
 	}
 	
+	# without password and role
 	public function update($id)
 	{
 		$this->load->helper(array('form'));
@@ -161,36 +162,36 @@ class User_c extends DV_Controller {
 		
 		if( ! $this->input->post('user_c_update_user_submit')) ###
 		{
-			$r = new Roledm();
-			$r->where('id', $id)->get();
-			if($r->result_count() < 1)
+			$u = new Userdm();
+			$u->where('id', $id)->get();
+			if($u->result_count() < 1)
 			{
 				$this->_no_db_result();
 			}
 			else
 			{
-				$this->load->view('role/role_c_update', array('r' => $r));
+				$this->load->view('tank_auth/user_c_update', array('u' => $u));
 			}
 		}
 		else
 		{
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('role_name', $this->lang->line('role_add_form_role_name'), 'required|min_length[4]');
+			$this->form_validation->set_rules('user_name', $this->lang->line('user_c_update_user_name'), 'required|min_length[4]');
 			
 			if ( ! $this->form_validation->run())
 			{
-				$this->load->view('role/role_c_update_fail');
+				$this->load->view('user/user_c_update_fail');
 			}
 			else
 			{
-				$r = new Roledm();
-				$r->where('id', $id)->get();
-				$r->name = $this->input->post('role_name');
-				$r->description = $this->input->post('role_description');
-				$r->status = intval($this->input->post('role_status'));
-				$r->modified = date('c');
+				$u = new Userdm();
+				$u->where('id', $id)->get();
+				$u->username = $this->input->post('user_name');
+				$u->email = $this->input->post('user_email');
+				$u->banned = intval($this->input->post('user_status'));
+				$u->modified = date('c');
 				
-				if($r->save())
+				if($u->save())
 				{
 					$this->_success_page();
 				}

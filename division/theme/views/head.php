@@ -7,8 +7,8 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-ie no-js"> <!--<![endif]-->
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<script>document.documentElement.className += '-js';</script>
-	<meta charset="utf-8">
 
 	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame Remove this if you use the .htaccess -->
 	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->

@@ -3,7 +3,7 @@
 <div class="form">
 
 <?php
-$attributes = array('id' => 'user_add_form', 'class' => 'admin_form');
+$attributes = array('id' => 'user_c_add_form', 'class' => 'admin_form');
 
 echo form_open(current_url(), $attributes);
 ?>
