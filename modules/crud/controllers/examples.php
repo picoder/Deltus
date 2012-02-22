@@ -29,11 +29,34 @@ class Examples extends DV_Controller {
 	function index()
 	{
 		$this->division_builder->set_cur_seg();
-		$method = $this->uri->segment($this->division_builder->get_cur_seg() + 1);
-		//print_r($method);
+		$method = $this->uri->segment($this->division_builder->get_cur_seg());
+		#print_r($method);
 		$this->$method();
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
+	}
+	
+	function foos()
+	{
+		$crud = new grocery_CRUD();
+		$crud->set_table('foos');
+		
+		
+		$crud->set_relation_n_n('jobs', 'foos_jobs', 'jobs', 'foo_id', 'job_id', 'job');
+		
+		$crud->fields('name', 'jobs');
+		$output = $crud->render();
+			
+		$this->_example_output($output);
 	}	
+	
+	function jobs()
+	{
+		$crud = new grocery_CRUD();
+		$crud->set_table('jobs');
+		$output = $crud->render();
+			
+		$this->_example_output($output);
+	}
 	
 	function offices_management()
 	{

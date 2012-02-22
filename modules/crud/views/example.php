@@ -28,12 +28,12 @@ a:hover
 </head>
 <body>
 	<div>
-		<a href='<?php echo site_url('test/lab-content/crud/examples/customers_management')?>'>Customers</a> |
-		<a href='<?php echo site_url('test/lab-content/crud/examples/orders_management')?>'>Orders</a> |
-		<a href='<?php echo site_url('test/lab-content/crud/examples/products_management')?>'>Products</a> |
-		<a href='<?php echo site_url('test/lab-content/crud/examples/offices_management')?>'>Offices</a> | 
-		<a href='<?php echo site_url('test/lab-content/crud/examples/employees_management')?>'>Employees</a> |		 
-		<a href='<?php echo site_url('test/lab-content/crud/examples/film_management')?>'>Films</a>
+		<a href='<?php echo site_url('test/lab-content/crud/customers_management')?>'>Customers</a> |
+		<a href='<?php echo site_url('test/lab-content/crud/orders_management')?>'>Orders</a> |
+		<a href='<?php echo site_url('test/lab-content/crud/products_management')?>'>Products</a> |
+		<a href='<?php echo site_url('test/lab-content/crud/offices_management')?>'>Offices</a> | 
+		<a href='<?php echo site_url('test/lab-content/crud/employees_management')?>'>Employees</a> |		 
+		<a href='<?php echo site_url('test/lab-content/crud/film_management')?>'>Films</a>
 	</div>
 	<div style='height:20px;'></div>  
     <div>
