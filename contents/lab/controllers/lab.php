@@ -23,6 +23,7 @@ class Lab extends DV_Controller {
 
 		
 		# For admin modules we must load tank_auth and role module
+		# $this->load->module('tank_auth/tank_auth_backend'); # to load parameters in constructor
 		$this->load->library('tank_auth/tank_auth');
 		$this->load->library('role/role_lib');
 		
@@ -32,7 +33,7 @@ class Lab extends DV_Controller {
 		
 		if(empty($user_roles)) 
 		{
-			
+			#die('You have no role assigned');
 			$this->_login_backend();
 		}
 		
@@ -53,7 +54,7 @@ class Lab extends DV_Controller {
 		{
 			case 'auth':
 			$this->division_builder->set_path('auth');
-			
+			echo modules::run('tank_auth/tank_auth_backend/index');
 			break;
 			default:
 			$this->division_builder->set_path('auth');

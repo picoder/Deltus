@@ -11,9 +11,9 @@ echo $this->theme->get_head('lab_theme');
 echo modules::run('simple_offer/menus/socategory_menu/index');
 ?>
 </div>
-<div class="r col_right">
+<div class="r col_right">COL RIGHT
 <?php
-echo create_surfaces('WIDGET');
+# echo create_surfaces('WIDGET');
 ?>
 </div>
 <div class="e o col_mid">

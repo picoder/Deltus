@@ -11,7 +11,6 @@ class Tank_auth_backend extends DV_Controller
 		$this->load->library('tank_auth/tank_auth'); // For HMVC
 		$this->lang->load($langfile = 'tank_auth', $this->config->item('lang'), $return = FALSE, $add_suffix = TRUE, $alt_path = '', $_module = 'tank_auth'); //For HMVC
 		$this->load->config('tank_auth/division_clutch');
-		
 	}
 	
 	public function _remap($method)
@@ -22,7 +21,7 @@ class Tank_auth_backend extends DV_Controller
 	public function index()
 	{
 		$this->division_builder->set_cur_seg();
-		
+
 		if ($message = $this->session->flashdata('message')) 
 		{
 			$this->load->view('tank_auth/auth/general_message', array('message' => $message));
