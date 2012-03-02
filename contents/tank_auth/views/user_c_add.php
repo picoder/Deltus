@@ -73,6 +73,16 @@ echo form_dropdown('user_status', $options, 1, $data);
 <!-- End Form Row -->
 
 <!-- Form Row -->
+<div class="v_f">
+<?php
+echo form_label($this->lang->line('user_c_add_roles'), 'roles');
+$data = 'id="roles"';
+echo form_dropdown('roles', $roles, 1, $data);
+?>
+</div>
+<!-- End Form Row -->
+
+<!-- Form Row -->
 <div class="v_f submit">
 <?php
 echo form_submit('user_c_add_user_submit', $this->lang->line('user_c_add_user_submit'));

@@ -112,8 +112,9 @@ class User_c extends DV_Controller {
 		
 		if( ! $this->input->post('user_c_add_user_submit'))
 		{
-			echo 'no_post';
-			$this->load->view('tank_auth/user_c_add');
+			# echo 'no_post data';
+			$this->load->library('role/role_lib');
+			$this->load->view('tank_auth/user_c_add', array('roles' => $this->role_lib->get_all()));
 		}
 		else
 		{
@@ -123,6 +124,8 @@ class User_c extends DV_Controller {
 			if ( ! $this->form_validation->run())
 			{
 				$this->load->view('tank_auth/user_c_add');
+				$this->load->library('role/role_lib');
+				$this->load->view('tank_auth/user_c_add', array('roles' => $this->role_lib->get_all()));
 			}
 			else
 			{
@@ -134,6 +137,7 @@ class User_c extends DV_Controller {
 				$banned = intval($this->input->post('user_status'));
 				$created = date('c');
 				$modified = date('c');
+				$roles = $this->input->post('roles');
 				
 				if ( ! is_null($data = $this->tank_auth->create_user(
 						$use_username ? $username : '',
@@ -142,6 +146,13 @@ class User_c extends DV_Controller {
 						$email_activation = FALSE))) # automatic user activation
 				{
 					unset($data['password']); // Clear password (just for any case)
+					
+					$r = new Roledm();
+					$r->where('id', $roles)->get();
+					$u = new Userdm();
+					$u->where('id', $data['user_id'])->get();
+					$u->save($r);
+					
 					$this->_success_page();
 				}
 				else

@@ -9,6 +9,17 @@ class Role_lib
 		$this->CI =& get_instance();
 	}
 	
+	public function get_all()
+	{
+		$r = new Roledm;
+		$roles = array();
+		foreach($r->get() as $role)
+		{
+			$roles[$role->id] = $role->name;
+		}
+		return $roles;
+	}
+	
 	# TODO: Move to tank_auth_lib
 	public function get_user_roles($user_id)
 	{
