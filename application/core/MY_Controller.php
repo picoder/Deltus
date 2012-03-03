@@ -8,6 +8,10 @@ class DV_Controller extends MX_Controller
 	# check $this->method_seg()
 	private $_dv; 
 	
+	const SUCCESS_PAGE = 0;
+	const FAIL_PAGE = 1;
+	const NO_IN_DB = -1;
+	
 	public function __construct() 
 	{		
 		parent::__construct();

@@ -200,14 +200,17 @@ class User_c extends DV_Controller
 				{
 					unset($data['password']);
 					// Clear password (just for any case)
-
-					$r = new Roledm();
-					$r -> where('id', $roles) -> get();
-					$u = new Userdm();
-					$u -> where('id', $data['user_id']) -> get();
-					$u -> save($r);
-
-					$this -> _success_page();
+					
+					$this -> load -> library('tank_auth/user_lib');
+					switch($this->user_lib->save_r_role_user($data['user_id'], $roles))
+					{
+						case DV_Controller::SUCCESS_PAGE:
+							$this -> _success_page();
+							break;
+						case DV_Controller::FAIL_PAGE:
+							$this -> _fail_page();
+							break;
+					}
 				}
 				else
 				{
@@ -231,7 +234,7 @@ class User_c extends DV_Controller
 		$this -> load -> library('tank_auth/user_lib');
 		$user_roles = $this->user_lib->get_user_roles($id, TRUE);
 		
-		if ( ! $this -> input -> post('user_c_update_user_submit'))###
+		if ( ! $this -> input -> post('user_c_update_user_submit'))
 		{
 			
 			if ($u -> result_count() < 1)
@@ -241,7 +244,7 @@ class User_c extends DV_Controller
 			else
 			{
 				$this -> load -> library('role/role_lib');
-				$this -> load -> view('tank_auth/user_c_update', array('u' => $u, 'roles' => $this -> role_lib -> get_all(), 'user_roles' => $user_roles[0]));
+				$this -> load -> view('tank_auth/user_c_update', array('u' => $u, 'roles' => $this -> role_lib -> get_all(), 'user_roles' => $user_roles[0])); # user_roles[0] - for now user can have only one role
 			}
 		}
 		else
@@ -259,8 +262,6 @@ class User_c extends DV_Controller
 			}
 			else
 			{
-				$u = new Userdm();
-				$u -> where('id', $id) -> get();
 
 				# admin cannot change username and email wchich are unique for each user with update panel. He must ex. first delete user and create new.
 				# $u->username = $this->input->post('user_name');
@@ -321,7 +322,11 @@ class User_c extends DV_Controller
 				
 				if (!is_null($data = $this -> tank_auth -> reset_password($id, $new_pass_key, $password)))
 				{
-					print_r($data);
+					$this -> _success_page();
+				}
+				else 
+				{
+					$this -> _fail_page();
 				}
 			}
 		}
@@ -352,7 +357,14 @@ class User_c extends DV_Controller
 			else
 			{
 				$u->username = $this -> input -> post('new_username');
-				$u->save();
+				if ($u -> save($r))
+				{
+					$this -> _success_page();
+				}
+				else
+				{
+					$this -> _fail_page();
+				}
 			}
 		}
 	}
@@ -382,27 +394,31 @@ class User_c extends DV_Controller
 			else
 			{
 				$u->email = $this -> input -> post('new_email');
-				$u->save();
+				if ($u -> save($r))
+				{
+					$this -> _success_page();
+				}
+				else
+				{
+					$this -> _fail_page();
+				}
 			}
 		}
 	}
 
 	public function delete($id)
 	{
-		$this -> load -> library('role/role_lib');
-
-		switch($this->role_lib->delete($id))
+		$this -> load -> library('tank_auth/user_lib');
+		
+		switch($this->user_lib->delete($id))
 		{
-			case -2 :
-				$this -> _fail_page($this -> lang -> line('role_content_delete_user_exist'));
-				break;
-			case -1 :
+			case DV_Controller::NO_IN_DB :
 				$this -> _no_db_result();
 				break;
-			case 0 :
+			case DV_Controller::FAIL_PAGE :
 				$this -> _fail_page();
 				break;
-			case 1 :
+			case DV_Controller::SUCCESS_PAGE :
 				$this -> _success_page();
 				break;
 			default :
