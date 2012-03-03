@@ -30,6 +30,9 @@ $config['MODULE.ROLE.CONTENT.EDIT_FILTER'] = array('check_role' => array('admini
 
 $config['MODULE.USER.CONTENT.ADD'] = array('check_role' => array('administrator'));
 $config['MODULE.USER.CONTENT.UPDATE'] = array('check_role' => array('administrator'));
+$config['MODULE.USER.CONTENT.CHANGE_PASSWORD'] = array('check_role' => array('administrator'));
+$config['MODULE.USER.CONTENT.CHANGE_USERNAME'] = array('check_role' => array('administrator'));
+$config['MODULE.USER.CONTENT.CHANGE_EMAIL'] = array('check_role' => array('administrator'));
 $config['MODULE.USER.CONTENT.DELETE'] = array('check_role' => array('administrator'));
 $config['MODULE.USER.CONTENT.EDIT'] = array('check_role' => array('administrator'));
 $config['MODULE.USER.CONTENT.EDIT_FILTER'] = array('check_role' => array('administrator'));

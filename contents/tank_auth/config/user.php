@@ -2,6 +2,9 @@
 
 $config['add_user_url'] = 'add';
 $config['update_user_url'] = 'update';
+$config['change_pass_url'] = 'change-password';
+$config['change_username_url'] = 'change-username';
+$config['change_email_url'] = 'change-email';
 $config['delete_user_url'] = 'delete';
 $config['edit_user_url'] = 'edit';
 

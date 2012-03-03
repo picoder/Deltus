@@ -75,7 +75,7 @@ class Role_c extends DV_Controller {
 			break;
 			
 			case $this->config->item('delete_role_url'):
-				$this->division_builder->set_path($this->config->item('delete_role_url'));
+			$this->division_builder->set_path($this->config->item('delete_role_url'));
 			$id = intval($this->uri->segment($this->division_builder->get_cur_seg() + 1));
 			if($id <= 0)
 			{

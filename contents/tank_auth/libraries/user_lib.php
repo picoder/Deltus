@@ -9,13 +9,21 @@ class User_lib
 		$this->CI =& get_instance();
 	}
 	
-	public function get_user_roles($user_id)
+	public function get_user_roles($user_id, $isId = FALSE)
 	{
 		$r = new Roledm;
 		$roles = array();
 		foreach($r->where_related_userdm('id', $user_id)->get() as $role)
 		{
-			$roles[] = $role->name;
+			if( ! $isId)
+			{
+				$roles[] = $role->name;
+			}
+			else
+			{
+				$roles[] = $role->id;
+			}
+				
 		}
 		return $roles;
 	}

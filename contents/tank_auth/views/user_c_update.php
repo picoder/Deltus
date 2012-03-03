@@ -9,6 +9,7 @@ echo form_open(current_url(), $attributes);
 ?>
 
 <!-- Form Row -->
+<!--
 <div class="v_f">
 <?php
 echo form_label($this->lang->line('user_c_update_user_name'), 'user_name');
@@ -25,6 +26,7 @@ echo form_input($data);
 <!-- End Form Row -->
 
 <!-- Form Row -->
+<!--
 <div class="v_f">
 <?php
 echo form_label($this->lang->line('user_c_update_user_email'), 'user_email');
@@ -53,6 +55,16 @@ $options = array(
 $data = 'id="user_status"';
 
 echo form_dropdown('user_status', $options, $u->banned, $data);
+?>
+</div>
+<!-- End Form Row -->
+
+<!-- Form Row -->
+<div class="v_f">
+<?php
+echo form_label($this->lang->line('user_c_update_roles'), 'roles');
+$data = 'id="roles"';
+echo form_dropdown('roles', $roles, $user_roles, $data);
 ?>
 </div>
 <!-- End Form Row -->
