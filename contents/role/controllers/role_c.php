@@ -291,7 +291,7 @@ class Role_c extends DV_Controller {
 		$this->load->helper(array('form', 'array'));
 		$this->load->library('role/role_lib');
 		$url = $this->division_builder->get_path();
-		array_pop($url);
+		array_pop($url); # to remove last element of array $url
 		$url = implode('/', $url).'/';
 		
 		$filters = array();
@@ -300,14 +300,14 @@ class Role_c extends DV_Controller {
 			$filters = $this->role_lib->generate_filters($filter_url);
 		}
 		
-		if($this->input->post('filter'))
+		# input for data other than GET
+		if($this->input->post('filter')) 
 		{
 			$filters = $this->role_lib->generate_filters($this->input->post(), $filters);
 			$filter_url = $this->role_lib->generate_filter_string($filters);
 		}
 		
-		# DEBUG 
-		echo('Filter_url: '.$filter_url.br());
+		# DEBUG echo('Filter_url: '.$filter_url.br());
 		
 		if( ! $this->input->post('validation_submit'))
 		{	

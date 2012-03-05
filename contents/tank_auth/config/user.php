@@ -10,8 +10,9 @@ $config['edit_user_url'] = 'edit';
 
 $config['edit_user_per_page'] = 4;
 
-$config['edit_user_url_name'] = 'name';
+$config['edit_user_url_username'] = 'username';
 $config['edit_user_url_email'] = 'e-mail';
+$config['edit_user_url_activated'] = 'activated';
 $config['edit_user_url_status'] = 'status';
 $config['edit_user_url_created'] = 'created';
 $config['edit_user_url_modified'] = 'modified';

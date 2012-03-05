@@ -49,7 +49,7 @@ input[type="checkbox"], input[type="radio"] {width:16px; height:16px; margin-top
 /**********************************/
 
 /*Dimensions */
-.wrapper {width:1160px;}
+.wrapper {width:1480px;}
 .top {border:solid 1px #CCC; height:60px; background-color:#EEE;}
 .col_left {width:160px; margin-right:10px; margin-top:5px;}
 .col_right {width:200px;}

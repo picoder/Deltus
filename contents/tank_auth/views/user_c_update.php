@@ -42,6 +42,24 @@ echo form_input($data);
 </div>
 <!-- End Form Row -->
 
+<!-- Form Row -->
+<div class="v_f">
+<?php
+# only when updating users we can set activated as TRUE (in case when user cannot do it himself)
+echo form_label($this->lang->line('user_c_update_user_activated'), 'user_activated');
+
+$options = array(
+                  0  => $this->lang->line('user_c_update_user_activated_inactive'),
+                  1    => $this->lang->line('user_c_update_user_activated_active'),
+                );
+$data = 'id="user_activated"';
+
+echo form_dropdown('user_activated', $options, $u->activated, $data);
+?>
+</div>
+<!-- End Form Row -->
+
+
 
 <!-- Form Row -->
 <div class="v_f">

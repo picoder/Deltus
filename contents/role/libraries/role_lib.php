@@ -65,10 +65,10 @@ class Role_lib
 	{
 		$r = new Roledm();
 		$r->include_related_count('userdm');
-		print_r($filters);
+		# DEBUG print_r($filters);
 		if( ! empty($filters))
 		{
-			var_dump($filters);
+			# DEBUG var_dump($filters);
 			foreach($filters as $filter => $val)
 			{
 				switch($filter)
@@ -84,56 +84,55 @@ class Role_lib
 					case 'filter_status':
 					if($val[0] != 'off')
 					{
-						echo 'H: '.$val[0].br();
+						# DEBUG echo 'H: '.$val[0].br();
 						$r->where('status', (int)($val[0]));
 					}
 					break;
 					
 					case 'filter_users':
-					switch ($val[0])
-					{
-						case 'off':
-						# nothing to do	
-						break;
-							
-						case 0:
-						$r_help = new Roledm();
-						$r_help->select('id')->include_related_count('userdm')->get();
-						$ids = array();
-						foreach($r_help as $role_help)
+						switch ($val[0])
 						{
-							if($role_help->userdm_count == 0)
+							case 'off':
+							# nothing to do	
+							break;
+								
+							case 0:
+							$r_help = new Roledm();
+							$r_help->select('id')->include_related_count('userdm')->get();
+							$ids = array();
+							foreach($r_help as $role_help)
 							{
-								$ids[]=$role_help->id;
+								if($role_help->userdm_count == 0)
+								{
+									$ids[]=$role_help->id;
+								}
+								
 							}
+							$r->where_in('id', $ids);
+							break;
 							
-						}
-						$r->where_in('id', $ids);
-						break;
-						
-						case 1:
-						$r_help = new Roledm();
-						$r_help->select('id')->include_related_count('userdm')->get();
-						$ids = array();
-						foreach($r_help as $role_help)
-						{
-							if($role_help->userdm_count > 0)
+							case 1:
+							$r_help = new Roledm();
+							$r_help->select('id')->include_related_count('userdm')->get();
+							$ids = array();
+							foreach($r_help as $role_help)
 							{
-								echo $role_help->id.br();
-								$ids[]=$role_help->id;
+								if($role_help->userdm_count > 0)
+								{
+									# DEBUG echo $role_help->id.br();
+									$ids[]=$role_help->id;
+								}
+								
 							}
-							
+							$r->where_in('id', $ids);
+							break;
 						}
-						$r->where_in('id', $ids);
-						break;
-					}
 					break;			
 				}
 			}
 		}
 		
-		# DEBUG
-		echo 'query field: '.($field);
+		# DEBUG echo 'query field: '.($field);
 		$roles =  $r->order_by($field, $asc)->get_paged($page, $per_page);
 		
 		foreach($roles as $role)

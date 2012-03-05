@@ -15,6 +15,7 @@ class User_c extends DV_Controller
 
 		# Setting configs
 		$this -> load -> config('tank_auth/user');
+
 		$this -> load -> config('tank_auth/division_clutch');
 	}
 
@@ -296,7 +297,18 @@ class User_c extends DV_Controller
 		
 		if ( ! $this -> input -> post('user_c_change_pass_submit'))
 		{
-			$this -> load -> view('tank_auth/user_c_change_pass');
+			$u = new Userdm();
+			$u -> where('id', $id) -> get();
+			
+			if ($u -> result_count() < 1)
+			{
+				$this -> _no_db_result();
+			}
+			else 
+			{
+				$this -> load -> view('tank_auth/user_c_change_pass');
+			}
+			
 		}
 		else
 		{
@@ -320,13 +332,14 @@ class User_c extends DV_Controller
 
 				$password = $this -> input -> post('new_password');
 				
+				
 				if (!is_null($data = $this -> tank_auth -> reset_password($id, $new_pass_key, $password)))
 				{
 					$this -> _success_page();
 				}
 				else 
 				{
-					$this -> _fail_page();
+					$this -> _fail_page('Password cannot be changed');
 				}
 			}
 		}
@@ -341,7 +354,15 @@ class User_c extends DV_Controller
 		
 		if ( ! $this -> input -> post('user_c_change_username_submit'))
 		{
-			$this -> load -> view('tank_auth/user_c_change_username', array('current_username' => $u->username));
+			
+			if ($u -> result_count() < 1)
+			{
+				$this -> _no_db_result();
+			}
+			else 
+			{	
+				$this -> load -> view('tank_auth/user_c_change_username', array('current_username' => $u->username));
+			}
 			
 		}
 		else 
@@ -378,7 +399,14 @@ class User_c extends DV_Controller
 		
 		if ( ! $this -> input -> post('user_c_change_email_submit'))
 		{
-			$this -> load -> view('tank_auth/user_c_change_email', array('current_email' => $u->email));
+			if ($u -> result_count() < 1)
+			{
+				$this -> _no_db_result();
+			}
+			else 
+			{	
+				$this -> load -> view('tank_auth/user_c_change_email', array('current_email' => $u->email));
+			}
 			
 		}
 		else 
@@ -421,6 +449,9 @@ class User_c extends DV_Controller
 			case DV_Controller::SUCCESS_PAGE :
 				$this -> _success_page();
 				break;
+			case -11:
+				$this -> _fail_page("You cannot delete yourself!");
+				break;
 			default :
 				$this -> _fail_page();
 				break;
@@ -429,7 +460,6 @@ class User_c extends DV_Controller
 
 	public function edit($page_url, $field_url, $asc_url, $filter_url)
 	{
-
 		$page;
 		$field;
 		$asc;
@@ -453,51 +483,54 @@ class User_c extends DV_Controller
 
 		switch($field_url)
 		{
-			case $this->config->item('edit_role_url_name') :
-				$field = 'name';
+			case $this->config->item('edit_user_url_username') :
+				$field = 'username';
+				break;
+				
+			case $this->config->item('edit_user_url_email') :
+				$field = 'email';
 				break;
 
-			case $this->config->item('edit_role_url_description') :
-				$field = 'description';
+			case $this->config->item('edit_user_url_activated') :
+				$field = 'activated';
+				break;
+			
+			
+			case $this->config->item('edit_user_url_status') :
+				$field = 'banned';
 				break;
 
-			case $this->config->item('edit_role_url_status') :
-				$field = 'status';
-				break;
-
-			case $this->config->item('edit_role_url_created') :
+			case $this->config->item('edit_user_url_created') :
 				$field = 'created';
 				break;
 
-			case $this->config->item('edit_role_url_modified') :
+			case $this->config->item('edit_user_url_modified') :
 				$field = 'modified';
 				break;
 
 			# for join and special fields
 			# special fields are constructed in-fly - they haven't relational field in database
-			case $this->config->item('edit_role_url_users') :
-				$field = 'userdm_count';
-				break;
-
+			# here nothing special field
+			
 			default :
-				$field = 'name';
-				$field_url = $this -> config -> item('edit_role_url_name');
+				$field = 'username';
+				$field_url = $this -> config -> item('edit_user_url_username');
 				break;
 		}
 
 		switch($asc_url)
 		{
-			case $this->config->item('edit_role_url_asc') :
+			case $this->config->item('edit_user_url_asc') :
 				$asc = 'asc';
 				break;
 
-			case $this->config->item('edit_role_url_desc') :
+			case $this->config->item('edit_user_url_desc') :
 				$asc = 'desc';
 				break;
 
 			default :
 				$asc = 'asc';
-				$asc_url = $this -> config -> item('edit_role_url_asc');
+				$asc_url = $this -> config -> item('edit_user_url_asc');
 				break;
 		}
 
@@ -505,7 +538,7 @@ class User_c extends DV_Controller
 			'form',
 			'array'
 		));
-		$this -> load -> library('role/role_lib');
+		$this -> load -> library('tank_auth/user_lib');
 		$url = $this -> division_builder -> get_path();
 		array_pop($url);
 		$url = implode('/', $url) . '/';
@@ -513,56 +546,55 @@ class User_c extends DV_Controller
 		$filters = array();
 		if ($filter_url != '')
 		{
-			$filters = $this -> role_lib -> generate_filters($filter_url);
+			$filters = $this -> user_lib -> generate_filters($filter_url);
 		}
 
 		if ($this -> input -> post('filter'))
 		{
-			$filters = $this -> role_lib -> generate_filters($this -> input -> post(), $filters);
-			$filter_url = $this -> role_lib -> generate_filter_string($filters);
+			$filters = $this -> user_lib -> generate_filters($this -> input -> post(), $filters);
+			$filter_url = $this -> user_lib -> generate_filter_string($filters);
 		}
 
-		# DEBUG
-		echo('Filter_url: ' . $filter_url . br());
+		# DEBUG echo('Filter_url: ' . $filter_url . br());
 
 		if (!$this -> input -> post('validation_submit'))
 		{
-			$this -> load -> view('role/role_c_edit', array(
-				'items' => $this -> role_lib -> get_many($page, $this -> config -> item('edit_role_per_page'), $field, $asc, $filters),
-				'role_edit_base_url' => $url,
-				'role_edit_filter_url' => $filter_url,
-				'role_edit_field_url' => $field_url,
-				'role_edit_asc_url' => $asc_url,
+			$this -> load -> view('tank_auth/user_c_edit', array(
+				'items' => $this -> user_lib -> get_many($page, $this -> config -> item('edit_user_per_page'), $field, $asc, $filters),
+				'user_edit_base_url' => $url,
+				'user_edit_filter_url' => $filter_url,
+				'user_edit_field_url' => $field_url,
+				'user_edit_asc_url' => $asc_url,
 			));
 
 		}
 		else
 		{
 			$this -> load -> library('form_validation');
-			$this -> form_validation -> set_rules('role_delete', $this -> lang -> line('role_edit_form_role_delete'), 'xss_clean');
+			$this -> form_validation -> set_rules('user_delete', $this -> lang -> line('user_edit_form_user_delete'), 'xss_clean');
 
 			if (!$this -> form_validation -> run())
 			{
-				$this -> load -> view('role/role_c_edit_fail', array(
-					'items' => $this -> role_lib -> get_many($page, $this -> config -> item('edit_role_per_page'), $field, $asc, $filters),
-					'role_edit_base_url' => $url,
-					'role_edit_filter_url' => $filter_url,
-					'role_edit_field_url' => $field_url,
-					'role_edit_asc_url' => $asc_url,
+				$this -> load -> view('tank_auth/user_c_edit_fail', array(
+					'items' => $this -> user_lib -> get_many($page, $this -> config -> item('edit_user_per_page'), $field, $asc, $filters),
+					'user_edit_base_url' => $url,
+					'user_edit_filter_url' => $filter_url,
+					'user_edit_field_url' => $field_url,
+					'user_edit_asc_url' => $asc_url,
 				));
 			}
 			else
 			{
-				switch($this->role_lib->delete_many($this->input->post('role_delete')))
+				switch($this->user_lib->delete_many($this->input->post('user_delete')))
 				{
-					case -2 :
-						$this -> _fail_page($this -> lang -> line('role_content_delete_user_exist'));
-						break;
-					case 0 :
+					case DV_Controller::FAIL_PAGE:
 						$this -> _fail_page();
 						break;
-					case 1 :
+					case DV_Controller::SUCCESS_PAGE:
 						$this -> _success_page();
+						break;
+					case -11:
+						$this -> _fail_page("You cannot delete yourself!");
 						break;
 					default :
 						$this -> _fail_page();

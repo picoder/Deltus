@@ -13,7 +13,7 @@
 
 .list div.header_list div.l, .list div.header_list div.e {min-height:40px; height:40px; background-color:#CCC; line-height:40px; vertical-align:middle; text-align:center; font-weight:bold;}
 .header_list div.l {border-right:1px solid #FFF;}
-#role_edit_form div.l {width:110px;}
-#role_edit_form div.status {width:70px;}
+#role_edit_form div.l, #user_edit_form div.l {width:150px;}
+#role_edit_form div.status, #user_edit_form div.status {width:70px;}
 
 /********************end*******************/

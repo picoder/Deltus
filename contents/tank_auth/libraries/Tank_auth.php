@@ -377,7 +377,7 @@ class Tank_auth
 		if ((strlen($user_id) > 0) AND (strlen($new_pass_key) > 0) AND (strlen($new_password) > 0))
 		{
 
-			if (!is_null($user = $this -> ci -> users -> get_user_by_id($user_id, TRUE)))
+			if ( ! is_null($user = $this -> ci -> users -> get_user_by_id($user_id, TRUE)))
 			{
 
 				// Hash password using phpass
@@ -400,7 +400,9 @@ class Tank_auth
 					);
 				}
 			}
+			
 		}
+
 		return NULL;
 	}
 
