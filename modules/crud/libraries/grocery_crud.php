@@ -1218,7 +1218,7 @@ class grocery_Layout extends grocery_Model_Driver
 	
 	protected function showAddForm()
 	{
-		$this->set_js('assets/grocery_crud/js/jquery-1.7.1.min.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery-1.7.1.min.js');
 		
 		$data 				= $this->get_common_data();
 		$data->types 		= $this->get_field_types();
@@ -1236,7 +1236,7 @@ class grocery_Layout extends grocery_Model_Driver
 	
 	protected function showEditForm($state_info)
 	{
-		$this->set_js('assets/grocery_crud/js/jquery-1.7.1.min.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery-1.7.1.min.js');
 		
 		$data 				= $this->get_common_data();
 		$data->types 		= $this->get_field_types();
@@ -1395,8 +1395,8 @@ class grocery_Layout extends grocery_Model_Driver
 	
 	protected function get_integer_input($field_info,$value)
 	{
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery.numeric.js');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.numeric.config.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery.numeric.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.numeric.config.js');
 		$extra_attributes = '';
 		if(!empty($field_info->db_max_length))
 			$extra_attributes .= "maxlength='{$field_info->db_max_length}'"; 
@@ -1431,8 +1431,8 @@ class grocery_Layout extends grocery_Model_Driver
 	{   
 		if($field_info->extras == 'text_editor')
 		{
-			$this->set_js('assets/grocery_crud/texteditor/jquery.tinymce.js');
-			$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.tine_mce.config.js');
+			$this->set_js('modules/crud/assets/grocery_crud/texteditor/jquery.tinymce.js');
+			$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.tine_mce.config.js');
 			$input = "<textarea name='{$field_info->name}' class='texteditor' >$value</textarea>";
 		}
 		else
@@ -1444,11 +1444,11 @@ class grocery_Layout extends grocery_Model_Driver
 	
 	protected function get_datetime_input($field_info,$value)
 	{
-		$this->set_css('assets/grocery_crud/css/ui/simple/jquery-ui-1.8.10.custom.css');
-		$this->set_css('assets/grocery_crud/css/jquery_plugins/jquery.ui.datetime.css');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery-ui-1.8.10.custom.min.js');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery.ui.datetime.js');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.datetime.config.js');
+		$this->set_css('modules/crud/assets/grocery_crud/css/ui/simple/jquery-ui-1.8.10.custom.css');
+		$this->set_css('modules/crud/assets/grocery_crud/css/jquery_plugins/jquery.ui.datetime.css');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery-ui-1.8.10.custom.min.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery.ui.datetime.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.datetime.config.js');
 		$input = "<input name='{$field_info->name}' type='text' value='$value' maxlength='19' class='datetime-input' /> 
 		<button class='datetime-input-clear'>".$this->l('form_button_clear')."</button>
 		(yyyy-mm-dd) hh:mm:ss";
@@ -1476,9 +1476,9 @@ class grocery_Layout extends grocery_Model_Driver
 	
 	protected function get_date_input($field_info,$value)
 	{
-		$this->set_css('assets/grocery_crud/css/ui/simple/jquery-ui-1.8.10.custom.css');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery-ui-1.8.10.custom.min.js');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.datepicker.config.js');
+		$this->set_css('modules/crud/assets/grocery_crud/css/ui/simple/jquery-ui-1.8.10.custom.css');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery-ui-1.8.10.custom.min.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.datepicker.config.js');
 		$input = "<input name='{$field_info->name}' type='text' value='$value' maxlength='10' class='datepicker-input' /> 
 		<button class='datepicker-input-clear'>".$this->l('form_button_clear')."</button> (yyyy-mm-dd)";
 		return $input;
@@ -1501,9 +1501,9 @@ class grocery_Layout extends grocery_Model_Driver
 	
 	protected function get_relation_input($field_info,$value)
 	{
-		$this->set_css('assets/grocery_crud/css/jquery_plugins/chosen/chosen.css');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js');
-		$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js');
+		$this->set_css('modules/crud/assets/grocery_crud/css/jquery_plugins/chosen/chosen.css');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js');
 
 //@todo have to do the Select {display_as} as a lang string		
 		$input = "<select name='{$field_info->name}' class='chosen-select' data-placeholder='Select {$field_info->display_as}'>";
@@ -1525,17 +1525,17 @@ class grocery_Layout extends grocery_Model_Driver
 		
 		if($has_priority_field)
 		{
-			$this->set_css('assets/grocery_crud/css/ui/simple/jquery-ui-1.8.10.custom.css');	
-			$this->set_css('assets/grocery_crud/css/jquery_plugins/ui.multiselect.css');
-			$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery-ui-1.8.10.custom.min.js');	
-			$this->set_js('assets/grocery_crud/js/jquery_plugins/ui.multiselect.js');
-			$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.multiselect.js');
+			$this->set_css('modules/crud/assets/grocery_crud/css/ui/simple/jquery-ui-1.8.10.custom.css');	
+			$this->set_css('modules/crud/assets/grocery_crud/css/jquery_plugins/ui.multiselect.css');
+			$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery-ui-1.8.10.custom.min.js');	
+			$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/ui.multiselect.js');
+			$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.multiselect.js');
 		}
 		else 
 		{
-			$this->set_css('assets/grocery_crud/css/jquery_plugins/chosen/chosen.css');
-			$this->set_js('assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js');
-			$this->set_js('assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js');
+			$this->set_css('modules/crud/assets/grocery_crud/css/jquery_plugins/chosen/chosen.css');
+			$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/jquery.chosen.min.js');
+			$this->set_js('modules/crud/assets/grocery_crud/js/jquery_plugins/config/jquery.chosen.config.js');
 		}
 		$field_info 		= $this->relation_n_n[$field_info_type->name]; //As we use this function the relation_n_n exists, so don't need to check
 		$unselected_values 	= $this->get_relation_n_n_unselected_array($field_info, $selected_values);
@@ -1570,9 +1570,9 @@ class grocery_Layout extends grocery_Model_Driver
 
 	protected function get_upload_file_input($field_info, $value)
 	{
-		$this->set_css('assets/grocery_crud/css/other/fileuploader/fileuploader.css');
-		$this->set_js('assets/grocery_crud/js/other/fileuploader.js');
-		$this->set_js('assets/grocery_crud/js/other/fileuploader.config.js');
+		$this->set_css('modules/crud/assets/grocery_crud/css/other/fileuploader/fileuploader.css');
+		$this->set_js('modules/crud/assets/grocery_crud/js/other/fileuploader.js');
+		$this->set_js('modules/crud/assets/grocery_crud/js/other/fileuploader.config.js');
 		
 		$unique = uniqid();
 		
@@ -2111,8 +2111,8 @@ class grocery_CRUD extends grocery_States
 	private $edit_fields_checked	= false;	
 	
 	protected $default_theme		= 'flexigrid';
-	protected $default_theme_path	= 'assets/grocery_crud/themes';
-	protected $default_language_path= 'assets/grocery_crud/languages';
+	protected $default_theme_path	= 'modules/crud/assets/grocery_crud/themes';
+	protected $default_language_path= 'modules/crud/assets/grocery_crud/languages';
 	protected $language				= null;
 	protected $lang_strings			= array();
 	
