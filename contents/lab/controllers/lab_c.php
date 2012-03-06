@@ -70,7 +70,7 @@ class Lab_c extends DV_Controller { //content
 			
 			case 'user-crud':
 			$this->division_builder->set_path('user-crud');
-			echo modules::run('tank_auth/user_crud/user_crud');
+			echo modules::run('tank_auth/user_crud/index');
 			break;
 			
 			case 'empty':

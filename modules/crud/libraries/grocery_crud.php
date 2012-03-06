@@ -401,7 +401,7 @@ class grocery_Model_Driver extends grocery_Field_Types
 	protected function set_default_Model()
 	{
 		$ci = &get_instance();
-		$ci->load->model('grocery_Model');
+		$ci->load->model('crud/grocery_Model');
 		
 		$this->basic_model = $ci->grocery_Model;
 	}
@@ -434,7 +434,7 @@ class grocery_Model_Driver extends grocery_Field_Types
 	public function set_model($model_name)
 	{
 		$ci = &get_instance();
-		$ci->load->model('grocery_Model');	
+		$ci->load->model('crud/grocery_Model');	
 		
 		$ci->load->model($model_name);
 		
@@ -2437,7 +2437,7 @@ class grocery_CRUD extends grocery_States
 		if($this->language === null)
 		{
 			$ci = &get_instance();
-			$ci->config->load('grocery_crud');
+			$ci->config->load('crud/grocery_crud');
 			$this->language = $ci->config->item('grocery_crud_default_language');
 		}
 		include($this->default_language_path.'/'.$this->language.'.php');

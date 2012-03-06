@@ -11,12 +11,18 @@ class User_crud extends DV_Controller
 		$this->load->library('crud/grocery_CRUD');	
 	}
 	
-	public function user_crud()
+	protected function _output($output = null)
+	{
+		$this->load->view('tank_auth/user_crud_user_crud.php',$output);	
+	}
+	
+	public function index()
 	{
 		$crud = new grocery_CRUD();
 		$crud->set_table('users');
 		$crud->fields('username', 'email', 'activated', 'banned', 'last_login', 'created', 'modified');
-		echo $crud->render();
+		$output =  $crud->render();
+		$this->_output($output);
 	}
 
 
