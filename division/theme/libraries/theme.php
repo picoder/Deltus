@@ -66,6 +66,12 @@ class Theme
 		$this->module_out_css[] = 'modules/'.$module_name.'/views/assets/'.$subpath.'css/'.$name.'.css';
 	}
 	
+	# not with http
+	public function set_mod_css_full($path_with_type)
+	{
+		$this->module_out_css[] = $path_with_type;
+	}
+	
 	public function set_mod_in_css($content)
 	{
 		$this->module_in_css[] = $content;
@@ -96,6 +102,13 @@ class Theme
 	public function set_mod_js($module_name, $name, $subpath = '', $place = 'head')
 	{
 		array_push($this->{'module_out_js_'.$place}, 'modules/'.$module_name.'/views/assets/'.$subpath.'js/'.$name.'.js');
+	}
+	
+	# $path_with_type not with http
+	# references to all files must be set with http because minified file would not see them
+	public function set_mod_js_full($path_with_type, $place = 'head') 
+	{
+		array_push($this->{'module_out_js_'.$place}, $path_with_type);
 	}
 	
 	public function set_mod_in_js($content, $place = 'head')

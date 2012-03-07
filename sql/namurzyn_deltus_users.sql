@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 02 Mar 2012, 00:07
--- Wersja serwera: 5.5.8
--- Wersja PHP: 5.3.5
+-- Czas wygenerowania: 07 Mar 2012, 12:50
+-- Wersja serwera: 5.1.41
+-- Wersja PHP: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Baza danych: `namurzyn_deltus_chris_users`
+-- Baza danych: `namurzyn_deltus_users`
 --
 
 -- --------------------------------------------------------
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `divisions` (
 INSERT INTO `divisions` (`id`, `url`, `permissions`, `configurations`, `contents`, `widgets`, `layout`, `name`, `label`, `description`, `status`) VALUES
 (4, 'panel-administracyjny', '', '', 'backend/backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[0]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|', 'admin_theme/admin_theme/index->parametr1-|parametr2-|&', 'panel-administracyjny', 'panel-administracyjny', 'panel-administracyjny', 1),
 (5, 'samochody-z-niemiec', '', ';', 'frontend/frontend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[0]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|', 'pati_theme/pati_theme/index->parametr1-|parametr2-|&', 'frontend auto-pati', 'frontend auto-pati', 'samochody-z-niemiec', 1),
-(6, 'test', 's:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);s:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);', 'index_single=s#data from division - single index;index1,index2=i#4;type_float,index2=f#4.1;second_index,first_index=s#from division two dimension;test_config_index=s#from division single index;deltus_language=s#english;', 'lab/lab/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'test name', 'test label', 'test description', 1),
+(6, 'test', 's:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);s:CONTENT.START.START.SDO,n:null=a(s:check_full_access=>b:false);\r\ns:MODULE.ROLE.CONTENT.EDIT,n:null=a(s:check_full_access=>b:true);', 'index_single=s#data from division - single index;index1,index2=i#4;type_float,index2=f#4.1;second_index,first_index=s#from division two dimension;test_config_index=s#from division single index;deltus_language=s#english;', 'lab/lab/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'test name', 'test label', 'test description', 1),
 (7, 'ttp', '', '', '', '', 'ttp_theme/ttp_theme/index->parametr1-|parametr2-|&', 'ttp name', 'ttp label', 'ttp', 1);
 
 -- --------------------------------------------------------
@@ -178,15 +178,12 @@ CREATE TABLE IF NOT EXISTS `login_attempts` (
   `login` varchar(50) COLLATE utf8_bin NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
 -- Zrzut danych tabeli `login_attempts`
 --
 
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(3, '127.0.0.1', 'antek@o2.pl', '2012-03-01 17:27:24'),
-(4, '127.0.0.1', 'antek@o2.pl', '2012-03-01 17:27:39');
 
 -- --------------------------------------------------------
 
@@ -276,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Przechowuje grupy uzytkowników' AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Przechowuje grupy uzytkowników' AUTO_INCREMENT=27 ;
 
 --
 -- Zrzut danych tabeli `roles`
@@ -289,7 +286,9 @@ INSERT INTO `roles` (`id`, `name`, `description`, `include`, `status`, `created`
 (15, 'role1', 'role1', 1, 0, '2011-12-30 01:46:25', '2011-12-30 01:46:25'),
 (22, 'role2', 'role2_d', 1, 1, '2012-01-26 19:31:49', '2012-01-26 19:31:49'),
 (23, 'role3', 'role3_d', 1, 1, '2012-01-26 19:33:18', '2012-01-26 19:33:18'),
-(24, 'role4', 'role4_d', 1, 1, '2012-01-26 19:33:27', '2012-01-26 19:33:27');
+(24, 'role4', 'role4_d', 1, 1, '2012-01-26 19:33:27', '2012-01-26 19:33:27'),
+(25, 'kozik', 'kozik opsi', 1, 1, '2012-03-06 13:13:48', '2012-03-06 13:13:48'),
+(26, 'filip', 'filip', 1, 1, '2012-03-06 13:14:01', '2012-03-06 13:14:01');
 
 -- --------------------------------------------------------
 
@@ -302,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
   `userdm_id` int(11) NOT NULL,
   `roledm_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Zrzut danych tabeli `roles_users`
@@ -310,10 +309,11 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
 
 INSERT INTO `roles_users` (`id`, `userdm_id`, `roledm_id`) VALUES
 (3, 1, 12),
-(4, 2, 12),
-(6, 4, 14),
 (7, 5, 12),
-(8, 6, 12);
+(23, 2, 12),
+(25, 4, 12),
+(27, 10, 12),
+(29, 15, 12);
 
 -- --------------------------------------------------------
 
@@ -479,19 +479,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username_2` (`username`),
+  UNIQUE KEY `username_3` (`username`),
+  UNIQUE KEY `username_4` (`username`),
+  UNIQUE KEY `username_5` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=16 ;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-03-01 23:53:17', '2011-09-26 15:25:22', '2012-03-01 23:53:17'),
-(2, 'kako', '$P$BgHKLOyeQiYFi71upw4tSd7W4uPMtZ/', 'thiede@targipracy.gdansk.pl', 0, 0, NULL, NULL, NULL, NULL, 'd2a330aba72c28255744a66dfa6b62ac', '127.0.0.1', '0000-00-00 00:00:00', '2011-11-22 20:29:44', '2011-11-22 20:29:20'),
-(4, 'ania', '$P$BAcxHhXhXVRxFGdEkmvZwMC8Qm3zgc.', 'akorsak@wp.pl', 0, 0, NULL, NULL, NULL, NULL, '6b0e441f41d1704301dc21b4f02feffb', '127.0.0.1', '0000-00-00 00:00:00', '2011-12-18 13:18:08', '2011-12-18 13:18:08'),
+(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-03-06 23:24:32', '2011-09-26 15:25:22', '2012-03-06 23:24:08'),
+(2, 'kako', '$P$BgHKLOyeQiYFi71upw4tSd7W4uPMtZ/', 'thiede@targipracy.gdansk.pl', 1, 1, NULL, '76594b6b0a92dff47f8a0c30b85191a6', '2012-03-03 17:40:45', NULL, 'd2a330aba72c28255744a66dfa6b62ac', '127.0.0.1', '0000-00-00 00:00:00', '2011-11-22 20:29:44', '2012-03-03 17:57:54'),
+(4, 'ania', '$P$BsruRwXG4G1Uu7P3Hg1NC3ibTF9Ibe1', 'akorsak@wp.pl', 1, 1, NULL, NULL, NULL, NULL, '6b0e441f41d1704301dc21b4f02feffb', '127.0.0.1', '2012-03-03 17:59:12', '2011-12-18 13:18:08', '2012-03-03 19:20:49'),
 (5, 'test_user', '$P$Bqb0FvTmFM.teDReZXeLqlLXow4w2X1', 'reklama@targipracy.gdansk.pl', 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2012-01-31 16:59:53', '2012-01-31 16:57:32', '2012-01-31 16:59:29'),
-(6, 'antek', '$P$B87fmVIcxnY/GfAB7tBYZkFMOoKFbn1', 'antek@o2.pl', 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2012-03-01 23:54:44', '2012-03-01 23:53:49', '2012-03-01 23:54:44');
+(10, 'polak', '$P$BhEMKJq.qL3tBs8QAUFqZ.frQa2uQI.', 'polak@polak.pl', 1, 1, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '0000-00-00 00:00:00', '2012-03-03 19:21:35', '2012-03-03 19:21:55'),
+(15, 'edi', '$P$Bxag8iFpuHAz97k8cFSDRKupZzFKF0.', 'edi@edi.pl', 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2012-03-07 00:24:48', '0000-00-00 00:00:00', '2012-03-07 00:24:24');
 
 -- --------------------------------------------------------
 
@@ -525,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `user_profiles` (
   `country` varchar(20) COLLATE utf8_bin DEFAULT NULL,
   `website` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=8 ;
 
 --
 -- Zrzut danych tabeli `user_profiles`
@@ -533,4 +538,13 @@ CREATE TABLE IF NOT EXISTS `user_profiles` (
 
 INSERT INTO `user_profiles` (`id`, `user_id`, `country`, `website`) VALUES
 (1, 5, NULL, NULL),
-(2, 6, NULL, NULL);
+(2, 6, NULL, NULL),
+(3, 7, NULL, NULL),
+(4, 8, NULL, NULL),
+(5, 9, NULL, NULL),
+(6, 10, NULL, NULL),
+(7, 11, NULL, NULL);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

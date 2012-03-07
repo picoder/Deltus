@@ -37,5 +37,7 @@ $config['MODULE.USER.CONTENT.DELETE'] = array('check_role' => array('administrat
 $config['MODULE.USER.CONTENT.EDIT'] = array('check_role' => array('administrator'));
 $config['MODULE.USER.CONTENT.EDIT_FILTER'] = array('check_role' => array('administrator'));
 
+$config['TANK_AUTH.USER_CRUD.CRUD_EDIT'] = array('check_role' => array('administrator'));
+
 /* End of file permissions.php */
 /* Location: ./modules/permissions/config/permissions.php */

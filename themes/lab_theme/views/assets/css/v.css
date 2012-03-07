@@ -1,5 +1,5 @@
 html {height:100%;overflow-y:scroll;}
-body {height:100%;text-align:center;}
+body {height:100%;text-align:center; margin: 0; padding: 0}
 .w {
 	margin-right:auto;
 	margin-left:auto;
