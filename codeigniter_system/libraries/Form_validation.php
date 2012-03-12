@@ -35,6 +35,7 @@ class CI_Form_validation {
 	protected $_error_suffix		= '</p>';
 	protected $error_string			= '';
 	protected $_safe_form_data		= FALSE;
+    
 
 	/**
 	 * Constructor

@@ -561,7 +561,7 @@ class grocery_Model_Driver extends grocery_Field_Types
 					$form_validation->set_rules($rule['field'],$rule['label'],$rule['rules']);
 				}	
 			}	
-			
+            
 			if($form_validation->run())
 			{
 				$validation_result->success = true;
@@ -585,6 +585,7 @@ class grocery_Model_Driver extends grocery_Field_Types
 		if($this->form_validation === null)
 		{
 			$this->form_validation = new grocery_Form_validation();
+            $this->form_validation->module = $this->module; # +chris
 			$ci = &get_instance();
 			$ci->load->library('form_validation');
 			$ci->form_validation = $this->form_validation;
@@ -615,7 +616,6 @@ class grocery_Model_Driver extends grocery_Field_Types
 		if(!empty($this->validation_rules))
 		{
 			$form_validation = $this->form_validation();
-			
 			$edit_fields = $this->get_edit_fields();
 			
 			foreach($edit_fields as $edit_field)
@@ -2102,6 +2102,8 @@ class grocery_States extends grocery_Layout
  */
 class grocery_CRUD extends grocery_States
 {
+	public $module                  = null;    
+        
 	private $state_code 			= null;
 	private $state_info 			= null;
 	private $basic_db_table_checked = false;
@@ -3040,6 +3042,7 @@ class grocery_CRUD extends grocery_States
 	 */	
 	public function get_table()
 	{
+	    
 		if($this->basic_db_table_checked)
 		{
 			return $this->basic_db_table;
@@ -3221,7 +3224,9 @@ class grocery_CRUD extends grocery_States
  */
 class grocery_Form_validation {
 
-	protected $CI;
+	# protected $CI; //-chris
+	public $CI; //+chris
+	public $module              = null; //+chris
 	public $_field_data			= array();
 	public $_config_rules		= array();
 	public $_error_array		= array();
@@ -3775,17 +3780,55 @@ class grocery_Form_validation {
 				$rule	= $match[1];
 				$param	= $match[2];
 			}
-
+            
+           
 			// Call the function that corresponds to the rule
+			
+			$hmvc_module = '';
+			$hmvc_controller = '';
 			if ($callback === TRUE)
 			{
-				if ( ! method_exists($this->CI, $rule))
-				{
-					continue;
-				}
+			     if($this->module)
+                 {
+                    $this->CI->load->module($this->module);
+                    $hmvc_module = substr($this->module,0, strpos($this->module, '/'));
+                    $hmvc_controller = substr($this->module, strpos($this->module, '/') + 1);
+                    
+                    
+                    
+                    if ( ! method_exists($this->CI->$hmvc_controller, $rule))
+                    {
+                        
+                        continue;
+                     
+                    }
+                 }
+                 else 
+                 {
+                     if ( ! method_exists($this->CI, $rule))
+                     {
+                           
+                        continue;
+                     
+                     }
+                 }
+
+				# $this->CI->load->module('tank_auth/user_crud');
 
 				// Run the function and grab the result
-				$result = $this->CI->$rule($postdata, $param);
+				$result;
+				 if($this->module)
+                 {
+                     log_message('error', $hmvc_module.'->'.$hmvc_controller);
+                     
+                     $result = $this->CI->$hmvc_controller->$rule($postdata, $param);
+                 }
+                 else 
+                 {
+                     $result = $this->CI->$rule($postdata, $param);
+                 }
+				 
+				
 
 				// Re-assign the result to the master data array
 				if ($_in_array == TRUE)

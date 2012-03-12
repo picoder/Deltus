@@ -177,8 +177,10 @@ class User_c extends DV_Controller
 		else
 		{
 			$this -> load -> library('form_validation');
-			$this -> form_validation -> set_rules('user_name', $this -> lang -> line('user_c_add_role_name'), 'required|min_length[4]');
-
+            $this->form_validation->CI =& $this;
+			$this -> form_validation -> set_rules('user_name', $this -> lang -> line('user_c_add_role_name'), 'callback_username_check');
+            
+            # we must call run with $this for properly working MY_Form_validation class which extends standard CI_Form_validation class
 			if (!$this -> form_validation -> run())
 			{
 				$this -> load -> view('tank_auth/user_c_add');
@@ -222,6 +224,12 @@ class User_c extends DV_Controller
 			}
 		}
 	}
+
+    public function username_check($str)
+    {
+        $this->form_validation->set_message('username_check', 'The %s field can not be the word "test"');
+        return FALSE;
+    }
 
 	# without password and role
 	public function update($id)

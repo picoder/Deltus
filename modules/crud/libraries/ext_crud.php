@@ -22,7 +22,6 @@ class ext_crud extends grocery_crud
 	
 	public function edit_form($id)
 	{
-		$obj->primary_key = $id;
-		$this->showEditForm($obj);
+		echo 'ok';
 	}
 }

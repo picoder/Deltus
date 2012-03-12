@@ -27,13 +27,16 @@ class Lab extends DV_Controller {
 		$this->load->library('tank_auth/tank_auth');
 		$this->load->library('role/role_lib');
 		
+        //echo $this->tank_auth->get_user_id().br();
+        
 		# Role determine next steps. For admin  modules we can choose backend admin panel
 		$user_roles = array();
 		$user_roles = $this->role_lib->get_user_roles($this->tank_auth->get_user_id());
 		
 		if(empty($user_roles)) 
 		{
-			#die('You have no role assigned');
+			# die('You have no role assigned');
+			echo 'No role'.br();
 			$this->_login_backend();
 		}
 		
@@ -56,6 +59,9 @@ class Lab extends DV_Controller {
 			$this->division_builder->set_path('auth');
 			echo modules::run('tank_auth/tank_auth_backend/index');
 			break;
+            # in case of problems with tank_auth and deltus logic
+            case 'logout':
+                $this->tank_auth->logout();
 			default:
 			$this->division_builder->set_path('auth');
 			echo modules::run('tank_auth/tank_auth_backend/index');
@@ -96,7 +102,6 @@ class Lab extends DV_Controller {
 			break;
 			
 			case 'auth':
-			echo modules::run('tank_auth/tank_auth_backend/index');
 			echo modules::run('tank_auth/tank_auth_backend/index');
 			break;
 			
