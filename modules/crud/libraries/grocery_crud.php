@@ -2786,8 +2786,9 @@ class grocery_CRUD extends grocery_States
 				$this->set_basic_db_table($this->get_table());
 				
 				$state_info = $this->getStateInfo();
+                
 				$delete_result = $this->db_delete($state_info);
-				
+
 				$this->delete_layout( $delete_result );
 			break;				
 			

@@ -3,11 +3,9 @@
         exit('No direct script access allowed');
 
     /*
-     * Done: User can't edit/delete himself
-     * TODO: Handling exception from grocery_crud
+     * Done: User can't edit/delete himself (TODO error page must be integrated with cms)
      * Done: Username can't be dupliacated
      * Done: Email can't be duplicated
-     *
      *
      */
 

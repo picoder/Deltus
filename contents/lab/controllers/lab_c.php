@@ -72,6 +72,11 @@ class Lab_c extends DV_Controller { //content
 			$this->division_builder->set_path('user-crud');
 			echo modules::run('tank_auth/user_crud/index');
 			break;
+            
+            case 'role-crud':
+            $this->division_builder->set_path('role-crud');
+            echo modules::run('role/role_crud/index');
+            break;
 			
 			case 'empty':
 			$this->division_builder->set_path('empty');

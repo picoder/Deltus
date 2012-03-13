@@ -2,3 +2,5 @@ themes/lab_theme/views/assets/minify
 */mini.css
 */mini.js
 */.gitignore
+application/logs
+themes/lab_theme/views/assets/minify

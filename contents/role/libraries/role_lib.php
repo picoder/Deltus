@@ -60,6 +60,13 @@ class Role_lib
 			}
 		}
 	}
+    
+    public function count_assigned_users($role_id)
+    {
+        $r = new Roledm();
+        $r -> include_related_count('userdm') -> where('id', $role_id) -> get();
+        return $r->userdm_count;
+    }
 	
 	public function get_many($page, $per_page, $field, $asc, $filters)
 	{
