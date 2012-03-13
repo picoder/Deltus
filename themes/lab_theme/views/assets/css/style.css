@@ -9,7 +9,7 @@
 input[type="file"], input[type="submit"], input[ype="image"], input[type="reset"], input[type="button"] {width:auto;}  
 
 
-.mceEditor {left:80px; position:relative; display:block;}
+/*.mceEditor {left:80px; position:relative; display:block;}*/
 .plupload_container {padding:0 !important; margin-top:20px;}
 .plupload_container li {list-style-type:none; margin:0; padding:0;}
 /*#uploader {width:600px; left:80px;} */
