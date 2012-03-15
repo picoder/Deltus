@@ -85,6 +85,7 @@ class Lab_c extends DV_Controller { //content
 			break;
 			
 			default:
+            log_message('error', 'no_page');
 			$this->_no_page(); 
 			break;
 		}

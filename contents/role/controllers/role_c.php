@@ -46,12 +46,15 @@ class Role_c extends DV_Controller {
 			break;
 		}
 		
+        $this->main_permission();
 		# Checking permissions
-		if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))
+		/*if($this->check_permission('permissions/permissions','permissions/permissions/default_no_permission'))
 		{
 			# Additional steps if no permission
 			return;
 		}
+         
+         */
 		
 		# Running methods (if we have right permission)
 		switch($this->uri->segment($this->division_builder->get_cur_seg()))

@@ -25,15 +25,14 @@ class Lab extends DV_Controller {
 		# For admin modules we must load tank_auth and role module
 		# $this->load->module('tank_auth/tank_auth_backend'); # to load parameters in constructor
 		$this->load->library('tank_auth/tank_auth');
+        log_message('error', 'Auth: '.$this->tank_auth->get_username(). ' | in not activated: '.$this->tank_auth->is_logged_in(FALSE));
 		$this->load->library('role/role_lib');
-		
-        //echo $this->tank_auth->get_user_id().br();
         
 		# Role determine next steps. For admin  modules we can choose backend admin panel
 		$user_roles = array();
 		$user_roles = $this->role_lib->get_user_roles($this->tank_auth->get_user_id());
 		
-		if(empty($user_roles)) 
+		if(empty($user_roles) OR $this->tank_auth->is_logged_in(FALSE)) 
 		{
 			# die('You have no role assigned');
 			echo 'No role'.br();
