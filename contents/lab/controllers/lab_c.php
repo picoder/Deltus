@@ -83,6 +83,11 @@ class Lab_c extends DV_Controller { //content
 			#second way of routing
 			$this->test_load_dv_configs();
 			break;
+            
+            case 'baner':
+            $this->division_builder->set_path('baner');
+            echo modules::run('baner/baner/index');
+            break;
 			
 			default:
             log_message('error', 'no_page');

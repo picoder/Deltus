@@ -127,8 +127,7 @@
                         'hash_password'
                     ));
                 }
-                else
-                if ($this -> uri -> segment($this -> division_builder -> get_cur_seg()) == 'crud-edit')
+                else if ($this -> uri -> segment($this -> division_builder -> get_cur_seg()) == 'crud-edit')
                 {
                     $this -> grocery_crud -> edit_fields('username', 'roles', 'email', 'banned', 'ban_reason','activated');
                     $this -> grocery_crud -> set_relation_n_n('roles', 'roles_users', 'roles', 'userdm_id', 'roledm_id', 'name');
@@ -158,7 +157,7 @@
                     'callback_before_insert'
                 ));
 
-                $this -> grocery_crud -> add_action('Smileys', 'http://www.nulledtemplates.com/images/ActiveDen-Extendable-Photo-Gallery-Rip_-evia_2.png', $url_all . 'crud-update-password/index/edit');
+                $this -> grocery_crud -> add_action('Smileys', 'http://www.nulledtemplates.com/images/ActiveDen-Extendable-Photo-Gallery-Rip_-evia_2.png', $url . 'crud-update-password/index/edit');
 
                 if ($this -> uri -> segment($this -> division_builder -> get_cur_seg() + 2) == 'add')
                 {

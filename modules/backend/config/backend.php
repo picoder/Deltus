@@ -1,14 +1,9 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['test_url'] = 'test';
-
-$config['tank_auth_login_url'] = 'tank_auth/auth/login';
-$config['backend_url'] = 'panel-administracyjny';
-$config['roles_content_url'] = 'roles-content';
-$config['roles_settings_url'] = 'roles-settings';
-$config['simple_offer_content_url'] = 'simple-offer-content';
-$config['gallery_content_url'] = 'gallery-content';
-$config['page_content_url'] = 'page-content';
-
-/* End of file backend.php */
-/* Location: ./modules/backend/config/backend.php */
+$config['backend_dashboard_url'] = 'dashboard';
+$config['backend_pm_login_url'] = 'login';
+$config['backend_pm_logout_url'] = 'logout';
+$config['backend_pm_forgot_url'] = 'forgot-password';
+$config['backend_pm_reset_url'] = 'reset-password';
+$config['backend_pm_index_url'] = 'login';
+$config['backend_url'] = 'backend';

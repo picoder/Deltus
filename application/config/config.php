@@ -380,6 +380,7 @@ $config['modules_locations'] = array(
 	FCPATH .'contents/' => '../../contents/',
 	FCPATH .'division/' => '../../division/',
 	FCPATH .'themes/' => '../../themes/',
+	FCPATH .'modules_to_review/' => '../../modules_to_review/',
 );
 
 
