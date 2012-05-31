@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 24 Maj 2012, 13:45
--- Wersja serwera: 5.5.8
--- Wersja PHP: 5.3.5
+-- Czas wygenerowania: 31 Maj 2012, 19:39
+-- Wersja serwera: 5.1.41
+-- Wersja PHP: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `divisions` (
   `description` text NOT NULL,
   `status` tinyint(3) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Zrzut danych tabeli `divisions`
@@ -70,7 +70,8 @@ INSERT INTO `divisions` (`id`, `url`, `permissions`, `configurations`, `contents
 (6, 'test', '', 'index_single=s#data from division - single index;index1,index2=i#4;type_float,index2=f#4.1second_index,first_index=s#from division two dimension;test_config_index=s#from division single index;deltus_language=s#english;DIVISION.ALL.ALL.ALL=a(i#0|a(s#check_no_check|b#0));DIVISION.ALL.ALL.ALL=a(i#0|a(s#check_role|a(i#0|s#administrator)));MODULE.ROLE.CONTENT.EDIT=a(i#0|a(s#check_no_access|b#1));DIVISION.ALL.ALL.ALL=a(i#0|a(s#check_no_check|b#0));\r\n', 'lab/lab/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'test name', 'test label', 'test description', 1),
 (7, 'ttp', '', '', '', '', 'ttp_theme/ttp_theme/index->parametr1-|parametr2-|&', 'ttp name', 'ttp label', 'ttp', 1),
 (10, 'backend', '', 'deltus_language=s#english;DIVISION.ALL.ALL.ALL=a(i#0|a(s#backend_access|a(i#0|s#administrator)));\r\n', 'backend/backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend', 'backend', 'main backend', 1),
-(11, 'backend-auth', '', 'deltus_language=s#english;BACKEND.BACKEND_PM.LOGIN=a(i#0|a(s#backend_pm_login_access|a(i#0|s#administrator)));BACKEND.BACKEND_PM.LOGOUT=a(i#0|a(s#backend_pm_logout_access|a(i#0|s#administrator)));BACKEND.BACKEND_PM.FORGOT=a(i#0|a(s#backend_pm_forgot_access|a(i#0|s#administrator)));\r\n', 'backend/backend_pm/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend_auth', 'backend auth', 'backend auth', 1);
+(11, 'backend-auth', '', 'deltus_language=s#english;BACKEND.BACKEND_PM.LOGIN=a(i#0|a(s#backend_pm_login_access|a(i#0|s#administrator)));BACKEND.BACKEND_PM.LOGOUT=a(i#0|a(s#backend_pm_logout_access|a(i#0|s#administrator)));BACKEND.BACKEND_PM.FORGOT=a(i#0|a(s#backend_pm_forgot_access|a(i#0|s#administrator)));\r\n', 'backend/backend_pm/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend_auth', 'backend auth', 'backend auth', 1),
+(12, 'auth', '', 'deltus_language=s#english;', 'auth/tank_auth_backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend_auth', 'backend auth', 'backend auth', 1);
 
 -- --------------------------------------------------------
 
@@ -329,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
   `userdm_id` int(11) NOT NULL,
   `roledm_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Zrzut danych tabeli `roles_users`
@@ -338,7 +339,8 @@ CREATE TABLE IF NOT EXISTS `roles_users` (
 INSERT INTO `roles_users` (`id`, `userdm_id`, `roledm_id`) VALUES
 (3, 1, 12),
 (32, 9, 40),
-(33, 9, 12);
+(33, 9, 12),
+(34, 10, 40);
 
 -- --------------------------------------------------------
 
@@ -503,15 +505,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'thiede', '$P$BtgjMG7AH4vcHtSMC/J.//b0cQY5680', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-05-23 11:53:21', '2011-09-26 15:25:22', '2012-05-23 11:53:21'),
-(9, 'kako', '$P$BL6FATILh.hQJ41mt7b3Y/qMdYi.nl1', 'thiede@targipracy.gdansk.pl', 1, 0, NULL, NULL, NULL, NULL, '6546085de2911d2c91c16d83f960ea8b', '127.0.0.1', '2012-03-25 08:49:10', '2012-03-13 18:02:42', '2012-03-25 08:49:10');
+(1, 'thiede', '$P$BhrxejM68J9N95nfJN3g.YG4gjOgu70', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-05-31 16:10:35', '2011-09-26 15:25:22', '2012-05-31 16:10:11'),
+(9, 'kako', '$P$BJx9xTyaXnWv4dUPaUwLRPmFriMFDU0', 'thiede@targipracy.gdansk.pl', 1, 0, NULL, NULL, NULL, NULL, '6546085de2911d2c91c16d83f960ea8b', '127.0.0.1', '2012-05-26 10:16:57', '2012-03-13 18:02:42', '2012-05-26 10:16:33'),
+(10, 'journalist', '$P$B2aT3UeJZWFd271LkCtCXqI.mvw47M1', 'journalist@o2.pl', 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2012-05-24 14:56:19', '2012-05-24 14:55:35', '2012-05-24 14:55:55');
 
 -- --------------------------------------------------------
 
@@ -565,3 +568,7 @@ INSERT INTO `user_profiles` (`id`, `user_id`, `country`, `website`) VALUES
 (11, 37, NULL, NULL),
 (12, 38, NULL, NULL),
 (13, 44, NULL, NULL);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
