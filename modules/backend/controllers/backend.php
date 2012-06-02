@@ -22,7 +22,7 @@
         public function index()
         {
             $this -> division_builder -> set_cur_seg();
-
+            
             # Setting permissions
             switch($this->uri->segment($this->division_builder->get_cur_seg()))
             {
