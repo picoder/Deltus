@@ -1,1 +1,1 @@
-<?php echo $message; ?>
+<div></div><?php echo $message; ?></div>

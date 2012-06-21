@@ -99,9 +99,9 @@ class Theme
 		array_push($this->{'extend_in_js_'.$place}, $content);
 	}
 	
-	public function set_mod_js($module_name, $name, $subpath = '', $place = 'head')
+	public function set_mod_js($module_name, $name, $subpath = '', $place = 'head', $modules_place = 'modules')
 	{
-		array_push($this->{'module_out_js_'.$place}, 'modules/'.$module_name.'/views/assets/'.$subpath.'js/'.$name.'.js');
+		array_push($this->{'module_out_js_'.$place}, $modules_place.'/'.$module_name.'/views/assets/'.$subpath.'js/'.$name.'.js');
 	}
 	
 	# $path_with_type not with http

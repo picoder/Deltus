@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.3.9
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas wygenerowania: 31 Maj 2012, 19:39
--- Wersja serwera: 5.1.41
--- Wersja PHP: 5.3.1
+-- Czas wygenerowania: 11 Cze 2012, 14:38
+-- Wersja serwera: 5.5.8
+-- Wersja PHP: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -71,7 +71,7 @@ INSERT INTO `divisions` (`id`, `url`, `permissions`, `configurations`, `contents
 (7, 'ttp', '', '', '', '', 'ttp_theme/ttp_theme/index->parametr1-|parametr2-|&', 'ttp name', 'ttp label', 'ttp', 1),
 (10, 'backend', '', 'deltus_language=s#english;DIVISION.ALL.ALL.ALL=a(i#0|a(s#backend_access|a(i#0|s#administrator)));\r\n', 'backend/backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend', 'backend', 'main backend', 1),
 (11, 'backend-auth', '', 'deltus_language=s#english;BACKEND.BACKEND_PM.LOGIN=a(i#0|a(s#backend_pm_login_access|a(i#0|s#administrator)));BACKEND.BACKEND_PM.LOGOUT=a(i#0|a(s#backend_pm_logout_access|a(i#0|s#administrator)));BACKEND.BACKEND_PM.FORGOT=a(i#0|a(s#backend_pm_forgot_access|a(i#0|s#administrator)));\r\n', 'backend/backend_pm/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend_auth', 'backend auth', 'backend auth', 1),
-(12, 'auth', '', 'deltus_language=s#english;', 'auth/tank_auth_backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'lab_theme/lab_theme/index->parametr1-|parametr2-|&', 'backend_auth', 'backend auth', 'backend auth', 1);
+(12, 'auth', '', 'deltus_language=s#polish;', 'auth/tank_auth_backend/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[CONTENT:0]->loading_order[1]|-|', 'start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[SIDEBAR:0]->loading_order[0]|-|start/start/index->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[MENU:0]->loading_order[0]|-|role/role_w/filter->-|&checkers[check_full_access_special:t,t;]->lang[english]->box[WIDGET:0]->loading_order[2]|-|', 'kako_theme/kako_auth_theme/index->parametr1-|parametr2-|&', 'kako_auth', 'kako auth', 'kako auth', 1);
 
 -- --------------------------------------------------------
 
@@ -214,12 +214,16 @@ CREATE TABLE IF NOT EXISTS `login_attempts` (
   `login` varchar(50) COLLATE utf8_bin NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
 
 --
 -- Zrzut danych tabeli `login_attempts`
 --
 
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+(9, '127.0.0.1', 'deeeeeeeeeee', '2012-06-05 17:43:01'),
+(10, '127.0.0.1', 'deeeeeeeeeee', '2012-06-05 17:43:07'),
+(11, '127.0.0.1', 'deeeeeeeeeee', '2012-06-05 17:43:12');
 
 -- --------------------------------------------------------
 
@@ -512,7 +516,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `last_login`, `created`, `modified`) VALUES
-(1, 'thiede', '$P$BhrxejM68J9N95nfJN3g.YG4gjOgu70', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-05-31 16:10:35', '2011-09-26 15:25:22', '2012-05-31 16:10:11'),
+(1, 'thiede', '$P$BhrxejM68J9N95nfJN3g.YG4gjOgu70', 'thiede@promo-expo.pl', 1, 0, NULL, NULL, NULL, NULL, 'f3a971f1edc23a890f62b161c1417927', '127.0.0.1', '2012-06-11 09:15:40', '2011-09-26 15:25:22', '2012-06-11 09:15:40'),
 (9, 'kako', '$P$BJx9xTyaXnWv4dUPaUwLRPmFriMFDU0', 'thiede@targipracy.gdansk.pl', 1, 0, NULL, NULL, NULL, NULL, '6546085de2911d2c91c16d83f960ea8b', '127.0.0.1', '2012-05-26 10:16:57', '2012-03-13 18:02:42', '2012-05-26 10:16:33'),
 (10, 'journalist', '$P$B2aT3UeJZWFd271LkCtCXqI.mvw47M1', 'journalist@o2.pl', 1, 0, NULL, NULL, NULL, NULL, NULL, '127.0.0.1', '2012-05-24 14:56:19', '2012-05-24 14:55:35', '2012-05-24 14:55:55');
 
@@ -568,7 +572,3 @@ INSERT INTO `user_profiles` (`id`, `user_id`, `country`, `website`) VALUES
 (11, 37, NULL, NULL),
 (12, 38, NULL, NULL),
 (13, 44, NULL, NULL);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

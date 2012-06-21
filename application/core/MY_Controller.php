@@ -30,6 +30,8 @@
             $this -> lang -> load('success_page', $this -> config -> item('language'));
             $this -> lang -> load('fail_page', $this -> config -> item('language'));
             $this -> lang -> load('dv_controller', $this -> config -> item('language'));
+            
+            log_message('error', 'class: '. get_class($this) . '; config-language: ' . $this -> config -> item('language'));
         }
 
         public function set_permission($permission)

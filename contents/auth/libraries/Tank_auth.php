@@ -26,12 +26,12 @@ class Tank_auth
 	{
 		$this -> ci = &get_instance();
 
-		$this -> ci -> load -> config('tank_auth/tank_auth', TRUE);
+		$this -> ci -> load -> config('auth/tank_auth', TRUE);
 		// For HMVC
 
 		$this -> ci -> load -> library('session');
 		$this -> ci -> load -> database();
-		$this -> ci -> load -> model('tank_auth/users');
+		$this -> ci -> load -> model('auth/users');
 		// For HMVC
 
 		// Try to autologin
@@ -389,7 +389,7 @@ class Tank_auth
 					// success
 
 					// Clear all user's autologins
-					$this -> ci -> load -> model('tank_auth/user_autologin');
+					$this -> ci -> load -> model('auth/user_autologin');
 					$this -> ci -> user_autologin -> clear($user -> id);
 
 					return array(
@@ -581,7 +581,7 @@ class Tank_auth
 		$this -> ci -> load -> helper('cookie');
 		$key = substr(md5(uniqid(rand() . get_cookie($this -> ci -> config -> item('sess_cookie_name')))), 0, 16);
 
-		$this -> ci -> load -> model('tank_auth/user_autologin');
+		$this -> ci -> load -> model('auth/user_autologin');
 		$this -> ci -> user_autologin -> purge($user_id);
 
 		if ($this -> ci -> user_autologin -> set($user_id, md5($key)))
@@ -612,7 +612,7 @@ class Tank_auth
 
 			$data = unserialize($cookie);
 
-			$this -> ci -> load -> model('tank_auth/user_autologin');
+			$this -> ci -> load -> model('auth/user_autologin');
 			$this -> ci -> user_autologin -> delete($data['user_id'], md5($data['key']));
 
 			delete_cookie($this -> ci -> config -> item('autologin_cookie_name', 'tank_auth'));
@@ -639,7 +639,7 @@ class Tank_auth
 				if (isset($data['key']) AND isset($data['user_id']))
 				{
 
-					$this -> ci -> load -> model('tank_auth/user_autologin');
+					$this -> ci -> load -> model('auth/user_autologin');
 					if (!is_null($user = $this -> ci -> user_autologin -> get($data['user_id'], md5($data['key']))))
 					{
 
@@ -676,7 +676,7 @@ class Tank_auth
 	{
 		if ($this -> ci -> config -> item('login_count_attempts', 'tank_auth'))
 		{
-			$this -> ci -> load -> model('tank_auth/login_attempts');
+			$this -> ci -> load -> model('auth/login_attempts');
 			return $this -> ci -> login_attempts -> get_attempts_num($this -> ci -> input -> ip_address(), $login) >= $this -> ci -> config -> item('login_max_attempts', 'tank_auth');
 		}
 		return FALSE;
@@ -695,7 +695,7 @@ class Tank_auth
 		{
 			if (!$this -> is_max_login_attempts_exceeded($login))
 			{
-				$this -> ci -> load -> model('tank_auth/login_attempts');
+				$this -> ci -> load -> model('auth/login_attempts');
 				$this -> ci -> login_attempts -> increase_attempt($this -> ci -> input -> ip_address(), $login);
 			}
 		}
@@ -712,7 +712,7 @@ class Tank_auth
 	{
 		if ($this -> ci -> config -> item('login_count_attempts', 'tank_auth'))
 		{
-			$this -> ci -> load -> model('tank_auth/login_attempts');
+			$this -> ci -> load -> model('auth/login_attempts');
 			$this -> ci -> login_attempts -> clear_attempts($this -> ci -> input -> ip_address(), $login, $this -> ci -> config -> item('login_attempt_expire', 'tank_auth'));
 		}
 	}

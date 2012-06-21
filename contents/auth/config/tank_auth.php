@@ -7,8 +7,8 @@
 | These details are used in emails sent by authentication library.
 |--------------------------------------------------------------------------
 */
-$config['website_name'] = 'Your project';
-$config['webmaster_email'] = 'webmaster@your-site.com';
+$config['website_name'] = 'KAKO.pl';
+$config['webmaster_email'] = 'auth@kako.pl';
 
 /*
 |--------------------------------------------------------------------------
@@ -40,16 +40,16 @@ $config['phpass_hash_strength'] = 8;
 |--------------------------------------------------------------------------
 */
 $config['allow_registration'] = TRUE;
-$config['captcha_registration'] = TRUE;
+$config['captcha_registration'] = FALSE;
 $config['email_activation'] = TRUE;
 $config['email_activation_expire'] = 60*60*24*2;
 $config['email_account_details'] = TRUE;
 $config['use_username'] = TRUE;
 
 $config['username_min_length'] = 4;
-$config['username_max_length'] = 20;
+$config['username_max_length'] = 32;
 $config['password_min_length'] = 4;
-$config['password_max_length'] = 20;
+$config['password_max_length'] = 32;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,8 +72,8 @@ $config['login_by_username'] = TRUE;
 $config['login_by_email'] = TRUE;
 $config['login_record_ip'] = TRUE;
 $config['login_record_time'] = TRUE;
-$config['login_count_attempts'] = TRUE;
-$config['login_max_attempts'] = 50;
+$config['login_count_attempts'] = FALSE;
+$config['login_max_attempts'] = 6;
 $config['login_attempt_expire'] = 60*60*24;
 
 /*
@@ -110,10 +110,10 @@ $config['forgot_password_expire'] = 60*15;
 |--------------------------------------------------------------------------
 */
 $config['captcha_path'] = 'captcha/';
-$config['captcha_fonts_path'] = 'captcha/fonts/5.ttf';
+$config['captcha_fonts_path'] = 'captcha/fonts/4.ttf';
 $config['captcha_width'] = 150;
 $config['captcha_height'] = 50;
-$config['captcha_font_size'] = 18;
+$config['captcha_font_size'] = 24;
 $config['captcha_grid'] = TRUE;
 $config['captcha_expire'] = 180;
 $config['captcha_case_sensitive'] = FALSE;

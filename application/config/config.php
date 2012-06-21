@@ -15,7 +15,7 @@
 |
 */
 $config['base_url']	= 'http://localhost/Aptana/Deltus/';
-//$config['base_url']	= 'http://kako.pl/dev/';
+//$config['base_url']	= 'http://kako.pl/';
 
 /*
 |--------------------------------------------------------------------------

@@ -1,100 +1,142 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
 <?php
 if ($use_username) {
-	$username = array(
-		'name'	=> 'username',
-		'id'	=> 'username',
-		'value' => set_value('username'),
-		'maxlength'	=> $this->config->item('username_max_length', 'tank_auth'),
-		'size'	=> 30,
-	);
+    $login = array(
+        'name' => 'login',
+        'id' => 'login',
+        'value' => set_value('login'),
+        'maxlength' => $this->config->item('username_max_length', 'tank_auth'),
+    );
+    $login_label = $this -> lang -> line('login.auth.login_form');
 }
 $email = array(
-	'name'	=> 'email',
-	'id'	=> 'email',
-	'value'	=> set_value('email'),
-	'maxlength'	=> 80,
-	'size'	=> 30,
+    'name'  => 'email',
+    'id'    => 'email',
+    'value' => set_value('email'),
+    'maxlength' => 80,
 );
 $password = array(
-	'name'	=> 'password',
-	'id'	=> 'password',
-	'value' => set_value('password'),
-	'maxlength'	=> $this->config->item('password_max_length', 'tank_auth'),
-	'size'	=> 30,
-);
+        'name' => 'password',
+        'id' => 'password',
+        'maxlength' => $this->config->item('password_max_length', 'tank_auth'),
+    );
 $confirm_password = array(
-	'name'	=> 'confirm_password',
-	'id'	=> 'confirm_password',
-	'value' => set_value('confirm_password'),
-	'maxlength'	=> $this->config->item('password_max_length', 'tank_auth'),
-	'size'	=> 30,
-);
+        'name' => 'confirm_password',
+        'id' => 'confirm_password',
+        'maxlength' => $this->config->item('password_max_length', 'tank_auth'),
+    );
 $captcha = array(
-	'name'	=> 'captcha',
-	'id'	=> 'captcha',
-	'maxlength'	=> 8,
+    'name'  => 'captcha',
+    'id'    => 'captcha',
 );
-?>
-<?php echo form_open($this->uri->uri_string()); ?>
-<table>
-	<?php if ($use_username) { ?>
-	<tr>
-		<td><?php echo form_label('Username', $username['id']); ?></td>
-		<td><?php echo form_input($username); ?></td>
-		<td style="color: red;"><?php echo form_error($username['name']); ?><?php echo isset($errors[$username['name']])?$errors[$username['name']]:''; ?></td>
-	</tr>
-	<?php } ?>
-	<tr>
-		<td><?php echo form_label('Email Address', $email['id']); ?></td>
-		<td><?php echo form_input($email); ?></td>
-		<td style="color: red;"><?php echo form_error($email['name']); ?><?php echo isset($errors[$email['name']])?$errors[$email['name']]:''; ?></td>
-	</tr>
-	<tr>
-		<td><?php echo form_label('Password', $password['id']); ?></td>
-		<td><?php echo form_password($password); ?></td>
-		<td style="color: red;"><?php echo form_error($password['name']); ?></td>
-	</tr>
-	<tr>
-		<td><?php echo form_label('Confirm Password', $confirm_password['id']); ?></td>
-		<td><?php echo form_password($confirm_password); ?></td>
-		<td style="color: red;"><?php echo form_error($confirm_password['name']); ?></td>
-	</tr>
 
-	<?php if ($captcha_registration) {
-		if ($use_recaptcha) { ?>
-	<tr>
-		<td colspan="2">
-			<div id="recaptcha_image"></div>
-		</td>
-		<td>
-			<a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a>
-			<div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">Get an audio CAPTCHA</a></div>
-			<div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a></div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div class="recaptcha_only_if_image">Enter the words above</div>
-			<div class="recaptcha_only_if_audio">Enter the numbers you hear</div>
-		</td>
-		<td><input type="text" id="recaptcha_response_field" name="recaptcha_response_field" /></td>
-		<td style="color: red;"><?php echo form_error('recaptcha_response_field'); ?></td>
-		<?php echo $recaptcha_html; ?>
-	</tr>
-	<?php } else { ?>
-	<tr>
-		<td colspan="3">
-			<p>Enter the code exactly as it appears:</p>
-			<?php echo $captcha_html; ?>
-		</td>
-	</tr>
-	<tr>
-		<td><?php echo form_label('Confirmation Code', $captcha['id']); ?></td>
-		<td><?php echo form_input($captcha); ?></td>
-		<td style="color: red;"><?php echo form_error($captcha['name']); ?></td>
-	</tr>
-	<?php }
-	} ?>
-</table>
-<?php echo form_submit('register', 'Register'); ?>
+$attributes = array('id' => 'auth-form');
+
+$err_bgn = '<div class="form-error"><label>&nbsp;</label>';
+$err_end = '</div>';
+?>
+
+<h1><?php echo $this -> lang -> line('title.auth.register_form'); ?></h1>
+
+<?php echo form_open($this -> uri -> uri_string(), $attributes); ?>
+
+<?php if ($use_username) { ?>
+    
+<div>
+    <?php echo form_label($login_label, $login['id']); ?>
+    <?php echo form_input($login); ?>
+</div>
+
+<?php echo form_error($login['name'], $err_bgn, $err_end); ?>
+
+<?php echo isset($errors[$login['name']]) ? $err_bgn.$errors[$login['name']].$err_end : ''; ?>
+
+<?php } ?>
+
+
+<div>
+    <?php echo form_label($this -> lang -> line('email.auth.login_form'), $email['id']); ?>
+    <?php echo form_input($email); ?>
+</div>
+
+<?php echo form_error($email['name'], $err_bgn, $err_end); ?>
+
+<?php echo isset($errors[$email['name']]) ? $err_bgn.$errors[$email['name']].$err_end : ''; ?>
+
+
+<div>
+    <?php echo form_label($this -> lang -> line('password.auth.login_form'), $password['id']); ?>
+    <?php echo form_password($password); ?>
+</div>
+
+<?php echo form_error($password['name'], $err_bgn, $err_end); ?>
+
+<?php echo isset($errors[$password['name']]) ? $err_bgn.$errors[$password['name']].$err_end : ''; ?>
+
+
+<div>
+    <?php echo form_label($this -> lang -> line('confirm_password.auth.register_form'), $confirm_password['id']); ?>
+    <?php echo form_password($confirm_password); ?>
+</div>
+
+<?php echo form_error($confirm_password['name'], $err_bgn, $err_end); ?>
+
+<?php echo isset($errors[$confirm_password['name']]) ? $err_bgn.$errors[$confirm_password['name']].$err_end : ''; ?>
+
+<?php if ($captcha_registration) {
+
+
+if ($use_recaptcha) {
+?>
+
+<div id="recaptcha_image"></div>
+
+<a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a>
+<div class="recaptcha_only_if_image">
+    <a href="javascript:Recaptcha.switch_type('audio')">Get an audio CAPTCHA</a>
+</div>
+<div class="recaptcha_only_if_audio">
+    <a href="javascript:Recaptcha.switch_type('image')">Get an image CAPTCHA</a>
+</div>
+
+<div class="recaptcha_only_if_image">
+    Enter the words above
+</div>
+<div class="recaptcha_only_if_audio">
+    Enter the numbers you hear
+</div>
+<input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+<?php echo form_error('recaptcha_response_field'); ?>
+<?php echo $recaptcha_html; ?>
+
+<?php } else { ?>
+<div>
+    <label><?php echo $this -> lang -> line('captcha_info.auth.login_form'); ?></label>
+    <?php echo $captcha_html; ?>
+</div>
+<div>
+    <?php echo form_label($this -> lang -> line('captcha_input.auth.login_form'), $captcha['id']); ?>
+    <?php echo form_input($captcha); ?>
+</div>
+
+<?php echo form_error($captcha['name'], $err_bgn, $err_end); ?>
+
+<?php } ?>
+
+<?php } ?>
+
+<div>
+    <label>&nbsp;</label>
+    <input type="submit" value="<?php echo $this -> lang -> line('submit.auth.register_form'); ?>" class="ideal-button" />
+</div>
+
 <?php echo form_close(); ?>
+
+<?php
+
+
+$this->theme->set_mod_js('auth', 'register_idealforms', 'idealforms/'.$this -> config -> item('language').'/', 'body', 'contents');
+
+
+

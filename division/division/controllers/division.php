@@ -45,6 +45,7 @@
 
                 # Special urls are static
                 case 'ajax-division' :
+                case 'file-creator' :
                     $module = $this -> uri -> segment(2);
                     $controller = $this -> uri -> segment(3);
                     $method = $this -> uri -> segment(4);

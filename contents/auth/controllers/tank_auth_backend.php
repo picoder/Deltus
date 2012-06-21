@@ -13,11 +13,14 @@
                 'url'
             ));
             $this -> load -> library('form_validation');
-            $this -> load -> library('tank_auth/tank_auth');
+            $this -> load -> library('auth/tank_auth');
+            $this -> load -> library('auth/js_creator_auth');
             // For HMVC
-            $this -> lang -> load($langfile = 'tank_auth', $this -> config -> item('lang'), $return = FALSE, $add_suffix = TRUE, $alt_path = '', $_module = 'tank_auth');
+            $this -> lang -> load($langfile = 'tank_auth', $this -> config -> item('language'), $return = FALSE, $add_suffix = TRUE, $alt_path = '', $_module = 'auth');
+            $this -> lang -> load($langfile = 'auth', $this -> config -> item('language'), $return = FALSE, $add_suffix = TRUE, $alt_path = '', $_module = 'auth');
             //For HMVC
-            $this -> load -> config('tank_auth/division_clutch');
+            $this -> load -> config('auth/division_clutch');
+            
         }
 
         public function _remap($method)
@@ -27,11 +30,12 @@
 
         public function index()
         {
+            
             $this -> division_builder -> set_cur_seg();
 
             if ($message = $this -> session -> flashdata('message'))
             {
-                $this -> load -> view('tank_auth/auth/general_message', array('message' => $message));
+                $this -> load -> view('auth/auth/general_message', array('message' => $message));
             }
             else
             {
@@ -80,12 +84,17 @@
                     case 'unregister' :
                         $this -> unregister();
                         $this -> division_builder -> set_path('unregister');
-                        break;
+                        break;   
                     default :
                         $this -> login();
                         $this -> division_builder -> set_path('login');
                 }
             }
+        }
+
+        function js_creator()
+        {
+            $this -> js_creator_auth -> test();
         }
 
         /**
@@ -112,9 +121,9 @@
                 $data['login_by_username'] = ($this -> config -> item('login_by_username', 'tank_auth') AND $this -> config -> item('use_username', 'tank_auth'));
                 $data['login_by_email'] = $this -> config -> item('login_by_email', 'tank_auth');
 
-                $this -> form_validation -> set_rules('login', 'Login', 'trim|required|xss_clean');
-                $this -> form_validation -> set_rules('password', 'Password', 'trim|required|xss_clean');
-                $this -> form_validation -> set_rules('remember', 'Remember me', 'integer');
+                $this -> form_validation -> set_rules('login', $this -> lang -> line('login.auth.login_form'), 'trim|required|xss_clean|min_length[4]|max_length[32]');
+                $this -> form_validation -> set_rules('password', $this -> lang -> line('password.auth.login_form'), 'trim|required|xss_clean|min_length[4]|max_length[32]');
+                $this -> form_validation -> set_rules('remember', $this -> lang -> line('remember.auth.login_form'), 'integer');
 
                 // Get login for counting attempts to login
                 if ($this -> config -> item('login_count_attempts', 'tank_auth') AND ($login = $this -> input -> post('login')))
@@ -130,13 +139,16 @@
                 if ($this -> tank_auth -> is_max_login_attempts_exceeded($login))
                 {
                     if ($data['use_recaptcha'])
-                        $this -> form_validation -> set_rules('recaptcha_response_field', 'Confirmation Code', 'trim|xss_clean|required|callback__check_recaptcha');
+                        $this -> form_validation -> set_rules('recaptcha_response_field', $this -> lang -> line('captcha_input.auth.login_form'), 'trim|xss_clean|required|callback__check_recaptcha');
                     else
-                        $this -> form_validation -> set_rules('captcha', 'Confirmation Code', 'trim|xss_clean|required|callback__check_captcha');
+                        {
+                             $this -> form_validation -> set_rules('captcha', $this -> lang -> line('captcha_input.auth.login_form'), 'trim|xss_clean|required|callback_check_captcha'); 
+                        }
+                       
                 }
                 $data['errors'] = array();
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
                     if ($this -> tank_auth -> login($this -> form_validation -> set_value('login'), $this -> form_validation -> set_value('password'), $this -> form_validation -> set_value('remember'), $data['login_by_username'], $data['login_by_email']))
@@ -181,7 +193,7 @@
                         $data['captcha_html'] = $this -> _create_captcha();
                     }
                 }
-                $this -> load -> view('tank_auth/auth/login_form', $data);
+                $this -> load -> view('auth/auth/login_form', $data);
             }
         }
 
@@ -228,11 +240,11 @@
                 $use_username = $this -> config -> item('use_username', 'tank_auth');
                 if ($use_username)
                 {
-                    $this -> form_validation -> set_rules('username', 'Username', 'trim|required|xss_clean|min_length[' . $this -> config -> item('username_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('username_max_length', 'tank_auth') . ']|alpha_dash');
+                    $this -> form_validation -> set_rules('login', 'Username', 'trim|required|xss_clean|min_length[' . $this -> config -> item('username_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('username_max_length', 'tank_auth') . ']|alpha_dash');
                 }
-                $this -> form_validation -> set_rules('email', 'Email', 'trim|required|xss_clean|valid_email');
-                $this -> form_validation -> set_rules('password', 'Password', 'trim|required|xss_clean|min_length[' . $this -> config -> item('password_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('password_max_length', 'tank_auth') . ']|alpha_dash');
-                $this -> form_validation -> set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean|matches[password]');
+                $this -> form_validation -> set_rules('email', $this -> lang -> line('email.auth.login_form'), 'trim|required|xss_clean|valid_email');
+                $this -> form_validation -> set_rules('password', $this -> lang -> line('password.auth.login_form'), 'trim|required|xss_clean|min_length[' . $this -> config -> item('password_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('password_max_length', 'tank_auth') . ']|alpha_dash');
+                $this -> form_validation -> set_rules('confirm_password', $this -> lang -> line('confirm_password.auth.register_form'), 'trim|required|xss_clean|matches[password]');
 
                 $captcha_registration = $this -> config -> item('captcha_registration', 'tank_auth');
                 $use_recaptcha = $this -> config -> item('use_recaptcha', 'tank_auth');
@@ -240,21 +252,21 @@
                 {
                     if ($use_recaptcha)
                     {
-                        $this -> form_validation -> set_rules('recaptcha_response_field', 'Confirmation Code', 'trim|xss_clean|required|callback__check_recaptcha');
+                        $this -> form_validation -> set_rules('recaptcha_response_field', $this -> lang -> line('captcha_input.auth.login_form'), 'trim|xss_clean|required|callback__check_recaptcha');
                     }
                     else
                     {
-                        $this -> form_validation -> set_rules('captcha', 'Confirmation Code', 'trim|xss_clean|required|callback__check_captcha');
+                        $this -> form_validation -> set_rules('captcha', $this -> lang -> line('captcha_input.auth.login_form'), 'trim|xss_clean|required|callback_check_captcha');
                     }
                 }
                 $data['errors'] = array();
 
                 $email_activation = $this -> config -> item('email_activation', 'tank_auth');
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
-                    if (!is_null($data = $this -> tank_auth -> create_user($use_username ? $this -> form_validation -> set_value('username') : '', $this -> form_validation -> set_value('email'), $this -> form_validation -> set_value('password'), $email_activation)))
+                    if (!is_null($data = $this -> tank_auth -> create_user($use_username ? $this -> form_validation -> set_value('login') : '', $this -> form_validation -> set_value('email'), $this -> form_validation -> set_value('password'), $email_activation)))
                     {
                         // success
                         $data['site_name'] = $this -> config -> item('website_name', 'tank_auth');
@@ -307,7 +319,7 @@
                 $data['use_username'] = $use_username;
                 $data['captcha_registration'] = $captcha_registration;
                 $data['use_recaptcha'] = $use_recaptcha;
-                $this -> load -> view('tank_auth/auth/register_form', $data);
+                $this -> load -> view('auth/auth/register_form', $data);
             }
         }
 
@@ -330,7 +342,7 @@
 
                 $data['errors'] = array();
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
                     if (!is_null($data = $this -> tank_auth -> change_email($this -> form_validation -> set_value('email'))))
@@ -352,7 +364,7 @@
                             $data['errors'][$k] = $this -> lang -> line($v);
                     }
                 }
-                $this -> load -> view('tank_auth/auth/send_again_form', $data);
+                $this -> load -> view('auth/auth/send_again_form', $data);
             }
         }
 
@@ -365,9 +377,9 @@
          */
         function activate()
         {
-            $user_id = $this -> uri -> segment(4);
+            $user_id = $this -> uri -> segment(3);
             //to remember that this can be changed
-            $new_email_key = $this -> uri -> segment(5);
+            $new_email_key = $this -> uri -> segment(4);
             // Activate user
             if ($this -> tank_auth -> activate_user($user_id, $new_email_key))
             {
@@ -408,7 +420,7 @@
 
                 $data['errors'] = array();
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
                     if (!is_null($data = $this -> tank_auth -> forgot_password($this -> form_validation -> set_value('login'))))
@@ -429,7 +441,7 @@
                             $data['errors'][$k] = $this -> lang -> line($v);
                     }
                 }
-                $this -> load -> view('tank_auth/auth/forgot_password_form', $data);
+                $this -> load -> view('auth/auth/forgot_password_form', $data);
             }
         }
 
@@ -442,15 +454,15 @@
          */
         function reset_password()
         {
-            $user_id = $this -> uri -> segment(4);
-            $new_pass_key = $this -> uri -> segment(5);
+            $user_id = $this -> uri -> segment(3);
+            $new_pass_key = $this -> uri -> segment(4);
 
             $this -> form_validation -> set_rules('new_password', 'New Password', 'trim|required|xss_clean|min_length[' . $this -> config -> item('password_min_length', 'tank_auth') . ']|max_length[' . $this -> config -> item('password_max_length', 'tank_auth') . ']|alpha_dash');
             $this -> form_validation -> set_rules('confirm_new_password', 'Confirm new Password', 'trim|required|xss_clean|matches[new_password]');
 
             $data['errors'] = array();
 
-            if ($this -> form_validation -> run())
+            if ($this -> form_validation -> run($this))
             {
                 // validation ok
                 if (!is_null($data = $this -> tank_auth -> reset_password($user_id, $new_pass_key, $this -> form_validation -> set_value('new_password'))))
@@ -484,7 +496,7 @@
                     $this -> _show_message($this -> lang -> line('auth_message_new_password_failed'));
                 }
             }
-            $this -> load -> view('tank_auth/auth/reset_password_form', $data);
+            $this -> load -> view('auth/auth/reset_password_form', $data);
         }
 
         /**
@@ -508,7 +520,7 @@
 
                 $data['errors'] = array();
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
                     if ($this -> tank_auth -> change_password($this -> form_validation -> set_value('old_password'), $this -> form_validation -> set_value('new_password')))
@@ -525,7 +537,7 @@
                             $data['errors'][$k] = $this -> lang -> line($v);
                     }
                 }
-                $this -> load -> view('tank_auth/auth/change_password_form', $data);
+                $this -> load -> view('auth/auth/change_password_form', $data);
             }
         }
 
@@ -549,7 +561,7 @@
 
                 $data['errors'] = array();
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
                     if (!is_null($data = $this -> tank_auth -> set_new_email($this -> form_validation -> set_value('email'), $this -> form_validation -> set_value('password'))))
@@ -571,7 +583,7 @@
                             $data['errors'][$k] = $this -> lang -> line($v);
                     }
                 }
-                $this -> load -> view('tank_auth/auth/change_email_form', $data);
+                $this -> load -> view('auth/auth/change_email_form', $data);
             }
         }
 
@@ -584,8 +596,8 @@
          */
         function reset_email()
         {
-            $user_id = $this -> uri -> segment(4);
-            $new_email_key = $this -> uri -> segment(5);
+            $user_id = $this -> uri -> segment(3);
+            $new_email_key = $this -> uri -> segment(4);
 
             // Reset email
             if ($this -> tank_auth -> activate_new_email($user_id, $new_email_key))
@@ -621,7 +633,7 @@
 
                 $data['errors'] = array();
 
-                if ($this -> form_validation -> run())
+                if ($this -> form_validation -> run($this))
                 {
                     // validation ok
                     if ($this -> tank_auth -> delete_user($this -> form_validation -> set_value('password')))
@@ -638,7 +650,7 @@
                             $data['errors'][$k] = $this -> lang -> line($v);
                     }
                 }
-                $this -> load -> view('tank_auth/auth/unregister_form', $data);
+                $this -> load -> view('auth/auth/unregister_form', $data);
             }
         }
 
@@ -669,8 +681,8 @@
             $this -> email -> reply_to($this -> config -> item('webmaster_email', 'tank_auth'), $this -> config -> item('website_name', 'tank_auth'));
             $this -> email -> to($email);
             $this -> email -> subject(sprintf($this -> lang -> line('auth_subject_' . $type), $this -> config -> item('website_name', 'tank_auth')));
-            $this -> email -> message($this -> load -> view('tank_auth/email/' . $type . '-html', $data, TRUE));
-            $this -> email -> set_alt_message($this -> load -> view('tank_auth/email/' . $type . '-txt', $data, TRUE));
+            $this -> email -> message($this -> load -> view('auth/email/' . $this -> config -> item('language') . '/' . $type . '-html', $data, TRUE));
+            $this -> email -> set_alt_message($this -> load -> view('auth/email/'. $this -> config -> item('language').'/' . $type . '-txt', $data, TRUE));
             $this -> email -> send();
         }
 
@@ -699,7 +711,9 @@
                 'captcha_word' => $cap['word'],
                 'captcha_time' => $cap['time'],
             ));
-
+            
+            log_message('error', $cap['word']);
+            
             return $cap['image'];
         }
 
@@ -709,8 +723,9 @@
          * @param	string
          * @return	bool
          */
-        function _check_captcha($code)
+        public function check_captcha($code)
         {
+            log_message('error', 'captcha');
             $time = $this -> session -> flashdata('captcha_time');
             $word = $this -> session -> flashdata('captcha_word');
 
@@ -719,13 +734,13 @@
 
             if ($now - $time > $this -> config -> item('captcha_expire', 'tank_auth'))
             {
-                $this -> form_validation -> set_message('_check_captcha', $this -> lang -> line('auth_captcha_expired'));
+                $this -> form_validation -> set_message('check_captcha', $this -> lang -> line('auth_captcha_expired'));
                 return FALSE;
 
             }
             elseif (($this -> config -> item('captcha_case_sensitive', 'tank_auth') AND $code != $word) OR strtolower($code) != strtolower($word))
             {
-                $this -> form_validation -> set_message('_check_captcha', $this -> lang -> line('auth_incorrect_captcha'));
+                $this -> form_validation -> set_message('check_captcha', $this -> lang -> line('auth_incorrect_captcha'));
                 return FALSE;
             }
             return TRUE;

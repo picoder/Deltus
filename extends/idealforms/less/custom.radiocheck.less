@@ -1,0 +1,53 @@
+/* --------------------------------------------------------
+
+  Custom radio & check:
+
+-------------------------------------------------------- */
+
+  .ideal-radiocheck {
+    .no-user-select;
+    position: relative;
+    min-width: @input-width;
+    max-width: @ideal-field-width;
+    padding: 1.6em 0;
+    font-size: @small-font-size;
+    color: darken(@radiocheck-bg, 80%);
+    border-radius: @border-radius;
+    border: @border-width solid darken(@radiocheck-bg, 30%);
+    .gradient(@radiocheck-bg, lighten(@radiocheck-bg, 20%));
+    label, input { cursor: pointer; }
+    label {
+      .transition(~"background .15s ease-in-out, color .15s ease-in-out, border .15s ease-in-out");
+      display: block;
+      position: relative;
+      margin: 0 .8em;
+      padding: .4em .2em;
+      border: @border-width solid transparent;
+      border-radius: @border-radius;
+    }
+  }
+  .ideal-check,
+  .ideal-radio {
+    .vertical-align() when (@radiocheck-icon-height >= @font-size) { vertical-align: text-bottom; }
+    .vertical-align() when (@radiocheck-icon-height < @font-size) { vertical-align: text-top; }
+    display: inline-block;
+    margin: 0 @radiocheck-icon-width/2;
+    background: url("@{radiocheck-sprite}") left top no-repeat;
+    width: @radiocheck-icon-width;
+    height: @radiocheck-icon-height;
+    .vertical-align()
+  }
+  .ideal-radio {
+    background-position: left bottom;
+  }
+  .ideal-check.checked {
+    background-position: right top;
+  }
+  .ideal-radio.checked {
+    background-position: right bottom;
+  }
+  .ideal-radiocheck label.focus {
+    background: @radiocheck-focus-bg;
+    border: @border-width solid darken(@radiocheck-focus-bg, 30%);
+    color: darken(@radiocheck-focus-bg, 60%);
+  }
