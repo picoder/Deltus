@@ -6,5 +6,5 @@ html{height:100%;overflow-y:scroll;}body{height:100%;text-align:center;}.w{margi
 /* @fileRef main.css */
 body{font-family:Arial !important;font-size:14px;}h1,h2,h3,h4,h5,h6{font-family:'Comfortaa',cursive !important;text-align:center;}h1{font-size:22px;}h2{font-size:20px;}h3{font-size:18px;}h4{font-size:16px;}h5{font-size:14px;}h6{font-size:12px;}.kako-box{padding:10px;}
 
-/* @fileRef style_auth.css */
-body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;}.site{width:960px;background-color:#CCC;overflow:visible !important;}.auth{background-color:#CEE7FF;width:700px;}label{font-size:12px;}.form-error{font-style:italic;}.form-links{margin:0;}.form-links a{color:#777;text-decoration:none;line-height:24px;vertical-align:middle;float:left;display:block;height:24px;padding-right:10px;}.form-links a:hover{color:#F30;}
+/* @fileRef style_back.css */
+body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;}.site{width:100%;background-color:#CCC;overflow:visible !important;}.ad{background-color:#CEE7FF;width:200px;}label{font-size:12px;}.form-error{font-style:italic;}.form-links{margin:0;}.form-links a{color:#777;text-decoration:none;line-height:24px;vertical-align:middle;float:left;display:block;height:24px;padding-right:10px;}.form-links a:hover{color:#F30;}

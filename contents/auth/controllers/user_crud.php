@@ -17,7 +17,7 @@
         {
             parent::__construct();
             $this -> load -> library('crud/grocery_crud');
-            $this -> grocery_crud -> module = "tank_auth/user_crud";
+            $this -> grocery_crud -> module = "auth/user_crud";
             $this -> load -> library('theme/theme');
 
         }
@@ -74,7 +74,7 @@
 
         protected function _output($output = null)
         {
-            $this -> load -> view('tank_auth/user_crud_edit.php', $output);
+            $this -> load -> view('auth/user_crud_edit.php', $output);
         }
 
         public function edit()
@@ -137,7 +137,7 @@
                     ));
                 }
 
-                $this -> load -> library('tank_auth/tank_auth');
+                $this -> load -> library('auth/tank_auth');
                 if ($this -> editing_id == $this -> tank_auth -> get_user_id())
                 {
                     if ($this -> uri -> segment($this->division_builder->get_cur_seg() + 2) == 'edit')
@@ -221,14 +221,14 @@
 
         public function hash_password($post_array)
         {
-            $this -> load -> library('tank_auth/tank_auth');
+            $this -> load -> library('auth/tank_auth');
             $post_array['password'] = $this -> tank_auth -> use_hasher($post_array['password']);
             return $post_array;
         }
 
         public function callback_before_insert($post_array)
         {
-            $this -> load -> library('tank_auth/tank_auth');
+            $this -> load -> library('auth/tank_auth');
             $post_array['password'] = $this -> tank_auth -> use_hasher($post_array['password']);
             $post_array['created'] = date('c');
             return $post_array;

@@ -10,3 +10,6 @@ $config['BACKEND.BACKEND_PM.LOGOUT'] = array(0 => array('check_no_check' => TRUE
 $config['BACKEND.BACKEND_PM.FORGOT'] = array(0 => array('check_no_check' => TRUE));
 $config['BACKEND.BACKEND_PM.RESET'] = array(0 => array('check_no_check' => TRUE));
 
+$config['BACK.BACK.USERS'] = array(0 => array('backend_access' => array('administrator')));
+$config['BACK.BACK.ROLES'] = array(0 => array('backend_access' => array('administrator')));
+

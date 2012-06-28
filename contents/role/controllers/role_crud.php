@@ -30,7 +30,7 @@
 
             switch($this->uri->segment($this->division_builder->get_cur_seg()))
             {
-                case 'role-crud' :
+                case 'crud-edit' :
                 # $this -> set_permission('ROLE.ROLE_CRUD.ROLE_CRUD');
                     break;
             }
@@ -44,8 +44,8 @@
 
             switch($this->uri->segment($this->division_builder->get_cur_seg()))
             {
-                case 'role-crud' :
-                    $this -> division_builder -> set_path('role-crud');
+                case 'crud-edit' :
+                    $this -> division_builder -> set_path('crud-edit');
                     if ($this -> uri -> segment($this -> division_builder -> get_cur_seg() + 2) == 'edit')
                     {
                         $this -> editing_id = ($this -> uri -> segment($this -> division_builder -> get_cur_seg() + 3));

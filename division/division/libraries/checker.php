@@ -35,7 +35,7 @@ class Checker
 	# $allowed_roles type:array 
 	public function check_role($allowed_roles)
 	{
-		$this->CI->load->library('tank_auth/tank_auth');
+		$this->CI->load->library('auth/tank_auth');
 		$this->CI->load->library('role/role_lib');
 		if( ! $this->CI->tank_auth->is_logged_in()) return FALSE;
 		$user_id = $this->CI->tank_auth->get_user_id();

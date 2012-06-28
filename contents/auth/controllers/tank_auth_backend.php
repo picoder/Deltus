@@ -228,7 +228,7 @@
             elseif ($this -> tank_auth -> is_logged_in(FALSE))
             {
                 // logged in, not activated
-                redirect('tank_auth.send_again');
+                redirect($this -> config -> item('tank_auth.send_again'));
             }
             elseif (!$this -> config -> item('allow_registration', 'tank_auth'))
             {
