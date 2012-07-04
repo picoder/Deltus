@@ -256,7 +256,7 @@ class Content extends DV_Controller {
 		
 		if(empty($_POST))
 		{
-			$this->load->view('simple_offer/add_socategory');
+			$this->load->view('simple_offer/socategory/add');
 		}
 		else
 		{

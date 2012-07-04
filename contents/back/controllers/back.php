@@ -71,6 +71,14 @@ class Back extends DV_Controller
             case $this->config->item('back.back.roles.url') :
                 $this -> set_permission('BACK.BACK.ROLES');
                 break;
+                
+            case $this->config->item('back.back.articles.url') :
+                $this -> set_permission('BACK.BACK.ARTICLES');
+                break;
+                
+            case $this->config->item('back.back.articlecat.url') :
+                $this -> set_permission('BACK.BACK.ARTICLECAT');
+                break;
 
             default :
                 $this -> set_permission('BACK.BACK.USERS');
@@ -89,6 +97,16 @@ class Back extends DV_Controller
            case $this->config->item('back.back.roles.url') :
                 $this -> division_builder -> set_path($this -> config -> item('back.back.roles.url'));     
                 echo modules::run('role/role_crud/index');
+                break;
+                
+            case $this->config->item('back.back.articles.url') :
+                $this -> division_builder -> set_path($this -> config -> item('back.back.articles.url'));     
+                echo modules::run('article/article_crud/index');
+                break;
+                
+            case $this->config->item('back.back.articlecat.url') :
+                $this -> division_builder -> set_path($this -> config -> item('back.back.articlecat.url'));     
+                echo modules::run('simple_offer/socategory/socategory/add');
                 break;
 
             default :

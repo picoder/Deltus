@@ -12,4 +12,9 @@ $config['BACKEND.BACKEND_PM.RESET'] = array(0 => array('check_no_check' => TRUE)
 
 $config['BACK.BACK.USERS'] = array(0 => array('backend_access' => array('administrator')));
 $config['BACK.BACK.ROLES'] = array(0 => array('backend_access' => array('administrator')));
+$config['BACK.BACK.ARTICLES'] = array(0 => array('backend_access' => array('administrator')));
+$config['BACK.BACK.ARTICLECAT'] = array(0 => array('backend_access' => array('administrator')));
+
+$config['ARTICLE.ARTICLE_CRUD.EDIT'] = array(0 => array('backend_access' => array('administrator')));
+$config['ARTICLE.ARTICLE_CRUD.CATEGORY_EDIT'] = array(0 => array('backend_access' => array('administrator')));
 

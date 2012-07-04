@@ -7,3 +7,5 @@ $config['back.send_again'] = 'auth/send-again';
 # URLs
 $config['back.back.users.url'] = 'users';
 $config['back.back.roles.url'] = 'roles';
+$config['back.back.articles.url'] = 'articles';
+$config['back.back.articlecat.url'] = 'article-categories';
