@@ -76,8 +76,8 @@ class Back extends DV_Controller
                 $this -> set_permission('BACK.BACK.ARTICLES');
                 break;
                 
-            case $this->config->item('back.back.articlecat.url') :
-                $this -> set_permission('BACK.BACK.ARTICLECAT');
+            case $this->config->item('back.back.files.url') :
+                $this -> set_permission('BACK.BACK.FILES');
                 break;
 
             default :
@@ -104,9 +104,9 @@ class Back extends DV_Controller
                 echo modules::run('article/article_crud/index');
                 break;
                 
-            case $this->config->item('back.back.articlecat.url') :
-                $this -> division_builder -> set_path($this -> config -> item('back.back.articlecat.url'));     
-                echo modules::run('simple_offer/socategory/socategory/add');
+            case $this->config->item('back.back.files.url') :
+                $this -> division_builder -> set_path($this -> config -> item('back.back.files.url'));     
+                echo modules::run('file/file_crud/index');
                 break;
 
             default :

@@ -8,4 +8,4 @@ $config['back.send_again'] = 'auth/send-again';
 $config['back.back.users.url'] = 'users';
 $config['back.back.roles.url'] = 'roles';
 $config['back.back.articles.url'] = 'articles';
-$config['back.back.articlecat.url'] = 'article-categories';
+$config['back.back.files.url'] = 'files';

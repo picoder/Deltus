@@ -1,0 +1,11 @@
+Title: Article module
+
+
+I. Reserved names with description
+
+1. Articlecats - categories of articles
+
+II. Functionality and rules
+
+1. Articlecats and articles are in relation n-n
+2. Articlecat (callback_escape_cat_update method) - new parent category cannot be the category that we are want to update or category that is the descendant of updating category
